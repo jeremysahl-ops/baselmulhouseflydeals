@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+:root {
+  --color-primary: #C9A0DC;
+  --color-primary-light: #D7BDE2;
+  --color-blue: #4A90E2;
+  --color-blue-soft: #5DADE2;
+  --color-rose: #FF9AA2;
+  --color-rose-light: #FFB6C1;
+  --color-bg: #FDFDFF;
+  --color-text: #333333;
+  --color-text-dark: #2C3E50;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+/* ── Gradient header ─────────────────────────────────────── */
+.gradient-header {
+  background: linear-gradient(135deg, #C9A0DC 0%, #5DADE2 100%);
+}
+
+.gradient-hero {
+  background: linear-gradient(160deg, #D7BDE2 0%, #EBF5FB 50%, #D6EAF8 100%);
+}
+
+/* ── Card hover effect ──────────────────────────────────── */
+.deal-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.deal-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(201, 160, 220, 0.25);
+}
+
+/* ── CTA button ─────────────────────────────────────────── */
+.btn-cta {
+  background: linear-gradient(135deg, #FF9AA2, #FFB6C1);
+  color: #2C3E50;
+  font-weight: 700;
+  border-radius: 9999px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.btn-cta:hover {
+  opacity: 0.9;
+  transform: scale(1.03);
+}
+
+/* ── Newsletter input focus ─────────────────────────────── */
+.newsletter-input:focus {
+  outline: 2px solid #C9A0DC;
+  outline-offset: 2px;
+}
+
+/* ── Scrollbar subtle ───────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #C9A0DC;
+  border-radius: 10px;
+}
