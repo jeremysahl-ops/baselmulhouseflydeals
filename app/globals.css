@@ -1,22 +1,10 @@
-﻿@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --color-primary: #7B2FBE;
-  --color-primary-light: #C9A0DC;
-  --color-blue: #4A90E2;
-  --color-bg: #F8F9FA;
-  --color-text: #333333;
-  --color-text-dark: #2C3E50;
-}
+﻿@import "tailwindcss";
 
 html { scroll-behavior: smooth; }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  background-color: #F8F9FA;
+  color: #333333;
 }
 
 .gradient-hero {
@@ -42,7 +30,3 @@ body {
   opacity: 0.9;
   transform: scale(1.03);
 }
-
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #f1f1f1; }
-::-webkit-scrollbar-thumb { background: #C9A0DC; border-radius: 10px; }
