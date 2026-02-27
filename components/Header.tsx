@@ -1,5 +1,6 @@
 ﻿'use client';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 
 const NAV_LINKS = [
@@ -30,7 +31,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2 shrink-0" onClick={() => setActiveSearch(null)}>
-            <span className="text-2xl">✈️</span>
+            <Image src="/cigogne.svg" alt="Mascotte cigogne" width={40} height={48} />
             <div className="leading-tight">
               <span className="font-black text-lg tracking-tight" style={{color: '#7B2FBE'}}>
                 Basel<span style={{color: '#2C3E50'}}>Mulhouse</span>
@@ -69,8 +70,6 @@ export default function Header() {
           </button>
         </div>
       </div>
-
-      {/* Barre de recherche qui apparait sous les onglets */}
       {activeSearch && (
         <div className="border-t border-gray-100 bg-white px-4 py-4">
           <div className="max-w-4xl mx-auto">
@@ -107,7 +106,6 @@ export default function Header() {
           </div>
         </div>
       )}
-
       {menuOpen && (
         <div className="md:hidden bg-white border-t px-4 pb-4 pt-2">
           {NAV_LINKS.map((link) => (
