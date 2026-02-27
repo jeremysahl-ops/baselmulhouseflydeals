@@ -14,45 +14,6 @@ export default function Hero() {
           Vols secs, city trips, séjours, dernière minute.{' '}
           <strong className="text-[#2C3E50]">Les pépites aériennes</strong> dénichées pour toi 🌟
         </p>
-
-        {/* Barre de recherche */}
-        <div className="bg-white rounded-2xl shadow-lg p-4 max-w-3xl mx-auto mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
-            <div className="md:col-span-1">
-              <label className="block text-xs font-bold text-gray-500 mb-1 text-left">Destination</label>
-              <input
-                type="text"
-                placeholder="Où ?"
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:border-purple-400"
-              />
-            </div>
-            <div className="md:col-span-1">
-              <label className="block text-xs font-bold text-gray-500 mb-1 text-left">Période de voyage</label>
-              <div className="flex items-center gap-2 border border-gray-200 rounded-xl px-4 py-3">
-                <input type="text" placeholder="Départ le ?" className="w-full text-sm text-gray-700 focus:outline-none" />
-                <span className="text-gray-300">-</span>
-                <input type="text" placeholder="Retour le ?" className="w-full text-sm text-gray-700 focus:outline-none" />
-              </div>
-            </div>
-            <div className="md:col-span-1">
-              <label className="block text-xs font-bold text-gray-500 mb-1 text-left">Voyageurs</label>
-              <select className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 focus:outline-none focus:border-purple-400">
-                <option>1 Adulte</option>
-                <option selected>2 Adultes</option>
-                <option>3 Adultes</option>
-                <option>4 Adultes</option>
-                <option>2 Adultes + 1 enfant</option>
-                <option>2 Adultes + 2 enfants</option>
-              </select>
-            </div>
-            <div className="md:col-span-1">
-              <button className="w-full btn-cta px-6 py-3 text-sm font-bold rounded-xl">
-                Rechercher
-              </button>
-            </div>
-          </div>
-        </div>
-
         <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
           <Link href="/derniere-minute" className="btn-cta px-8 py-3 text-base shadow-lg">
             ⚡ Dernière Minute
@@ -61,7 +22,6 @@ export default function Hero() {
             Voir tous les vols
           </Link>
         </div>
-
         <div className="mt-12 grid grid-cols-3 gap-4 max-w-md mx-auto">
           {[
             { value: '50+', label: 'Deals actifs' },
