@@ -17,7 +17,6 @@ export default async function HomePage() {
 
   const categoryLinks = [
     { slug: 'sejour', label: '🌴 Séjours' },
-    { slug: 'city-trip', label: '🌆 Week-end' },
     { slug: 'vol', label: '✈️ Vols' },
     { slug: 'vol-hotel', label: '🏨 Hôtel' },
     { slug: 'derniere-minute', label: '⚡ Dernière minute' },
@@ -67,3 +66,4 @@ export default async function HomePage() {
     </>
   );
 }
+
