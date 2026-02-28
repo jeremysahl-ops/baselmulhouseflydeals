@@ -3,6 +3,7 @@ import { getDeals } from '@/lib/supabase';
 import DealCard from '@/components/DealCard';
 import Hero from '@/components/Hero';
 import NewsletterPopup from '@/components/NewsletterPopup';
+import FilterSidebar from '@/components/FilterSidebar';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -13,12 +14,12 @@ export const metadata: Metadata = {
 export const revalidate = 600;
 
 export default async function HomePage() {
-  const deals = await getDeals(12);
+  const deals = await getDeals(50);
 
   const categoryLinks = [
     { slug: 'sejour', label: '🌴 Séjours' },
     { slug: 'vol', label: '✈️ Vols' },
-    { slug: 'vol-hotel', label: '🏨 Hôtel' },
+    { slug: 'vol-hotel', label: '🏨 Hôtels' },
     { slug: 'derniere-minute', label: '⚡ Dernière minute' },
   ];
 
@@ -35,25 +36,13 @@ export default async function HomePage() {
           ))}
         </div>
       </section>
+
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-black text-[#2C3E50]">🔥 Derniers deals</h2>
-          <Link href="/vol" className="text-purple-600 text-sm font-semibold hover:underline">Voir tout →</Link>
+        <div className="flex gap-6">
+          <FilterSidebar deals={deals} />
         </div>
-        {deals.length === 0 ? (
-          <div className="text-center py-16 text-gray-400">
-            <p className="text-5xl mb-4">✈️</p>
-            <p className="text-lg font-semibold">Aucun deal pour l&apos;instant</p>
-            <p className="text-sm mt-1">Les pistes sont en cours de préparation… Reviens vite !</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {deals.map((deal) => (
-              <DealCard key={deal.id} deal={deal} />
-            ))}
-          </div>
-        )}
       </section>
+
       <section className="bg-gradient-to-r from-purple-100 to-blue-50 py-12 px-4">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-2xl font-black text-[#2C3E50] mb-3">🌍 Ton prochain voyage part d&apos;ici</h2>
@@ -66,4 +55,3 @@ export default async function HomePage() {
     </>
   );
 }
-
