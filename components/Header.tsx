@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -20,6 +20,7 @@ export default function Header() {
   const [duree, setDuree] = useState<string | null>(null);
   const [adultes, setAdultes] = useState(2);
   const [enfants, setEnfants] = useState(0);
+  const [bebes, setBebes] = useState(0);
   const [agesEnfants, setAgesEnfants] = useState<number[]>([]);
   const [showVoyageurs, setShowVoyageurs] = useState(false);
 
@@ -46,6 +47,7 @@ export default function Header() {
   const voyageursLabel = () => {
     let label = `${adultes} Adulte${adultes > 1 ? 's' : ''}`;
     if (enfants > 0) label += ` · ${enfants} enfant${enfants > 1 ? 's' : ''}`;
+    if (bebes > 0) label += ` · ${bebes} bébé${bebes > 1 ? 's' : ''}`;
     return label;
   };
 
@@ -92,13 +94,10 @@ export default function Header() {
         <div className="border-t border-gray-100 bg-white px-4 py-4">
           <div className="max-w-6xl mx-auto">
             <div className="flex flex-wrap items-end gap-3">
-              {/* Destination */}
               <div className="flex-1 min-w-[150px]">
                 <label className="block text-xs font-bold text-gray-500 mb-1">Destination</label>
                 <input type="text" placeholder="Où ?" className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-700 focus:outline-none focus:border-purple-400" />
               </div>
-
-              {/* Dates exactes */}
               <div className="flex-1 min-w-[200px]">
                 <div className="flex items-center gap-2 mb-1">
                   <label className="text-xs font-bold text-gray-500">Période de voyage</label>
@@ -110,10 +109,7 @@ export default function Header() {
                   <input type="text" placeholder="Retour le ?" className="w-full text-sm text-gray-700 focus:outline-none" />
                 </div>
               </div>
-
               <span className="text-gray-400 text-sm font-medium pb-2">ou</span>
-
-              {/* Dates flexibles */}
               <div className="flex-1 min-w-[200px]">
                 <div className="flex items-center gap-2 mb-1">
                   <label className="text-xs font-bold text-gray-500">Période de voyage</label>
@@ -125,8 +121,6 @@ export default function Header() {
                   <input type="text" placeholder="Retour le ?" className="w-full text-sm text-gray-700 focus:outline-none" />
                 </div>
               </div>
-
-              {/* Prix max */}
               <div className="min-w-[120px]">
                 <label className="block text-xs font-bold text-gray-500 mb-1">Prix max / personne</label>
                 <div className="flex items-center border border-gray-200 rounded-xl px-3 py-2.5">
@@ -134,21 +128,15 @@ export default function Header() {
                   <input type="number" placeholder="Max" className="w-full text-sm text-gray-700 focus:outline-none" />
                 </div>
               </div>
-
-              {/* Voyageurs */}
               <div className="relative min-w-[180px]">
                 <label className="block text-xs font-bold text-gray-500 mb-1">Voyageurs</label>
-                <button
-                  onClick={() => setShowVoyageurs(!showVoyageurs)}
-                  className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-700 text-left flex items-center justify-between hover:border-purple-400 transition-colors"
-                >
+                <button onClick={() => setShowVoyageurs(!showVoyageurs)}
+                  className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-700 text-left flex items-center justify-between hover:border-purple-400 transition-colors">
                   <span>{voyageursLabel()}</span>
                   <span className="text-gray-400">▾</span>
                 </button>
-
                 {showVoyageurs && (
                   <div className="absolute top-full mt-2 right-0 bg-white border border-gray-200 rounded-2xl shadow-xl p-4 z-50 w-72">
-                    {/* Adultes */}
                     <div className="flex items-center justify-between mb-4">
                       <div>
                         <p className="text-sm font-bold text-gray-700">Adultes</p>
@@ -160,9 +148,7 @@ export default function Header() {
                         <button onClick={() => setAdultes(Math.min(8, adultes + 1))} className="w-8 h-8 rounded-full border border-gray-300 text-gray-600 hover:border-purple-500 hover:text-purple-600 font-bold transition-colors">+</button>
                       </div>
                     </div>
-
-                    {/* Enfants */}
-                    <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center justify-between mb-4">
                       <div>
                         <p className="text-sm font-bold text-gray-700">Enfants</p>
                         <p className="text-xs text-gray-400">De 2 à 11 ans</p>
@@ -173,8 +159,17 @@ export default function Header() {
                         <button onClick={() => updateEnfants(enfants + 1)} className="w-8 h-8 rounded-full border border-gray-300 text-gray-600 hover:border-purple-500 hover:text-purple-600 font-bold transition-colors">+</button>
                       </div>
                     </div>
-
-                    {/* Ages enfants */}
+                    <div className="flex items-center justify-between mb-3">
+                      <div>
+                        <p className="text-sm font-bold text-gray-700">Bébés</p>
+                        <p className="text-xs text-gray-400">Moins de 2 ans · souvent gratuit</p>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <button onClick={() => setBebes(Math.max(0, bebes - 1))} className="w-8 h-8 rounded-full border border-gray-300 text-gray-600 hover:border-purple-500 hover:text-purple-600 font-bold transition-colors">−</button>
+                        <span className="w-6 text-center font-bold text-gray-700">{bebes}</span>
+                        <button onClick={() => setBebes(Math.min(adultes, bebes + 1))} className="w-8 h-8 rounded-full border border-gray-300 text-gray-600 hover:border-purple-500 hover:text-purple-600 font-bold transition-colors">+</button>
+                      </div>
+                    </div>
                     {enfants > 0 && (
                       <div className="border-t border-gray-100 pt-3 mt-2">
                         <p className="text-xs font-bold text-gray-500 mb-2">Âge des enfants au départ</p>
@@ -182,17 +177,15 @@ export default function Header() {
                           {agesEnfants.map((age, i) => (
                             <div key={i} className="flex items-center justify-between">
                               <span className="text-xs text-gray-600">Enfant {i + 1}</span>
-                              <select
-                                value={age}
+                              <select value={age}
                                 onChange={(e) => {
                                   const newAges = [...agesEnfants];
                                   newAges[i] = parseInt(e.target.value);
                                   setAgesEnfants(newAges);
                                 }}
-                                className="border border-gray-200 rounded-lg px-2 py-1 text-xs text-gray-700 focus:outline-none focus:border-purple-400"
-                              >
-                                {Array.from({length: 12}, (_, i) => i).map(a => (
-                                  <option key={a} value={a}>{a === 0 ? 'Moins de 1 an' : `${a} an${a > 1 ? 's' : ''}`}</option>
+                                className="border border-gray-200 rounded-lg px-2 py-1 text-xs text-gray-700 focus:outline-none focus:border-purple-400">
+                                {Array.from({length: 10}, (_, i) => i + 2).map(a => (
+                                  <option key={a} value={a}>{a} ans</option>
                                 ))}
                               </select>
                             </div>
@@ -200,23 +193,18 @@ export default function Header() {
                         </div>
                       </div>
                     )}
-
                     <button onClick={() => setShowVoyageurs(false)} className="mt-4 w-full btn-cta py-2 text-sm font-bold rounded-xl">
                       Valider
                     </button>
                   </div>
                 )}
               </div>
-
-              {/* Bouton rechercher */}
               <div>
                 <button className="btn-cta px-6 py-2.5 text-sm font-bold rounded-xl whitespace-nowrap">
                   Rechercher
                 </button>
               </div>
             </div>
-
-            {/* Durée si flexibles */}
             {dateMode === 'flexibles' && (
               <div className="mt-4 border-t border-gray-100 pt-4">
                 <p className="text-sm font-bold text-gray-700 mb-1">Combien de temps voulez-vous partir ?</p>
