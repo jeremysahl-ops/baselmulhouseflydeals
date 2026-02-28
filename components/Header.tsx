@@ -165,7 +165,7 @@ export default function Header() {
                     <div className="flex items-center justify-between mb-3">
                       <div>
                         <p className="text-sm font-bold text-gray-700">Enfants</p>
-                        <p className="text-xs text-gray-400">Moins de 12 ans</p>
+                        <p className="text-xs text-gray-400">De 2 à 11 ans</p>
                       </div>
                       <div className="flex items-center gap-3">
                         <button onClick={() => updateEnfants(enfants - 1)} className="w-8 h-8 rounded-full border border-gray-300 text-gray-600 hover:border-purple-500 hover:text-purple-600 font-bold transition-colors">−</button>
