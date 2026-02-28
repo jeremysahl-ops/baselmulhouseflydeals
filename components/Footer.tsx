@@ -21,9 +21,8 @@ export default function Footer() {
             <h4 className="font-bold text-white mb-3 text-sm uppercase tracking-wider">Catégories</h4>
             <ul className="space-y-2 text-sm">
               <li><Link href="/sejour" className="hover:text-[#C9A0DC] transition-colors">🌴 Séjours</Link></li>
-              <li><Link href="/city-trip" className="hover:text-[#C9A0DC] transition-colors">🌆 Week-end</Link></li>
               <li><Link href="/vol" className="hover:text-[#C9A0DC] transition-colors">✈️ Vols</Link></li>
-              <li><Link href="/vol-hotel" className="hover:text-[#C9A0DC] transition-colors">🏨 Hôtel</Link></li>
+              <li><Link href="/vol-hotel" className="hover:text-[#C9A0DC] transition-colors">🏨 Hôtels</Link></li>
               <li><Link href="/derniere-minute" className="hover:text-[#C9A0DC] transition-colors">⚡ Dernière minute</Link></li>
             </ul>
           </div>
@@ -43,3 +42,4 @@ export default function Footer() {
     </footer>
   );
 }
+

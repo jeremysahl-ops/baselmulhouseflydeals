@@ -2,7 +2,7 @@
 import { useState, useMemo } from 'react';
 import DealCard from './DealCard';
 
-const MOIS = ['Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Decembre'];
+const MOIS = ['Janvier','Fev.','Mars','Avril','Mai','Juin','Juillet','Aout','Sept.','Oct.','Nov.','Dec.'];
 const DUREES = [
   { label: 'Tous', min: 0, max: 999 },
   { label: '2-3 jours', min: 2, max: 3 },
@@ -116,3 +116,4 @@ export default function FilterSidebar({ deals }: { deals: any[] }) {
     </div>
   );
 }
+
