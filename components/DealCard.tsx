@@ -58,7 +58,7 @@ const DESTINATION_IMAGES: Record<string, string> = {
   amsterdam: 'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=600&q=80',
   dubrovnik: 'https://images.unsplash.com/photo-1555990793-da11153b2473?w=600&q=80',
   split: 'https://images.unsplash.com/photo-1591455882562-87975f3b5c41?w=600&q=80',
-  zadar: 'https://images.unsplash.com/photo-1570612861542-284f4c12e75f?w=600&q=80',
+  zadar: 'https://images.unsplash.com/photo-1555990793-da11153b2473?w=600&q=80',
   zagreb: 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600&q=80',
   istanbul: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=600&q=80',
   antalya: 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=600&q=80',
@@ -96,7 +96,7 @@ function getDestinationImage(destination: string, imageUrl?: string | null): str
 }
 
 function ScoreBadge({ score }: { score?: number | null }) {
-  if (!score) return null;
+  if (!score || score < 4) return null;
   const stars = Math.round(score);
   const color =
     stars >= 5 ? 'bg-green-500' :
@@ -143,7 +143,7 @@ export default function DealCard({ deal }: DealCardProps) {
             <p className="text-[#C9A0DC] text-xs font-semibold uppercase tracking-wider">
               {deal.destination}
             </p>
-            <ScoreBadge score={(deal as any).deal_score} />
+            <ScoreBadge score={(deal as any).deal_score ?? (deal as any).score_final ?? (deal as any).score_ai} />
           </div>
           <h3 className="font-bold text-[#2C3E50] text-base leading-snug mb-2 line-clamp-2 group-hover:text-[#6C3483] transition-colors">
             {deal.title}
