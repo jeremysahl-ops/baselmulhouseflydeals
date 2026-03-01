@@ -10,12 +10,25 @@ export interface Deal {
   category: DealCategory;
   title: string;
   price: number;
-  dates: string;
-  company: string;
+  dates?: string | null;
+  company?: string | null;
+  airline?: string | null;
   destination: string;
-  link: string;
-  insider_tip: string | null;
+  departure_city?: string | null;
+  departure_date?: string | null;
+  return_date?: string | null;
+  duration_days?: number | null;
+  link?: string | null;
+  deal_url?: string | null;
+  insider_tip?: string | null;
   image_url?: string | null;
+  deal_score?: number | null;
+  score_ai?: number | null;
+  score_final?: number | null;
+  discount_percentage?: number | null;
+  is_active?: boolean;
+  status?: string;
+  source?: string;
   created_at: string;
 }
 
@@ -34,3 +47,36 @@ export const CATEGORY_SLUGS: Record<string, DealCategory> = {
   sejour: 'sejour',
   'derniere-minute': 'derniere-minute',
 };
+```
+
+Ensuite dans `DealCard.tsx`, corrige les références aux champs avec **Ctrl+H** :
+
+**Rechercher :**
+```
+deal.company
+```
+**Remplacer :**
+```
+deal.company ?? deal.airline
+```
+
+Et :
+
+**Rechercher :**
+```
+deal.dates
+```
+**Remplacer :**
+```
+deal.dates ?? deal.departure_date
+```
+
+Et dans `app/deal/[id]/page.tsx` :
+
+**Rechercher :**
+```
+href={deal.link}
+```
+**Remplacer :**
+```
+href={deal.link ?? deal.deal_url ?? '#'}
