@@ -59,7 +59,7 @@ const DESTINATION_IMAGES: Record<string, string> = {
   dubrovnik: 'https://images.unsplash.com/photo-1555990793-da11153b2473?w=600&q=80',
   split: 'https://images.unsplash.com/photo-1591455882562-87975f3b5c41?w=600&q=80',
   zadar: 'https://images.unsplash.com/photo-1555990793-da11153b2473?w=600&q=80',
-  zagreb: 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600&q=80',
+  zagreb: 'https://images.unsplash.com/photo-1582456032629-4a54a1a65697?w=600&q=80',
   istanbul: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=600&q=80',
   antalya: 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=600&q=80',
   marrakech: 'https://images.unsplash.com/photo-1597212618440-806262de4f6b?w=600&q=80',
