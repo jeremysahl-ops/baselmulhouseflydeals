@@ -47,36 +47,3 @@ export const CATEGORY_SLUGS: Record<string, DealCategory> = {
   sejour: 'sejour',
   'derniere-minute': 'derniere-minute',
 };
-```
-
-Ensuite dans `DealCard.tsx`, corrige les références aux champs avec **Ctrl+H** :
-
-**Rechercher :**
-```
-deal.company
-```
-**Remplacer :**
-```
-deal.company ?? deal.airline
-```
-
-Et :
-
-**Rechercher :**
-```
-deal.dates
-```
-**Remplacer :**
-```
-deal.dates ?? deal.departure_date
-```
-
-Et dans `app/deal/[id]/page.tsx` :
-
-**Rechercher :**
-```
-href={deal.link}
-```
-**Remplacer :**
-```
-href={deal.link ?? deal.deal_url ?? '#'}
