@@ -150,7 +150,7 @@ export default function DealCard({ deal }: DealCardProps) {
           </h3>
           <div className="flex items-center gap-3 text-xs text-[#777] mb-3">
             <span>🗓️ {deal.dates}</span>
-            <span>✈️ {deal.company}</span>
+            <span>✈️ {deal.departure_date ?? deal.dates}</span>
           </div>
           {deal.insider_tip && (
             <p className="text-xs bg-[#FFF0F5] border border-[#FFB6C1] text-[#555] rounded-xl px-3 py-2 line-clamp-1">

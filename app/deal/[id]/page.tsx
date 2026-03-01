@@ -25,10 +25,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${deal.title} – ${deal.price}€ | BaselMulhouse Fly Deals`,
-    description: `✈️ ${deal.destination} dès ${deal.price}€ avec ${deal.company}. ${deal.dates}. ${deal.insider_tip ?? ''}`,
+    description: `✈️ ${deal.destination} dès ${deal.price}€ avec ${deal.departure_date ?? deal.dates}. ${deal.dates}. ${deal.insider_tip ?? ''}`,
     openGraph: {
       title: `${deal.title} – dès ${deal.price}€`,
-      description: `Deal ${deal.destination} avec ${deal.company}`,
+      description: `Deal ${deal.destination} avec ${deal.departure_date ?? deal.dates}`,
       images: deal.image_url ? [{ url: deal.image_url }] : [],
     },
   };
@@ -86,7 +86,7 @@ export default async function DealPage({ params }: Props) {
               <span className="text-base font-normal text-[#999] ml-2">/ pers.</span>
             </p>
             <div className="flex flex-wrap gap-3 text-sm text-[#555] mt-2">
-              <span className="flex items-center gap-1">✈️ <strong>{deal.company}</strong></span>
+              <span className="flex items-center gap-1">✈️ <strong>{deal.company ?? deal.airline}</strong></span>
               <span className="flex items-center gap-1">🗓️ {deal.dates}</span>
               <span className="flex items-center gap-1">📍 {deal.destination}</span>
             </div>
