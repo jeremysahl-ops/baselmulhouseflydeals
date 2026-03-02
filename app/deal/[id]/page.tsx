@@ -117,7 +117,7 @@ export default async function DealPage({ params }: Props) {
       <div className="bg-[#EDE7F6]/40 rounded-2xl p-5 mb-8 text-sm text-[#555] leading-relaxed">
         <p className="font-semibold text-[#2C3E50] mb-1">ℹ️ Bon à savoir</p>
         <ul className="list-disc list-inside space-y-1 text-[#666]">
-          <li>Les prix peuvent varier selon les disponibilités.</li>
+          <li>Prix constaté automatiquement — vérifiez toujours le prix final sur le site de la compagnie. Les prix peuvent varier selon les disponibilités et la date de consultation.</li>
           <li>Vérifiez toujours le prix final sur le site de la compagnie.</li>
           <li>L'aéroport Basel-Mulhouse se situe à Saint-Louis (68).</li>
           <li>Pensez aux parkings P4/P5 longue durée pour économiser !</li>
