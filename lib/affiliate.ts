@@ -1,4 +1,5 @@
 const KIWI_AFFILIATE_LINK = 'https://kiwi.tpx.gr/zKjbks7V';
+const KIWI_AFFILID = '707798';
 
 const DESTINATION_IATA: Record<string, string> = {
   barcelone: 'BCN', madrid: 'MAD', malaga: 'AGP', alicante: 'ALC',
@@ -23,12 +24,16 @@ export function buildAffiliateLink(
   destination: string,
   departureDate?: string | null
 ): string {
-  if (originalLink && originalLink !== '#') return originalLink;
-  
+  // Toujours passer par Kiwi affilié pour toucher les commissions
   const iata = DESTINATION_IATA[destination.toLowerCase()];
+  
   if (iata && departureDate) {
     const date = departureDate.replace(/-/g, '');
-    return `https://www.kiwi.com/fr/search/results/bsl/${iata}/${date}/no-return?affilid=707798`;
+    return `https://www.kiwi.com/fr/search/results/bsl/${iata}/${date}/no-return?affilid=${KIWI_AFFILID}`;
+  }
+  
+  if (iata) {
+    return `https://www.kiwi.com/fr/search/results/bsl/${iata}/anytime/no-return?affilid=${KIWI_AFFILID}`;
   }
   
   return KIWI_AFFILIATE_LINK;
