@@ -24,17 +24,16 @@ export function buildAffiliateLink(
   destination: string,
   departureDate?: string | null
 ): string {
-  // Toujours passer par Kiwi affilié pour toucher les commissions
   const iata = DESTINATION_IATA[destination.toLowerCase()];
-  
+
   if (iata && departureDate) {
     const date = departureDate.replace(/-/g, '');
     return `https://www.kiwi.com/fr/search/results/bsl/${iata}/${date}/no-return?affilid=${KIWI_AFFILID}`;
   }
-  
+
   if (iata) {
     return `https://www.kiwi.com/fr/search/results/bsl/${iata}/anytime/no-return?affilid=${KIWI_AFFILID}`;
   }
-  
+
   return KIWI_AFFILIATE_LINK;
 }
