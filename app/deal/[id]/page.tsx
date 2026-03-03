@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { getDealById, getAllDealIds } from '@/lib/supabase';
 import TelegramDraftButton from '@/components/TelegramDraftButton';
 import { CATEGORY_LABELS } from '@/types/deal';
+import { buildAffiliateLink } from '@/lib/affiliate';
 
 export const revalidate = 600;
 
@@ -93,7 +94,7 @@ export default async function DealPage({ params }: Props) {
           </div>
 
           <a
-            href={deal.link ?? deal.deal_url ?? '#'}
+            href={buildAffiliateLink(deal.link ?? deal.deal_url, deal.destination, deal.departure_date)}
             target="_blank"
             rel="noopener noreferrer sponsored"
             className="btn-cta px-8 py-4 text-base text-center shadow-xl shadow-rose-200 whitespace-nowrap"
