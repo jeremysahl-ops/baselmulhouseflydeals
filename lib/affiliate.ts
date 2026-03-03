@@ -13,7 +13,7 @@ const DESTINATION_IATA: Record<string, string> = {
   dublin: 'DUB', istanbul: 'IST', antalya: 'AYT', marrakech: 'RAK',
   casablanca: 'CMN', agadir: 'AGA', tunis: 'TUN', djerba: 'DJE',
   hurghada: 'HRG', vienne: 'VIE', budapest: 'BUD', prague: 'PRG',
-  oslo: 'OSL', copenhague: 'CPH', dublin: 'DUB', reykjavik: 'KEF',
+  oslo: 'OSL', copenhague: 'CPH', reykjavik: 'KEF',
   varsovie: 'WAW', cracovie: 'KRK', bucarest: 'OTP', sofia: 'SOF',
   belgrade: 'BEG', dubai: 'DXB', 'tel aviv': 'TLV', montreal: 'YUL',
 };
