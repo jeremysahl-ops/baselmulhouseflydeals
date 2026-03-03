@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
+import Script from 'next/script';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -73,6 +74,14 @@ export default function RootLayout({
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />
+        <Script id="travelpayouts" strategy="afterInteractive">{`
+          (function () {
+            var script = document.createElement("script");
+            script.async = 1;
+            script.src = 'https://emrldtp.com/NTA0MTYx.js?t=504161';
+            document.head.appendChild(script);
+          })();
+        `}</Script>
       </body>
     </html>
   );
