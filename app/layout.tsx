@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import Script from 'next/script';
-import { Analytics } from '@vercel/analytics/react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Script from 'next/script';
+import { Analytics } from '@vercel/analytics/react';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -18,11 +18,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'BaselMulhouse Fly Deals ✈️ – Meilleurs deals vols Basel-Mulhouse',
+    default: 'BaselMulhouse FLY DEALS ✈️ – Meilleurs deals vols Basel-Mulhouse',
     template: '%s | BaselMulhouse Fly Deals',
   },
   description:
-    'Bons plans vols, city trips, séjours et deals dernière minute au départ de l\'EuroAirport Basel-Mulhouse-Freiburg. Site indépendant.',
+    'Bons plans vols, city trips, séjours et deals dernière minute au départ de l\\'EuroAirport Basel-Mulhouse-Freiburg. Site indépendant.',
   keywords: [
     'bons plans vols Basel-Mulhouse',
     'deals vols EuroAirport',
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     url: 'https://baselmulhouseflydeals.com',
     siteName: 'BaselMulhouse Fly Deals',
     title: 'BaselMulhouse Fly Deals ✈️ – Les meilleurs deals depuis Basel-Mulhouse',
-    description: 'Vols, city trips, séjours et promos au départ de l\'EuroAirport.',
+    description: 'Vols, city trips, séjours et promos au départ de l\\'EuroAirport.',
     images: [
       {
         url: '/og-image.png',
@@ -83,6 +83,7 @@ export default function RootLayout({
             document.head.appendChild(script);
           })();
         `}</Script>
+        <Analytics />
       </body>
     </html>
   );
