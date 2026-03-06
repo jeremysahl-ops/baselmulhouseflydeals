@@ -27,8 +27,7 @@ export function buildAffiliateLink(
   const iata = DESTINATION_IATA[destination.toLowerCase()];
 
   if (iata && departureDate) {
-    const date = departureDate.replace(/-/g, '');
-    return `https://www.kiwi.com/fr/search/results/bsl/${iata}/${date}/no-return?affilid=${KIWI_AFFILID}`;
+    return `https://www.kiwi.com/fr/search/results/bsl/${iata}/${departureDate}/no-return?affilid=${KIWI_AFFILID}`;
   }
 
   if (iata) {
