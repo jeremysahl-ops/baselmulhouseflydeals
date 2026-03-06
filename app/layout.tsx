@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     url: 'https://baselmulhouseflydeals.com',
     siteName: 'BaselMulhouse Fly Deals',
     title: 'BaselMulhouse Fly Deals ✈️ – Les meilleurs deals depuis Basel-Mulhouse',
-    description: 'Vols, city trips, séjours et promos au départ de l\\'EuroAirport.',
+    description: "Vols, city trips, séjours et promos au départ de l'EuroAirport.",
     images: [
       {
         url: '/og-image.png',
