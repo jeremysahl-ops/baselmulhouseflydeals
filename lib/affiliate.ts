@@ -71,11 +71,11 @@ export function buildAffiliateLink(
   const slug = DESTINATION_KIWI[destination.toLowerCase()];
 
   if (slug && departureDate) {
-    return `https://www.kiwi.com/fr/search/results/bale-suisse/${slug}/${departureDate}/no-return/?affilid=${KIWI_AFFILID}`;
+    return `https://www.kiwi.com/fr/search/results/bale-suisse/${slug}/${departureDate}/return/?affilid=${KIWI_AFFILID}`;
   }
 
   if (slug) {
-    return `https://www.kiwi.com/fr/search/results/bale-suisse/${slug}/anytime/no-return/?affilid=${KIWI_AFFILID}`;
+    return `https://www.kiwi.com/fr/search/results/bale-suisse/${slug}/anytime/return/?affilid=${KIWI_AFFILID}`;
   }
 
   return KIWI_AFFILIATE_LINK;
