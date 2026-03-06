@@ -47,7 +47,7 @@ export default async function GoPage({ params }: Props) {
         </p>
         
           href={affiliateLink}
-          style={{ display: 'inline-block', background: 'linear-gradient(135deg, #C9A0DC, #5DADE2)', color: 'white', padding: '1rem 2rem', borderRadius: '50px', textDecoration: 'none', fontWeight: 'bold', fontSize: '1rem' }}
+          style={{ display: 'inline-block', background: 'linear-gradient(135deg, #C9A0DC 0%, #5DADE2 100%)', color: 'white', padding: '1rem 2rem', borderRadius: '50px', textDecoration: 'none', fontWeight: 'bold', fontSize: '1rem' }}
         >
           {'🚀'} Y aller maintenant
         </a>
