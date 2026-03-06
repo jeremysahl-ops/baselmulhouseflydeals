@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: '%s | BaselMulhouse Fly Deals',
   },
   description:
-    'Bons plans vols, city trips, séjours et deals dernière minute au départ de l\\'EuroAirport Basel-Mulhouse-Freiburg. Site indépendant.',
+    "Bons plans vols, city trips, séjours et deals dernière minute au départ de l'EuroAirport Basel-Mulhouse-Freiburg. Site indépendant.",
   keywords: [
     'bons plans vols Basel-Mulhouse',
     'deals vols EuroAirport',
