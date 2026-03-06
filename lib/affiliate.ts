@@ -59,24 +59,45 @@ const DESTINATION_KIWI: Record<string, string> = {
   dubai: 'dubai-emirats-arabes-unis',
   'tel aviv': 'tel-aviv-israel',
   montreal: 'montreal-canada',
-  'new york': 'new-york-etats-unis',
-  singapour: 'singapour-singapour',
 };
+
+function addDays(dateStr: string, days: number): string {
+  const date = new Date(dateStr);
+  date.setDate(date.getDate() + days);
+  return date.toISOString().split('T')[0];
+}
 
 export function buildAffiliateLink(
   originalLink: string | null | undefined,
   destination: string,
-  departureDate?: string | null
+  departureDate?: string | null,
+  returnDate?: string | null
 ): string {
   const slug = DESTINATION_KIWI[destination.toLowerCase()];
 
   if (slug && departureDate) {
-    return `https://www.kiwi.com/fr/search/results/bale-suisse/${slug}/${departureDate}/return/?affilid=${KIWI_AFFILID}`;
+    const retDate = returnDate ?? addDays(departureDate, 7);
+    return `https://www.kiwi.com/fr/search/results/bale-suisse/${slug}/${departureDate}/${retDate}/return/?affilid=${KIWI_AFFILID}`;
   }
 
   if (slug) {
-    return `https://www.kiwi.com/fr/search/results/bale-suisse/${slug}/anytime/return/?affilid=${KIWI_AFFILID}`;
+    return `https://www.kiwi.com/fr/search/results/bale-suisse/${slug}/anytime/anytime/return/?affilid=${KIWI_AFFILID}`;
   }
 
   return KIWI_AFFILIATE_LINK;
 }
+```
+
+Maintenant mets à jour l'appel dans `app/go/[id]/page.tsx` — **Ctrl+H** :
+
+**Rechercher :**
+```
+deal.departure_date
+  );
+```
+
+**Remplacer :**
+```
+deal.departure_date,
+    deal.return_date
+  );
