@@ -94,7 +94,7 @@ export default async function DealPage({ params }: Props) {
           </div>
 
           <a
-            href={buildAffiliateLink(deal.link ?? deal.deal_url, deal.destination, deal.departure_date)}
+            href={`/go/${deal.id}`}
             target="_blank"
             rel="noopener noreferrer sponsored"
             className="btn-cta px-8 py-4 text-base text-center shadow-xl shadow-rose-200 whitespace-nowrap"
