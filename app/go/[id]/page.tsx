@@ -93,13 +93,13 @@ export default async function GoPage({ params }: Props) {
           Prix constaté le {dateConstat} — les tarifs sont dynamiques et peuvent avoir évolué.
         </div>
         <p style={{ color: '#999', fontSize: '0.85rem', marginBottom: '1.5rem' }}>
-          Redirection automatique dans <strong>4 secondes</strong>...
+          Redirection automatique dans <strong>6 secondes</strong>...
         </p>
         <a href={affiliateLink} style={btnStyle}>
           Y aller maintenant
         </a>
       </div>
-      <meta httpEquiv="refresh" content={`4;url=${affiliateLink}`} />
+      <meta httpEquiv="refresh" content={`6;url=${affiliateLink}`} />
     </div>
   );
 }
