@@ -86,18 +86,3 @@ export function buildAffiliateLink(
 
   return KIWI_AFFILIATE_LINK;
 }
-```
-
-Maintenant mets à jour l'appel dans `app/go/[id]/page.tsx` — **Ctrl+H** :
-
-**Rechercher :**
-```
-deal.departure_date
-  );
-```
-
-**Remplacer :**
-```
-deal.departure_date,
-    deal.return_date
-  );
