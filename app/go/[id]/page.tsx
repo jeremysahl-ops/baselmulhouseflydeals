@@ -15,7 +15,8 @@ export default async function GoPage({ params }: Props) {
   const affiliateLink = buildAffiliateLink(
     deal.link ?? deal.deal_url,
     deal.destination,
-    deal.departure_date
+    deal.departure_date,
+    deal.return_date  //
   );
 
   const dateConstat = deal.created_at
