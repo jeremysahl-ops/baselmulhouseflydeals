@@ -77,11 +77,11 @@ export function buildAffiliateLink(
   
   if (iata && departureDate) {
     const retDate = returnDate ?? addDays(departureDate, 7);
-    return `https://www.kiwi.com/fr/search/results/BSL/${iata}/${departureDate}/${retDate}/return/?affilid=${KIWI_AFFILID}`;
+    return `https://www.kiwi.com/fr/search/results/BSL/${iata}/${departureDate}/${retDate}/?affilid=${KIWI_AFFILID}`;
   }
   
   if (iata) {
-    return `https://www.kiwi.com/fr/search/results/BSL/${iata}/anytime/anytime/return/?affilid=${KIWI_AFFILID}`;
+    return `https://www.kiwi.com/fr/search/results/BSL/${iata}/anytime/anytime/?affilid=${KIWI_AFFILID}`;
   }
   
   return KIWI_AFFILIATE_LINK;
