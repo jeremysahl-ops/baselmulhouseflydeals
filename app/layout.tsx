@@ -5,17 +5,14 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/react';
-
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
 });
-
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
 });
-
 export const metadata: Metadata = {
   title: {
     default: 'BaselMulhouse FLY DEALS ✈️ – Meilleurs deals vols Basel-Mulhouse',
@@ -63,7 +60,6 @@ export const metadata: Metadata = {
     follow: true,
   },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -75,14 +71,6 @@ export default function RootLayout({
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />
-        <Script id="travelpayouts" strategy="afterInteractive">{`
-          (function () {
-            var script = document.createElement("script");
-            script.async = 1;
-            script.src = 'https://emrldtp.com/NTA0MTYx.js?t=504161';
-            document.head.appendChild(script);
-          })();
-        `}</Script>
         <Analytics />
       </body>
     </html>
