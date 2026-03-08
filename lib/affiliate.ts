@@ -56,6 +56,7 @@ const DESTINATION_KIWI: Record<string, string> = {
   bucarest: 'bucarest-roumanie',
   sofia: 'sofia-bulgarie',
   belgrade: 'belgrade-serbie',
+  singapour: 'singapour-singapour',
   dubai: 'dubai-emirats-arabes-unis',
   'tel aviv': 'tel-aviv-israel',
   montreal: 'montreal-canada',
