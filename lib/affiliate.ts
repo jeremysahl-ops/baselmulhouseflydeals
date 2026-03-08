@@ -73,7 +73,8 @@ export function buildAffiliateLink(
   departureDate?: string | null,
   returnDate?: string | null
 ): string {
-  const slug = DESTINATION_KIWI[destination.toLowerCase()];
+  const cleanDestination = destination.toLowerCase().replace(/\s*\([^)]*\)$/, '').trim();
+  const slug = DESTINATION_KIWI[cleanDestination];
   if (slug && departureDate) {
     const retDate = returnDate ?? addDays(departureDate, 7);
     return `https://www.kiwi.com/fr/search/results/bale-suisse/${slug}/${departureDate}/${retDate}/?affilid=${KIWI_AFFILID}`;
