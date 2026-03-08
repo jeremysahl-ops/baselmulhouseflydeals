@@ -2,63 +2,63 @@ const KIWI_AFFILIATE_LINK = 'https://kiwi.tpx.gr/zKjbks7V';
 const KIWI_AFFILID = '707798';
 
 const DESTINATION_KIWI: Record<string, string> = {
-  barcelone: 'BCN',
-  madrid: 'MAD',
-  malaga: 'AGP',
-  alicante: 'ALC',
-  ibiza: 'IBZ',
-  majorque: 'PMI',
-  'palma de mallorca': 'PMI',
-  tenerife: 'TFS',
-  fuerteventura: 'FUE',
-  lanzarote: 'ACE',
-  'grande canarie': 'LPA',
-  lisbonne: 'LIS',
-  porto: 'OPO',
-  faro: 'FAO',
-  rome: 'ROM',
-  naples: 'NAP',
-  venise: 'VCE',
-  athenes: 'ATH',
-  heraklion: 'HER',
-  rhodes: 'RHO',
-  mykonos: 'JMK',
-  paris: 'PAR',
-  nice: 'NCE',
-  marseille: 'MRS',
-  berlin: 'BER',
-  munich: 'MUC',
-  hambourg: 'HAM',
-  londres: 'LON',
-  manchester: 'MAN',
-  edimbourg: 'EDI',
-  amsterdam: 'AMS',
-  dubrovnik: 'DBV',
-  split: 'SPU',
-  zagreb: 'ZAG',
-  dublin: 'DUB',
-  istanbul: 'IST',
-  antalya: 'AYT',
-  marrakech: 'RAK',
-  casablanca: 'CMN',
-  agadir: 'AGA',
-  tunis: 'TUN',
-  djerba: 'DJE',
-  hurghada: 'HRG',
-  vienne: 'VIE',
-  budapest: 'BUD',
-  prague: 'PRG',
-  oslo: 'OSL',
-  copenhague: 'CPH',
-  reykjavik: 'REK',
-  varsovie: 'WAW',
-  cracovie: 'KRK',
-  bucarest: 'OTP',
-  sofia: 'SOF',
-  belgrade: 'BEG',
-  dubai: 'DXB',
-  'tel aviv': 'TLV',
-  montreal: 'YMQ',
+  barcelone: 'barcelone-espagne',
+  madrid: 'madrid-espagne',
+  malaga: 'malaga-espagne',
+  alicante: 'alicante-espagne',
+  ibiza: 'ibiza-espagne',
+  majorque: 'palma-de-majorque-espagne',
+  'palma de mallorca': 'palma-de-majorque-espagne',
+  tenerife: 'tenerife-espagne',
+  fuerteventura: 'fuerteventura-espagne',
+  lanzarote: 'lanzarote-espagne',
+  'grande canarie': 'las-palmas-espagne',
+  lisbonne: 'lisbonne-portugal',
+  porto: 'porto-portugal',
+  faro: 'faro-portugal',
+  rome: 'rome-italie',
+  naples: 'naples-italie',
+  venise: 'venise-italie',
+  athenes: 'athenes-grece',
+  heraklion: 'heraklion-grece',
+  rhodes: 'rhodes-grece',
+  mykonos: 'mykonos-grece',
+  paris: 'paris-france',
+  nice: 'nice-france',
+  marseille: 'marseille-france',
+  berlin: 'berlin-allemagne',
+  munich: 'munich-allemagne',
+  hambourg: 'hambourg-allemagne',
+  londres: 'londres-royaume-uni',
+  manchester: 'manchester-royaume-uni',
+  edimbourg: 'edimbourg-royaume-uni',
+  amsterdam: 'amsterdam-pays-bas',
+  dubrovnik: 'dubrovnik-croatie',
+  split: 'split-croatie',
+  zagreb: 'zagreb-croatie',
+  dublin: 'dublin-irlande',
+  istanbul: 'istanbul-turquie',
+  antalya: 'antalya-turquie',
+  marrakech: 'marrakech-maroc',
+  casablanca: 'casablanca-maroc',
+  agadir: 'agadir-maroc',
+  tunis: 'tunis-tunisie',
+  djerba: 'djerba-tunisie',
+  hurghada: 'hurghada-egypte',
+  vienne: 'vienne-autriche',
+  budapest: 'budapest-hongrie',
+  prague: 'prague-republique-tcheque',
+  oslo: 'oslo-norvege',
+  copenhague: 'copenhague-danemark',
+  reykjavik: 'reykjavik-islande',
+  varsovie: 'varsovie-pologne',
+  cracovie: 'cracovie-pologne',
+  bucarest: 'bucarest-roumanie',
+  sofia: 'sofia-bulgarie',
+  belgrade: 'belgrade-serbie',
+  dubai: 'dubai-emirats-arabes-unis',
+  'tel aviv': 'tel-aviv-israel',
+  montreal: 'montreal-canada',
 };
 
 function addDays(dateStr: string, days: number): string {
@@ -73,16 +73,13 @@ export function buildAffiliateLink(
   departureDate?: string | null,
   returnDate?: string | null
 ): string {
-  const iata = DESTINATION_KIWI[destination.toLowerCase()];
-  
-  if (iata && departureDate) {
+  const slug = DESTINATION_KIWI[destination.toLowerCase()];
+  if (slug && departureDate) {
     const retDate = returnDate ?? addDays(departureDate, 7);
-    return `https://www.kiwi.com/fr/search/results/BSL/${iata}/${departureDate}/${retDate}/?affilid=${KIWI_AFFILID}`;
+    return `https://www.kiwi.com/fr/search/results/bale-suisse/${slug}/${departureDate}/${retDate}/?affilid=${KIWI_AFFILID}`;
   }
-  
-  if (iata) {
-    return `https://www.kiwi.com/fr/search/results/BSL/${iata}/anytime/anytime/?affilid=${KIWI_AFFILID}`;
+  if (slug) {
+    return `https://www.kiwi.com/fr/search/results/bale-suisse/${slug}/anytime/anytime/?affilid=${KIWI_AFFILID}`;
   }
-  
   return KIWI_AFFILIATE_LINK;
 }
