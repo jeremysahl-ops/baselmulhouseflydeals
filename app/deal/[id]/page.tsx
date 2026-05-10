@@ -88,7 +88,13 @@ export default async function DealPage({ params }: Props) {
             </p>
             <div className="flex flex-wrap gap-3 text-sm text-[#555] mt-2">
               <span className="flex items-center gap-1">✈️ <strong>{deal.company ?? deal.airline}</strong></span>
-              <span className="flex items-center gap-1">🗓️ {deal.dates}</span>
+              {(deal.departure_date || deal.dates) && (
+                <span className="flex items-center gap-1">
+                  🗓️ {deal.departure_date
+                    ? new Date(deal.departure_date).toLocaleDateString('fr-FR', {day:'numeric',month:'short',year:'numeric'}) + (deal.return_date ? ' → ' + new Date(deal.return_date).toLocaleDateString('fr-FR', {day:'numeric',month:'short',year:'numeric'}) : '')
+                    : deal.dates}
+                </span>
+              )}
               <span className="flex items-center gap-1">📍 {deal.destination}</span>
             </div>
           </div>
