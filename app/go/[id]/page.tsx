@@ -1,5 +1,6 @@
 import { getDealById } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
+import Script from 'next/script';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -90,7 +91,7 @@ export default async function GoPage({ params }: Props) {
         
         {/* Widget Aviasales */}
         <div style={{marginBottom:'1rem',borderRadius:'12px',overflow:'hidden'}}>
-          <script async src={widgetSrc} />
+          <Script async src={widgetSrc} strategy="lazyOnload" />
         </div>
 
         <p style={{marginTop:'1rem',fontSize:'0.72rem',color:'#ccc'}}>
@@ -104,6 +105,7 @@ GOEO
 cd /mnt/c/Users/mouto/Desktop/baselmulhouseflydeals && cat > app/go/\[id\]/page.tsx << 'GOEOF'
 import { getDealById } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
+import Script from 'next/script';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -194,7 +196,7 @@ export default async function GoPage({ params }: Props) {
         
         {/* Widget Aviasales */}
         <div style={{marginBottom:'1rem',borderRadius:'12px',overflow:'hidden'}}>
-          <script async src={widgetSrc} />
+          <Script async src={widgetSrc} strategy="lazyOnload" />
         </div>
 
         <p style={{marginTop:'1rem',fontSize:'0.72rem',color:'#ccc'}}>
