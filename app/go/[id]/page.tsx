@@ -16,89 +16,50 @@ export default async function GoPage({ params }: Props) {
     deal.link ?? deal.deal_url,
     deal.destination,
     deal.departure_date,
-    deal.return_date  //
+    deal.return_date
   );
 
   const dateConstat = deal.created_at
     ? new Date(deal.created_at).toLocaleDateString('fr-FR')
     : '';
 
-  const cardStyle: React.CSSProperties = {
-    background: 'white',
-    borderRadius: '24px',
-    padding: '3rem',
-    maxWidth: '500px',
-    width: '100%',
-    boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
-    textAlign: 'center',
-  };
-
-  const wrapperStyle: React.CSSProperties = {
-    fontFamily: 'sans-serif',
-    background: '#f5f0ff',
-    minHeight: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '2rem',
-  };
-
-  const greenBoxStyle: React.CSSProperties = {
-    background: '#f0fdf4',
-    border: '1px solid #86efac',
-    borderRadius: '12px',
-    padding: '1rem',
-    marginBottom: '2rem',
-    textAlign: 'left',
-  };
-
-  const orangeBoxStyle: React.CSSProperties = {
-    background: '#fff7ed',
-    border: '1px solid #fed7aa',
-    borderRadius: '12px',
-    padding: '1rem',
-    marginBottom: '2rem',
-    fontSize: '0.8rem',
-    color: '#9a3412',
-  };
-
-  const btnStyle: React.CSSProperties = {
-    display: 'inline-block',
-    background: '#C9A0DC',
-    color: 'white',
-    padding: '1rem 2rem',
-    borderRadius: '50px',
-    textDecoration: 'none',
-    fontWeight: 'bold',
-    fontSize: '1rem',
-  };
+  const depDate = deal.departure_date
+    ? new Date(deal.departure_date).toLocaleDateString('fr-FR', {day:'numeric',month:'long',year:'numeric'})
+    : '';
+  const retDate = deal.return_date
+    ? new Date(deal.return_date).toLocaleDateString('fr-FR', {day:'numeric',month:'long',year:'numeric'})
+    : '';
 
   return (
-    <div style={wrapperStyle}>
-      <div style={cardStyle}>
-        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>✈️</div>
-        <h1 style={{ color: '#2C3E50', fontSize: '1.5rem', marginBottom: '0.5rem' }}>
-          Vous partez vers {deal.destination} !
+    <div style={{fontFamily:'sans-serif',background:'linear-gradient(135deg,#f5f0ff 0%,#fce4ec 100%)',minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'2rem'}}>
+      <div style={{background:'white',borderRadius:'24px',padding:'2.5rem',maxWidth:'480px',width:'100%',boxShadow:'0 20px 60px rgba(0,0,0,0.12)',textAlign:'center'}}>
+        <div style={{fontSize:'3rem',marginBottom:'0.5rem'}}>✈️</div>
+        <h1 style={{color:'#2C3E50',fontSize:'1.4rem',marginBottom:'0.25rem',fontWeight:800}}>
+          {deal.destination}
         </h1>
-        <p style={{ color: '#666', marginBottom: '2rem', lineHeight: 1.6 }}>
-          Nous vous redirigeons vers <strong>Kiwi.com</strong>, notre partenaire pour trouver les meilleurs vols.
+        <p style={{color:'#C9A0DC',fontSize:'2rem',fontWeight:900,margin:'0.5rem 0'}}>
+          dès {deal.price}€ <span style={{fontSize:'1rem',color:'#999',fontWeight:400}}>/ pers. A/R</span>
         </p>
-        <div style={greenBoxStyle}>
-          <p style={{ margin: 0, fontSize: '0.85rem', color: '#166534' }}>
-            <strong>Pourquoi Kiwi.com ?</strong>
-            <br />
-            Kiwi.com compare des centaines de compagnies dont EasyJet, Ryanair et Transavia. Il trouve souvent des combinaisons invisibles ailleurs pour le meilleur prix.
+        {depDate && (
+          <p style={{color:'#666',fontSize:'0.85rem',marginBottom:'1.5rem'}}>
+            🗓️ {depDate}{retDate ? ` → ${retDate}` : ''} · {deal.airline ?? ''}
           </p>
+        )}
+        <div style={{background:'#fff7ed',border:'1px solid #fed7aa',borderRadius:'12px',padding:'0.85rem 1rem',marginBottom:'1.25rem',fontSize:'0.78rem',color:'#92400e',textAlign:'left'}}>
+          ⚠️ Prix constaté le <strong>{dateConstat}</strong> — les tarifs aériens sont dynamiques. Vérifiez le prix final avant de valider.
         </div>
-        <div style={orangeBoxStyle}>
-          Prix constaté le {dateConstat} — les tarifs sont dynamiques et peuvent avoir évolué.
+        <div style={{background:'#f0fdf4',border:'1px solid #86efac',borderRadius:'12px',padding:'0.85rem 1rem',marginBottom:'1.75rem',fontSize:'0.78rem',color:'#166534',textAlign:'left'}}>
+          <strong>Kiwi.com</strong> — plateforme européenne qui compare des centaines de compagnies (EasyJet, Ryanair, Transavia...) pour trouver le meilleur tarif disponible.
         </div>
-        <p style={{ color: '#999', fontSize: '0.85rem', marginBottom: '1.5rem' }}>
+        <p style={{color:'#aaa',fontSize:'0.82rem',marginBottom:'1rem'}}>
           Redirection automatique dans <strong>6 secondes</strong>...
         </p>
-        <a href={affiliateLink} style={btnStyle}>
-          Y aller maintenant
+        <a href={affiliateLink} style={{display:'block',background:'linear-gradient(135deg,#C9A0DC,#9B59B6)',color:'white',padding:'1rem 2rem',borderRadius:'50px',textDecoration:'none',fontWeight:700,fontSize:'1rem',boxShadow:'0 4px 15px rgba(155,89,182,0.4)'}}>
+          🚀 Voir le vol maintenant
         </a>
+        <p style={{marginTop:'1rem',fontSize:'0.72rem',color:'#ccc'}}>
+          Lien partenaire — BaselMulhouse Fly Deals touche une commission sans surcoût pour vous.
+        </p>
       </div>
       <meta httpEquiv="refresh" content={`6;url=${affiliateLink}`} />
     </div>
