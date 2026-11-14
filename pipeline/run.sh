@@ -19,7 +19,8 @@ flock -n 9 || { log "déjà en cours : abandon"; exit 0; }
 if grep -qE '=(NOUVELLE|NOUVEAU|VOTRE)' "$ENV_FILE"; then
   log "$ENV_FILE contient encore des valeurs d'exemple : abandon"; exit 3
 fi
-set -a; . "$ENV_FILE"; set +a
+# tr -d '\r' : le fichier peut être édité avec le Bloc-notes de Windows (fins de ligne CRLF).
+set -a; . <(tr -d '\r' < "$ENV_FILE"); set +a
 
 # Pas de réseau = on ne tente rien (cause des échecs du 12/11/2026). On laisse 2 min au réseau de WSL.
 for i in $(seq 1 12); do
