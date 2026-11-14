@@ -1,4 +1,4 @@
-﻿import Link from 'next/link';
+import Link from 'next/link';
 import Logo from '@/components/Logo';
 import { SECTIONS, SITE } from '@/lib/site';
 
@@ -8,7 +8,8 @@ export default function Footer() {
       <div className="container-page grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <Logo tone="light" />
-          <p className="mt-5 max-w-sm text-sm leading-relaxed">
+          <p className="mt-5 text-sm font-medium text-white">{SITE.tagline}</p>
+          <p className="mt-2 max-w-sm text-sm leading-relaxed">
             Site indépendant qui repère les vols directs à prix réellement bas au départ de l&apos;{SITE.airport}.
             Nous ne vendons pas de billets : la réservation se fait chez notre partenaire.
           </p>
@@ -29,6 +30,7 @@ export default function Footer() {
           <ul className="mt-4 space-y-2.5 text-sm">
             <li><Link href="/comment-ca-marche" className="hover:text-white">Notre méthode</Link></li>
             <li><Link href="/alertes" className="hover:text-white">Alertes par e-mail</Link></li>
+            <li><Link href="/partenaires" className="hover:text-white">Devenir partenaire</Link></li>
             <li><Link href="/mentions-legales" className="hover:text-white">Mentions légales</Link></li>
             <li><Link href="/confidentialite" className="hover:text-white">Confidentialité</Link></li>
             <li><a href={`mailto:${SITE.contactEmail}`} className="hover:text-white">Contact</a></li>

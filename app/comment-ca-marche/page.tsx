@@ -40,8 +40,8 @@ export default function MethodePage() {
         <p>
           Le « prix habituel » est une référence que nous tenons pour chaque destination et chaque saison. C&apos;est une
           estimation, pas une moyenne officielle : elle sert à écarter les prix simplement corrects et à ne garder que les
-          écarts nets. Aucun deal n&apos;est choisi ou rédigé à la main, et aucune destination n&apos;est mise en avant
-          contre rémunération.
+          écarts nets. Aucun deal n&apos;est choisi ou rédigé à la main, et aucun deal n&apos;est mis en avant contre
+          rémunération.
         </p>
 
         <h2>Ce que le prix comprend</h2>
@@ -64,6 +64,11 @@ export default function MethodePage() {
           partenaire peut nous reverser une commission. Vous ne payez rien de plus, et cela n&apos;intervient pas dans la
           sélection : celle-ci dépend uniquement de l&apos;écart entre le prix constaté et le prix habituel. Vous pouvez
           aussi réserver directement auprès de la compagnie aérienne.
+        </p>
+        <p>
+          Le site peut aussi présenter des établissements partenaires (hôtels, parkings, navettes). Leurs encarts sont
+          séparés des deals et portent toujours la mention « Partenaire ». Voir{' '}
+          <Link href="/partenaires">devenir partenaire</Link>.
         </p>
 
         <p className="mt-10">

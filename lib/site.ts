@@ -1,8 +1,10 @@
 // Réglages du site, regroupés ici pour ne pas avoir à chercher dans les pages.
 
 export const SITE = {
-  name: 'BaselMulhouse Fly Deals',
-  shortName: 'Fly Deals',
+  name: 'FlyBSL',
+  shortName: 'FlyBSL',
+  /** Signature affichée avec le logo. BSL = code de l'aéroport, commun aux trois pays. */
+  tagline: 'Les bons plans vols des trois frontières',
   url: 'https://www.baselmulhouseflydeals.com',
   airport: 'EuroAirport Bâle-Mulhouse-Fribourg',
   contactEmail: 'contact@baselmulhouseflydeals.com',

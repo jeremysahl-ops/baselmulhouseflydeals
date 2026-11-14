@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getAllDealIds, getDealById, getDeals } from '@/lib/supabase';
 import DealCard from '@/components/DealCard';
+import PartnerCard from '@/components/PartnerCard';
+import { partnersForDestination } from '@/lib/partners';
 import DealVisual from '@/components/DealVisual';
 import {
   airlineName, daysUntil, destinationCountry, destinationLabel, formatDayLong, formatPrice, formatStamp, nightsLabel, saving,
@@ -103,6 +105,12 @@ export default async function DealPage({ params }: Props) {
               <p className="mt-2 text-sm leading-relaxed text-ink-soft">{deal.insider_tip}</p>
             </section>
           )}
+
+          {partnersForDestination(deal.destination).map((p) => (
+            <div key={p.name} className="mt-6">
+              <PartnerCard partner={p} />
+            </div>
+          ))}
 
           <section className="mt-8">
             <h2 className="text-lg font-bold text-ink">À savoir avant de réserver</h2>

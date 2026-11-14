@@ -1,7 +1,9 @@
-﻿import Link from 'next/link';
+import Link from 'next/link';
 import { getDeals } from '@/lib/supabase';
 import DealExplorer from '@/components/DealExplorer';
 import NewsletterForm from '@/components/NewsletterForm';
+import PartnerCard from '@/components/PartnerCard';
+import { partnersForHome } from '@/lib/partners';
 import { formatPrice, formatStamp, saving } from '@/lib/format';
 import { SECTIONS, SITE } from '@/lib/site';
 
@@ -43,6 +45,7 @@ const FAQ = [
 
 export default async function HomePage() {
   const deals = await getDeals();
+  const partners = partnersForHome();
   const best = deals.reduce((max, d) => Math.max(max, saving(d)?.percent ?? 0), 0);
   const cheapest = deals.reduce((min, d) => Math.min(min, d.price), Infinity);
   const updated = deals.reduce((latest, d) => (d.created_at > latest ? d.created_at : latest), '');
@@ -58,7 +61,7 @@ export default async function HomePage() {
       <section className="bg-brand text-white">
         <div className="container-page grid gap-10 py-14 md:py-20 lg:grid-cols-[1.25fr_1fr] lg:items-center">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60">{SITE.airport}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60">{SITE.tagline}</p>
             <h1 className="mt-4 text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl">
               Les vols directs à prix réellement bas, au départ de Bâle-Mulhouse
             </h1>
@@ -108,6 +111,13 @@ export default async function HomePage() {
           </nav>
         </div>
         <DealExplorer deals={deals} />
+        {partners.length > 0 && (
+          <div className="mt-10 space-y-4" aria-label="Partenaires">
+            {partners.map((p) => (
+              <PartnerCard key={p.name} partner={p} />
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="border-y border-line bg-white">
