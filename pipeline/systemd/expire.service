@@ -1,0 +1,11 @@
+# Remplace le cron OpenClaw `/expire` : dans ses runs, l'agent répondait qu'il n'avait
+# « pas de définition pour /expire » et n'a jamais rien expiré. NON INSTALLÉ.
+[Unit]
+Description=BaselMulhouseFlyDeals — expire les deals au départ passé
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=%h/.openclaw/workspace/.env.dealhunter
+ExecStart=/usr/bin/python3 -I %h/.openclaw/workspace/pipeline/expire.py --apply

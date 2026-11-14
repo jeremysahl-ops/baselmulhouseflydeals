@@ -1,0 +1,10 @@
+[Unit]
+Description=BaselMulhouseFlyDeals — expiration quotidienne des deals
+
+[Timer]
+OnCalendar=*-*-* 06:00 Europe/Paris
+# Ici le rattrapage est sans risque (on ne fait que désactiver des deals passés).
+Persistent=true
+
+[Install]
+WantedBy=timers.target

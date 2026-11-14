@@ -12,6 +12,7 @@ export async function getDeals(limit = 12): Promise<Deal[]> {
   const { data, error } = await supabase
     .from('deals')
     .select('*')
+    .eq('is_active', true)
     .order('created_at', { ascending: false })
     .limit(limit);
 
@@ -30,6 +31,7 @@ export async function getDealsByCategory(
     .from('deals')
     .select('*')
     .eq('category', category)
+    .eq('is_active', true)
     .order('created_at', { ascending: false })
     .limit(limit);
 
@@ -55,7 +57,7 @@ export async function getDealById(id: string): Promise<Deal | null> {
 }
 
 export async function getAllDealIds(): Promise<string[]> {
-  const { data, error } = await supabase.from('deals').select('id');
+  const { data, error } = await supabase.from('deals').select('id').eq('is_active', true);
   if (error) return [];
   return (data ?? []).map((d) => d.id);
 }

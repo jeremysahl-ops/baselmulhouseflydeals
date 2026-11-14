@@ -1,0 +1,14 @@
+# Service utilisateur systemd (WSL) : lance le pipeline sans passer par un LLM.
+# Installation : voir pipeline/systemd/README.md. NON INSTALLÉ.
+[Unit]
+Description=BaselMulhouseFlyDeals — dealhunter (Travelpayouts -> Supabase)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=%h/.openclaw/workspace/.env.dealhunter
+WorkingDirectory=%h/.openclaw/workspace/pipeline
+ExecStart=/usr/bin/python3 -I %h/.openclaw/workspace/pipeline/dealhunter.py --publish
+TimeoutStartSec=30min
+# Le résumé du run part sur Telegram (si configuré). Logs : journalctl --user -u dealhunter

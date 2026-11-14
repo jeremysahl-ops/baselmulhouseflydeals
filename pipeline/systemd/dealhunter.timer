@@ -1,0 +1,13 @@
+[Unit]
+Description=BaselMulhouseFlyDeals — dealhunter mardi et vendredi 19h
+
+[Timer]
+OnCalendar=Tue,Fri 19:00 Europe/Paris
+# Volontairement PAS de Persistent=true : un run manqué (PC éteint, WSL arrêté)
+# n'est pas rattrapé au démarrage. C'est ce rattrapage qui a relancé les crons
+# OpenClaw à 22h50 le 12/11/2026.
+Persistent=false
+RandomizedDelaySec=5min
+
+[Install]
+WantedBy=timers.target
