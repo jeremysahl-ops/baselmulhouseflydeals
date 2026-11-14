@@ -1,11 +1,13 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import Image from 'next/image';
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getDealById, getAllDealIds } from '@/lib/supabase';
-import TelegramDraftButton from '@/components/TelegramDraftButton';
-import { CATEGORY_LABELS } from '@/types/deal';
-import { buildAffiliateLink } from '@/lib/affiliate';
+import { notFound } from 'next/navigation';
+import { getAllDealIds, getDealById, getDeals } from '@/lib/supabase';
+import DealCard from '@/components/DealCard';
+import DealVisual from '@/components/DealVisual';
+import {
+  airlineName, daysUntil, destinationCountry, destinationLabel, formatDayLong, formatPrice, formatStamp, nightsLabel, saving,
+} from '@/lib/format';
+import { SITE, getSection } from '@/lib/site';
 
 export const revalidate = 600;
 
@@ -14,130 +16,163 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  const ids = await getAllDealIds();
-  return ids.map((id) => ({ id }));
+  return (await getAllDealIds()).map((id) => ({ id }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const deal = await getDealById(id);
-
   if (!deal) return { title: 'Deal introuvable' };
-
+  const label = destinationLabel(deal.destination);
+  const save = saving(deal);
   return {
-    title: `${deal.title} – ${deal.price}€ | BaselMulhouse Fly Deals`,
-    description: `✈️ ${deal.destination} dès ${deal.price}€ avec ${deal.departure_date ?? deal.dates}. ${deal.dates}. ${deal.insider_tip ?? ''}`,
-    openGraph: {
-      title: `${deal.title} – dès ${deal.price}€`,
-      description: `Deal ${deal.destination} avec ${deal.departure_date ?? deal.dates}`,
-      images: deal.image_url ? [{ url: deal.image_url }] : [],
-    },
+    title: `Bâle-Mulhouse → ${label} à ${formatPrice(deal.price)} aller-retour`,
+    description: `Vol direct aller-retour vers ${label} au départ de Bâle-Mulhouse à ${formatPrice(deal.price)}${
+      save ? `, soit ${save.percent} % sous le prix habituel` : ''
+    }. Prix constaté le ${formatStamp(deal.created_at)}.`,
+    alternates: { canonical: `/deal/${deal.id}` },
   };
+}
+
+function Row({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="flex items-baseline justify-between gap-6 py-3">
+      <dt className="text-sm text-ink-muted">{label}</dt>
+      <dd className="text-right text-sm font-medium text-ink">{children}</dd>
+    </div>
+  );
 }
 
 export default async function DealPage({ params }: Props) {
   const { id } = await params;
   const deal = await getDealById(id);
-
   if (!deal) notFound();
 
-  const categoryLabel = CATEGORY_LABELS[deal.category] ?? deal.category;
-  const imgSrc = deal.image_url ?? 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1200&q=80';
+  const label = destinationLabel(deal.destination);
+  const country = destinationCountry(deal.destination);
+  const section = getSection(deal.category);
+  const save = saving(deal);
+  const airline = airlineName(deal.airline);
+  const stay = nightsLabel(deal);
+  const available = deal.is_active !== false && !!deal.departure_date && daysUntil(deal.departure_date) >= 0;
+  const others = (await getDeals()).filter((d) => d.id !== deal.id).slice(0, 3);
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
-      {/* Breadcrumb */}
-      <nav className="text-sm text-[#999] mb-6 flex items-center gap-2">
-        <Link href="/" className="hover:text-[#C9A0DC] transition-colors">Accueil</Link>
-        <span>/</span>
-        <Link href={`/${deal.category}`} className="hover:text-[#C9A0DC] transition-colors">
-          {categoryLabel}
-        </Link>
-        <span>/</span>
-        <span className="text-[#555] truncate">{deal.destination}</span>
+    <div className="container-page py-10">
+      <nav className="text-sm text-ink-muted" aria-label="Fil d'Ariane">
+        <Link href="/" className="hover:text-ink">Accueil</Link>
+        {section && (
+          <>
+            <span className="mx-2" aria-hidden="true">/</span>
+            <Link href={`/${section.slug}`} className="hover:text-ink">{section.label}</Link>
+          </>
+        )}
+        <span className="mx-2" aria-hidden="true">/</span>
+        <span className="text-ink-soft">{label}</span>
       </nav>
 
-      {/* Hero image */}
-      <div className="relative w-full h-64 md:h-80 rounded-3xl overflow-hidden mb-8 shadow-lg">
-        <Image
-          src={imgSrc}
-          alt={`${deal.destination} – ${deal.title}`}
-          fill
-          className="object-cover"
-          priority
-          unoptimized={imgSrc.startsWith('https://images.unsplash')}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-        <div className="absolute bottom-4 left-4 right-4">
-          <span className="inline-block bg-white/90 backdrop-blur text-[#6C3483] text-xs font-bold px-3 py-1 rounded-full mb-2">
-            {categoryLabel}
-          </span>
-          <h1 className="text-white font-black text-xl md:text-2xl leading-tight drop-shadow-md">
-            {deal.title}
-          </h1>
-        </div>
-      </div>
-
-      {/* Price + infos */}
-      <div className="bg-white rounded-2xl border border-[#E8E0F0] p-6 mb-6 shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <p className="text-4xl font-black text-[#C9A0DC] mb-1">
-              dès {deal.price}€
-              <span className="text-base font-normal text-[#999] ml-2">/ pers.</span>
-            </p>
-            <div className="flex flex-wrap gap-3 text-sm text-[#555] mt-2">
-              <span className="flex items-center gap-1">✈️ <strong>{deal.company ?? deal.airline}</strong></span>
-              {(deal.departure_date || deal.dates) && (
-                <span className="flex items-center gap-1">
-                  🗓️ {deal.departure_date
-                    ? new Date(deal.departure_date).toLocaleDateString('fr-FR', {day:'numeric',month:'short',year:'numeric'}) + (deal.return_date ? ' → ' + new Date(deal.return_date).toLocaleDateString('fr-FR', {day:'numeric',month:'short',year:'numeric'}) : '')
-                    : deal.dates}
-                </span>
-              )}
-              <span className="flex items-center gap-1">📍 {deal.destination}</span>
-            </div>
+      <div className="mt-6 grid gap-8 lg:grid-cols-[1.5fr_1fr] lg:items-start">
+        <div>
+          <div className="relative aspect-[16/9] overflow-hidden rounded-2xl bg-brand-soft">
+            <DealVisual destination={deal.destination} sizes="(max-width: 1024px) 100vw, 60vw" width={1400} priority />
           </div>
 
-          <a
-            href={`/go/${deal.id}`}
-            target="_blank"
-            rel="noopener noreferrer sponsored"
-            className="btn-cta px-8 py-4 text-base text-center shadow-xl shadow-rose-200 whitespace-nowrap"
-          >
-            🚀 J'y vais !
-          </a>
+          <header className="mt-6">
+            <p className="eyebrow">Vol direct au départ de Bâle-Mulhouse</p>
+            <h1 className="mt-2 text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+              {label}
+              {country && <span className="ml-3 text-xl font-medium text-ink-muted">{country}</span>}
+            </h1>
+          </header>
+
+          <section className="card mt-6 px-5" aria-label="Détails du vol">
+            <dl className="divide-y divide-line">
+              <Row label="Départ">{formatDayLong(deal.departure_date)}</Row>
+              <Row label="Retour">{formatDayLong(deal.return_date)}</Row>
+              {stay && <Row label="Durée sur place">{stay}</Row>}
+              <Row label="Type de vol">Direct, aller et retour</Row>
+              {airline && <Row label="Compagnie">{airline}</Row>}
+              <Row label="Aéroport de départ">{SITE.airport}</Row>
+              <Row label="Prix constaté le">{formatStamp(deal.created_at)}</Row>
+            </dl>
+          </section>
+
+          {deal.insider_tip && (
+            <section className="card mt-6 p-5">
+              <h2 className="font-semibold text-ink">Conseil pour ce voyage</h2>
+              <p className="mt-2 text-sm leading-relaxed text-ink-soft">{deal.insider_tip}</p>
+            </section>
+          )}
+
+          <section className="mt-8">
+            <h2 className="text-lg font-bold text-ink">À savoir avant de réserver</h2>
+            <ul className="mt-3 space-y-2 text-sm leading-relaxed text-ink-soft">
+              <li>
+                <strong className="font-semibold text-ink">Le prix peut avoir changé.</strong> Il a été constaté le{' '}
+                {formatStamp(deal.created_at)} ; les tarifs aériens évoluent plusieurs fois par jour.
+              </li>
+              <li>
+                <strong className="font-semibold text-ink">Les bagages en soute ne sont pas compris.</strong> Le prix
+                correspond au tarif de base pour une personne, avec le bagage cabine prévu par la compagnie.
+              </li>
+              <li>
+                <strong className="font-semibold text-ink">Comparez avant de payer.</strong> Le même vol est parfois
+                au même prix, ou moins cher, directement sur le site de la compagnie.
+              </li>
+            </ul>
+          </section>
         </div>
+
+        <aside className="card p-6 lg:sticky lg:top-24" aria-label="Prix et réservation">
+          {save && (
+            <p className="inline-block rounded-md bg-saving-soft px-2.5 py-1 text-sm font-bold text-saving">
+              −{save.percent} % par rapport au prix habituel
+            </p>
+          )}
+          <p className="mt-4 text-5xl font-bold tracking-tight text-ink">{formatPrice(deal.price)}</p>
+          <p className="mt-1 text-sm text-ink-muted">aller-retour par personne, taxes comprises</p>
+
+          {save && (
+            <dl className="mt-5 space-y-2 border-t border-line pt-5 text-sm">
+              <div className="flex justify-between">
+                <dt className="text-ink-muted">Prix habituel pour la saison</dt>
+                <dd className="text-ink-soft line-through">{formatPrice(save.reference)}</dd>
+              </div>
+              <div className="flex justify-between">
+                <dt className="text-ink-muted">Économie estimée</dt>
+                <dd className="font-semibold text-saving">{formatPrice(save.amount)}</dd>
+              </div>
+            </dl>
+          )}
+
+          {available ? (
+            <>
+              <a href={`/go/${deal.id}`} target="_blank" rel="nofollow sponsored noopener" className="btn-primary mt-6 w-full !py-3.5 !text-base">
+                Voir ce vol sur {SITE.bookingPartner}
+              </a>
+              <p className="mt-3 text-xs leading-relaxed text-ink-muted">
+                Lien partenaire : s&apos;ouvre dans un nouvel onglet, avec les dates déjà remplies. Si vous réservez, nous
+                pouvons toucher une commission, sans surcoût pour vous.
+              </p>
+            </>
+          ) : (
+            <p className="mt-6 rounded-lg bg-surface px-4 py-3 text-sm text-ink-soft">
+              Ce deal n&apos;est plus disponible. <Link href="/" className="font-semibold text-brand underline underline-offset-2">Voir les deals du moment</Link>
+            </p>
+          )}
+        </aside>
       </div>
 
-      {/* Insider tip */}
-      {deal.insider_tip && (
-        <div className="bg-gradient-to-r from-[#FFF0F5] to-[#F5F0FF] border border-[#FFB6C1] rounded-2xl p-5 mb-6">
-          <h2 className="font-bold text-[#2C3E50] text-base mb-2 flex items-center gap-2">
-            💡 Astuce insider
-          </h2>
-          <p className="text-[#444] text-sm leading-relaxed">{deal.insider_tip}</p>
-        </div>
+      {others.length > 0 && (
+        <section className="mt-16">
+          <h2 className="text-2xl font-bold tracking-tight text-ink">D&apos;autres deals du moment</h2>
+          <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {others.map((d) => (
+              <DealCard key={d.id} deal={d} />
+            ))}
+          </div>
+        </section>
       )}
-
-      {/* Info box */}
-      <div className="bg-[#EDE7F6]/40 rounded-2xl p-5 mb-8 text-sm text-[#555] leading-relaxed">
-        <p className="font-semibold text-[#2C3E50] mb-1">ℹ️ Bon à savoir</p>
-        <ul className="list-disc list-inside space-y-1 text-[#666]">
-          <li>Prix constaté automatiquement — vérifiez toujours le prix final sur le site de la compagnie. Les prix peuvent varier selon les disponibilités et la date de consultation.</li>
-          <li>Vérifiez toujours le prix final sur le site de la compagnie.</li>
-          <li>L'aéroport Basel-Mulhouse se situe à Saint-Louis (68).</li>
-          <li>Pensez aux parkings P4/P5 longue durée pour économiser !</li>
-        </ul>
-      </div>
-
-      {/* Telegram draft button (visible only si admin — à protéger côté UI si nécessaire) */}
-      <div className="flex items-center justify-between border-t border-[#EEE] pt-6">
-        <Link href={`/${deal.category}`} className="text-[#5DADE2] text-sm font-semibold hover:underline">
-          ← Retour à {categoryLabel}
-        </Link>
-        <TelegramDraftButton deal={deal} />
-      </div>
     </div>
   );
 }

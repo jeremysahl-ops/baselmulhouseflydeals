@@ -1,35 +1,25 @@
-import { MetadataRoute } from 'next';
+import type { MetadataRoute } from 'next';
 import { getAllDealIds } from '@/lib/supabase';
+import { SECTIONS, SITE } from '@/lib/site';
 
-const BASE_URL = 'https://baselmulhouseflydeals.com';
-
-const CATEGORIES = ['vol', 'vol-hotel', 'city-trip', 'sejour', 'derniere-minute'];
+export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const dealIds = await getAllDealIds();
-
-  const dealUrls: MetadataRoute.Sitemap = dealIds.map((id) => ({
-    url: `${BASE_URL}/deal/${id}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly',
-    priority: 0.7,
-  }));
-
-  const categoryUrls: MetadataRoute.Sitemap = CATEGORIES.map((cat) => ({
-    url: `${BASE_URL}/${cat}`,
-    lastModified: new Date(),
-    changeFrequency: 'daily',
-    priority: 0.8,
-  }));
+  const now = new Date();
+  const page = (path: string, changeFrequency: 'daily' | 'weekly' | 'monthly', priority: number) => ({
+    url: `${SITE.url}${path}`,
+    lastModified: now,
+    changeFrequency,
+    priority,
+  });
 
   return [
-    {
-      url: BASE_URL,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 1,
-    },
-    ...categoryUrls,
-    ...dealUrls,
+    page('', 'daily', 1),
+    ...SECTIONS.map((s) => page(`/${s.slug}`, 'daily', 0.8)),
+    page('/alertes', 'monthly', 0.5),
+    page('/comment-ca-marche', 'monthly', 0.5),
+    ...(await getAllDealIds()).map((id) => page(`/deal/${id}`, 'weekly', 0.6)),
+    page('/mentions-legales', 'monthly', 0.2),
+    page('/confidentialite', 'monthly', 0.2),
   ];
 }

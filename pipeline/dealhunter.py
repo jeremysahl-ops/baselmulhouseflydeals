@@ -1,22 +1,24 @@
 #!/usr/bin/env python3
 """
-BaselMulhouseFlyDeals — Deal Hunter (version corrigée, branche fix-benchmark)
+BaselMulhouseFlyDeals — Deal Hunter v2
 
-Remplace le calcul « de tête » fait par l'agent LLM OpenClaw `gflights` :
-toute la décision publier / ne pas publier est ici, en code, testée.
+Cherche des allers-retours DIRECTS au départ de Bâle-Mulhouse, les compare au prix de
+référence de la destination (table destination_benchmarks) et synchronise la table deals.
 
-Différences avec ~/.openclaw/workspace/dealhunter.py (version du 16/03/2026) :
-  - Aucun secret dans le code : tout vient des variables d'environnement.
-  - --dry-run par défaut : rien n'est écrit tant qu'on ne passe pas --publish.
-  - Remise minimale obligatoire (MIN_DISCOUNT_PCT, 5 % par défaut) : un prix
-    à 1-3 % sous le benchmark n'est plus un « deal ».
-  - Plus de delete_all_deals() au démarrage (il supprimait TOUS les deals actifs).
-  - Noms de destinations alignés sur la table destination_benchmarks
-    (l'agent utilisait « GrandeCanarie » / « Majorque », introuvables en base).
+Règles (toutes testées dans test_dealhunter.py) :
+  - vol direct à l'aller ET au retour, aller-retour uniquement ;
+  - prix < prix de référence ET remise >= MIN_DISCOUNT_PCT (15 % par défaut) ;
+  - au plus MAX_PER_DESTINATION deals par destination, sur des mois différents ;
+  - lien de réservation = deep link Kiwi officiel (affilid Travelpayouts complet) ;
+  - synchronisation : un deal retrouvé est mis à jour, un nouveau est inséré, un deal
+    non retrouvé est retiré quand sa validité (expires_at) est dépassée.
+
+Source : Travelpayouts /aviasales/v3/prices_for_dates (prix vus par des voyageurs dans les
+dernières 48 h : ce sont des prix constatés, pas garantis).
 
 Usage :
   export SUPABASE_URL=... SUPABASE_SERVICE_KEY=... TRAVELPAYOUTS_TOKEN=...
-  python3 dealhunter.py                # dry-run : affiche ce qui serait publié
+  python3 dealhunter.py                # dry-run : affiche ce qui serait fait, n'écrit rien
   python3 dealhunter.py --publish      # écrit dans Supabase (+ Telegram si configuré)
 """
 
@@ -26,17 +28,26 @@ import argparse
 import calendar
 import json
 import os
+import statistics
 import sys
 import time
 import urllib.error
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass
-from datetime import date, datetime
+from datetime import date, datetime, timedelta, timezone
 
-MIN_DISCOUNT_PCT = int(os.environ.get("MIN_DISCOUNT_PCT", "5"))
+MIN_DISCOUNT_PCT = int(os.environ.get("MIN_DISCOUNT_PCT", "15"))
+MAX_PER_DESTINATION = int(os.environ.get("MAX_PER_DESTINATION", "3"))
+DEAL_TTL_DAYS = 5          # un deal non retrouvé reste affiché au plus 5 jours
+SCAN_MONTHS = 9
 ORIGIN = "BSL"
-KIWI_AFFILID = os.environ.get("KIWI_AFFILID", "707798")
+# Identifiant d'affiliation Kiwi fourni par Travelpayouts (visible dans tout lien kiwi.tpx.gr :
+# ce n'est pas un secret). L'ancien code envoyait seulement « 707798 », que Kiwi ne peut pas
+# rattacher au compte : les clics n'étaient très probablement pas comptés.
+_TP_MARKER = "488de323a4ee43df95eb88630-707798"
+KIWI_AFFILID = os.environ.get("KIWI_AFFILID", f"travelpayoutsdeeplink_www.baselmulhouseflydeals.com_{_TP_MARKER}")
+KIWI_SUB1 = os.environ.get("KIWI_SUB1", _TP_MARKER)
 
 # Nom = exactement la valeur de destination_benchmarks.destination
 DESTINATIONS = {
@@ -70,63 +81,6 @@ DESTINATIONS = {
     # Dubai, Montreal, Singapour : pas de benchmark en base -> retirés (ils étaient toujours SKIP).
 }
 
-DEFAULT_IMAGE = "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80"
-
-# Photos par destination (reprises de l'agent gflights)
-IMAGES = {
-    "Agadir": DEFAULT_IMAGE,  # photo d'origine en 404
-    "Alicante": "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=80",
-    "Amsterdam": "https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=800&q=80",
-    "Antalya": "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=800&q=80",
-    "Athenes": "https://images.unsplash.com/photo-1555993539-1732b0258235?w=800&q=80",
-    "Barcelone": "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=800&q=80",
-    "Belgrade": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
-    "Berlin": "https://images.unsplash.com/photo-1560969184-10fe8719e047?w=800&q=80",
-    "Bucarest": "https://images.unsplash.com/photo-1586724237569-f3d0c1dee8c6?w=800&q=80",
-    "Budapest": "https://images.unsplash.com/photo-1541343672885-9be56236302a?w=800&q=80",
-    "Casablanca": DEFAULT_IMAGE,  # photo d'origine en 404
-    "Copenhague": "https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=800&q=80",
-    "Cracovie": DEFAULT_IMAGE,  # photo d'origine en 404
-    "Djerba": DEFAULT_IMAGE,  # photo d'origine en 404
-    "Dublin": "https://images.unsplash.com/photo-1549918864-48ac978761a4?w=800&q=80",
-    "Dubrovnik": DEFAULT_IMAGE,  # photo d'origine en 404
-    "Edimbourg": "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&q=80",
-    "Faro": "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80",
-    "Fuerteventura": "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=80",
-    "Grande Canarie": "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=80",
-    "Hambourg": "https://images.unsplash.com/photo-1560969184-10fe8719e047?w=800&q=80",
-    "Heraklion": "https://images.unsplash.com/photo-1555993539-1732b0258235?w=800&q=80",
-    "Hurghada": "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=800&q=80",
-    "Ibiza": "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=80",
-    "Istanbul": "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=800&q=80",
-    "Lanzarote": "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=80",
-    "Lisbonne": "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80",
-    "Londres": "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&q=80",
-    "Madrid": "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=800&q=80",
-    "Malaga": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=800&q=80",
-    "Manchester": "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&q=80",
-    "Marrakech": DEFAULT_IMAGE,  # photo d'origine en 404
-    "Marseille": DEFAULT_IMAGE,  # photo d'origine en 404
-    "Munich": "https://images.unsplash.com/photo-1595867818082-083862f3d630?w=800&q=80",
-    "Mykonos": "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&q=80",
-    "Naples": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800&q=80",
-    "Nice": DEFAULT_IMAGE,  # photo d'origine en 404
-    "Oslo": "https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=800&q=80",
-    "Palma de Mallorca": "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=80",
-    "Paris": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&q=80",
-    "Porto": "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80",
-    "Prague": "https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=800&q=80",
-    "Rhodes": "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&q=80",
-    "Rome": "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800&q=80",
-    "Sofia": DEFAULT_IMAGE,  # photo d'origine en 404
-    "Split": DEFAULT_IMAGE,  # photo d'origine en 404
-    "Tenerife": "https://images.unsplash.com/photo-1511300636408-a63a89df3482?w=800&q=80",
-    "Tunis": DEFAULT_IMAGE,  # photo d'origine en 404
-    "Varsovie": DEFAULT_IMAGE,  # photo d'origine en 404
-    "Venise": "https://images.unsplash.com/photo-1534113414509-0eec2bfb493f?w=800&q=80",
-    "Vienne": DEFAULT_IMAGE,  # photo d'origine en 404
-    "Zagreb": DEFAULT_IMAGE,  # photo d'origine en 404
-}
 
 
 # ─── Logique métier pure (testée dans test_dealhunter.py) ─────────────────────
@@ -192,18 +146,103 @@ DEAL_COLUMNS = frozenset({
 })
 
 
-def build_deal(dest: str, slug: str, flight: dict, dep: str, ret: str, duration: int,
-               dtype: str, season: str, v: Verdict) -> dict:
-    link = f"https://www.kiwi.com/fr/search/results/bale-suisse/{slug}/{dep}/{ret}/?affilid={KIWI_AFFILID}"
+DISPLAY_NAMES = {"Athenes": "Athènes", "Edimbourg": "Édimbourg", "Heraklion": "Héraklion",
+                 "Palma de Mallorca": "Palma de Majorque", "Malaga": "Málaga"}
+
+
+def booking_link(iata: str, dep: str, ret: str) -> str:
+    """Deep link Kiwi officiel : recherche pré-remplie, vols directs, attribuée au compte Travelpayouts."""
+    q = urllib.parse.urlencode({
+        "affilid": KIWI_AFFILID, "sub1": KIWI_SUB1, "lang": "fr", "currency": "eur",
+        "from": ORIGIN, "to": iata, "departure": dep, "return": ret, "stopNumber": 0,
+    })
+    return f"https://www.kiwi.com/deep?{q}"
+
+
+@dataclass(frozen=True)
+class Offer:
+    price: int
+    airline: str
+    dep: str   # YYYY-MM-DD
+    ret: str
+
+    @property
+    def nights(self) -> int:
+        return (datetime.strptime(self.ret, "%Y-%m-%d") - datetime.strptime(self.dep, "%Y-%m-%d")).days
+
+
+def parse_offer(f: dict) -> tuple[Offer | None, str]:
+    """Normalise une ligne de l'API. Renvoie (offre, "") ou (None, raison du rejet)."""
+    try:
+        if int(f.get("transfers", 0)) != 0 or int(f.get("return_transfers", 0)) != 0:
+            return None, "not_direct"
+        price = int(round(float(f.get("price"))))
+    except (TypeError, ValueError):
+        return None, "invalid_price"
+    if price <= 0:
+        return None, "invalid_price"
+    dates = parse_dates(f)
+    if not dates:
+        return None, "not_round_trip"
+    return Offer(price, str(f.get("airline") or ""), *dates), ""
+
+
+@dataclass(frozen=True)
+class Pick:
+    offer: Offer
+    verdict: Verdict
+    dtype: str
+    season: str
+    benchmark: float
+
+
+def select_deals(dest: str, offers: list[Offer], bench: dict, stats: dict | None = None,
+                 max_per_dest: int = MAX_PER_DESTINATION) -> list[Pick]:
+    """Les meilleurs deals d'une destination : plus forte remise d'abord, un seul par mois de départ."""
+    stats = stats if stats is not None else {}
+    picks: list[Pick] = []
+    for o in set(offers):
+        dtype = deal_type(o.nights)
+        if not dtype:
+            stats["bad_duration"] = stats.get("bad_duration", 0) + 1
+            continue
+        season = get_season(int(o.dep[5:7]))
+        avg = bench.get((dest, season))
+        v = evaluate(o.price, avg)
+        if not v.publish:
+            stats[v.reason] = stats.get(v.reason, 0) + 1
+            continue
+        picks.append(Pick(o, v, dtype, season, avg))
+    picks.sort(key=lambda p: (-p.verdict.discount_pct, p.offer.price, p.offer.dep))
+    out, months = [], set()
+    for p in picks:
+        if p.offer.dep[:7] in months:
+            continue
+        months.add(p.offer.dep[:7])
+        out.append(p)
+        if len(out) >= max_per_dest:
+            break
+    return out
+
+
+def build_deal(dest: str, iata: str, p: Pick, now: datetime | None = None) -> dict:
+    now = now or datetime.now(timezone.utc)
+    o, v = p.offer, p.verdict
+    name = DISPLAY_NAMES.get(dest, dest)
     deal = {
-        "title": f"✈️ {dest} à {flight['price']}€ A/R depuis Bâle",
-        "destination": dest, "price": flight["price"], "airline": flight.get("airline", ""),
-        "category": CATEGORY[dtype],
-        "departure_date": dep, "return_date": ret, "duration_days": duration,
-        "month_departure": int(dep[5:7]), "season": season,
+        "title": f"{name} à {o.price} € aller-retour",
+        "description": f"Vol direct · {o.nights} nuit{'s' if o.nights > 1 else ''} sur place",
+        "destination": dest, "departure_city": "Bâle-Mulhouse",
+        "price": o.price, "original_price": int(round(p.benchmark)),
+        "price_average_estimated": p.benchmark, "airline": o.airline,
+        "category": CATEGORY[p.dtype],
+        "departure_date": o.dep, "return_date": o.ret, "duration_days": o.nights,
+        "month_departure": int(o.dep[5:7]), "season": p.season,
         "discount_percentage": v.discount_pct,
         "score_ai": v.score, "score_final": v.score, "deal_score": v.score,
-        "deal_url": link, "image_url": IMAGES.get(dest, DEFAULT_IMAGE),
+        "deal_url": booking_link(iata, o.dep, o.ret),
+        "image_url": None,  # les visuels sont gérés par le site (lib/destinations.ts), contrôlés à l'œil
+        "expires_at": (now + timedelta(days=DEAL_TTL_DAYS)).isoformat(timespec="seconds"),
         "is_active": True, "status": "active", "source": "travelpayouts",
     }
     unknown = set(deal) - DEAL_COLUMNS
@@ -298,11 +337,14 @@ class Supabase:
             out[k] = r["avg_price"]
         return out
 
-    def is_duplicate(self, dest: str, dep: str, price) -> bool:
-        q = urllib.parse.urlencode({"destination": f"eq.{dest}", "departure_date": f"eq.{dep}",
-                                    "price": f"eq.{price}", "is_active": "eq.true", "select": "id"})
+    def active_deals(self) -> dict[tuple[str, str, str], dict]:
+        """Deals actifs publiés par ce robot, indexés par (destination, départ, retour)."""
+        q = urllib.parse.urlencode({"is_active": "eq.true", "source": "eq.travelpayouts",
+                                    "select": "id,destination,departure_date,return_date,price,expires_at"})
         status, rows = http_json(f"{self.url}/rest/v1/deals?{q}", self.h)
-        return status == 200 and bool(rows)
+        if status != 200 or not isinstance(rows, list):
+            sys.exit(f"Impossible de lire deals ({status}): {rows}")
+        return {(r["destination"], r["departure_date"], r["return_date"]): r for r in rows}
 
     def insert(self, deal: dict) -> bool:
         status, body = http_json(f"{self.url}/rest/v1/deals", {**self.h, "Prefer": "return=minimal"}, deal, "POST")
@@ -310,6 +352,27 @@ class Supabase:
             print(f"  ❌ insertion {deal['destination']} {deal['departure_date']}: {status} {body}")
             return False
         return True
+
+    def update(self, deal_id: str, fields: dict) -> bool:
+        q = urllib.parse.urlencode({"id": f"eq.{deal_id}"})
+        status, body = http_json(f"{self.url}/rest/v1/deals?{q}", {**self.h, "Prefer": "return=minimal"}, fields, "PATCH")
+        if status not in (200, 204):
+            print(f"  ❌ mise à jour {deal_id}: {status} {body}")
+            return False
+        return True
+
+    def record_price_stats(self, rows: list[dict]) -> str:
+        """Historique des prix (table optionnelle price_stats). Sert à calculer plus tard un prix
+        habituel à partir de vraies observations. Sans la table, on continue sans rien stocker."""
+        if not rows:
+            return "rien à enregistrer"
+        status, body = http_json(f"{self.url}/rest/v1/price_stats",
+                                 {**self.h, "Prefer": "return=minimal,resolution=merge-duplicates"}, rows, "POST")
+        if status in (200, 201):
+            return f"{len(rows)} lignes"
+        if status == 404:
+            return "table price_stats absente (voir pipeline/sql/2026-11-14_newsletter_et_historique.sql)"
+        return f"erreur {status}: {str(body)[:120]}"
 
 
 def send_telegram(text: str) -> None:
@@ -321,84 +384,122 @@ def send_telegram(text: str) -> None:
 
 # ─── Pipeline ─────────────────────────────────────────────────────────────────
 
-def scan_months(today: date, n: int = 9) -> list[str]:
+def scan_months(today: date, n: int = SCAN_MONTHS) -> list[str]:
+    """Mois de départ à scanner : le mois en cours puis les n suivants."""
     start = datetime(today.year, today.month, 1)
-    return [add_months(start, i).strftime("%Y-%m") for i in range(1, n + 1)]
+    return [add_months(start, i).strftime("%Y-%m") for i in range(0, n + 1)]
 
 
-def run(publish: bool) -> dict:
+def fetch_offers(token: str, iata: str, dep_month: str, ret_month: str) -> tuple[list[dict], bool]:
+    """Jusqu'à 30 allers-retours directs les moins chers pour un mois de départ / de retour."""
+    q = urllib.parse.urlencode({
+        "origin": ORIGIN, "destination": iata, "departure_at": dep_month, "return_at": ret_month,
+        "one_way": "false", "direct": "true", "sorting": "price", "unique": "false",
+        "limit": 30, "currency": "eur", "market": "fr", "token": token,
+    })
+    status, data = http_json(f"https://api.travelpayouts.com/aviasales/v3/prices_for_dates?{q}")
+    if status == 429:  # quota : 600 appels / minute
+        time.sleep(20)
+        status, data = http_json(f"https://api.travelpayouts.com/aviasales/v3/prices_for_dates?{q}")
+    ok = status == 200 and isinstance(data, dict) and bool(data.get("success"))
+    return ((data.get("data") or []) if ok else []), ok
+
+
+def plan_sync(existing: dict, selected: dict, now: datetime) -> tuple[list, list, list]:
+    """Compare les deals en base et ceux du run. Renvoie (à insérer, à mettre à jour, à retirer).
+
+    - retrouvé  -> mise à jour (prix, remise, validité prolongée)
+    - nouveau   -> insertion
+    - disparu   -> retiré seulement si sa validité est dépassée (ou absente : anciens deals)
+    """
+    inserts = [d for k, d in selected.items() if k not in existing]
+    updates = [(existing[k]["id"], d) for k, d in selected.items() if k in existing]
+    stale = []
+    for k, row in existing.items():
+        if k in selected:
+            continue
+        exp = row.get("expires_at")
+        if not exp or datetime.fromisoformat(exp.replace("Z", "+00:00")) < now:
+            stale.append(row["id"])
+    return inserts, updates, stale
+
+
+def run(publish: bool) -> int:
     sb = Supabase(env("SUPABASE_URL"), env("SUPABASE_SERVICE_KEY"))
     token = env("TRAVELPAYOUTS_TOKEN")
     bench = sb.benchmarks()
-    stats = {k: 0 for k in ("scanned", "published", "would_publish", "no_benchmark",
-                            "above_benchmark", "below_min_discount", "invalid_price",
-                            "bad_duration", "not_round_trip", "duplicate")}
-    seen: set = set()
+    now = datetime.now(timezone.utc)
+    today = date.today()
+    stats = {k: 0 for k in ("calls", "calls_failed", "offers", "not_direct", "not_round_trip", "invalid_price",
+                            "bad_duration", "no_benchmark", "above_benchmark", "below_min_discount")}
+    selected: dict[tuple[str, str, str], dict] = {}
+    price_stats: list[dict] = []
+    months = scan_months(today)
 
-    for dest, (iata, slug) in DESTINATIONS.items():
-        for month in scan_months(date.today()):
-            stats["scanned"] += 1
-            q = urllib.parse.urlencode({"origin": ORIGIN, "destination": iata, "currency": "eur",
-                                        "depart_date": month, "token": token})
-            status, data = http_json(f"https://api.travelpayouts.com/v1/prices/cheap?{q}")
-            time.sleep(0.2)
-            if status != 200 or not isinstance(data, dict) or not data.get("success"):
-                continue
-            for flights in (data.get("data") or {}).values():
-                for f in flights.values():
-                    price = f.get("price")
-                    dates = parse_dates(f)
-                    if not price:
-                        continue
-                    if not dates:
-                        stats["not_round_trip"] += 1
-                        continue
-                    dep, ret = dates
-                    if (dest, dep, ret, price) in seen:
-                        continue
-                    seen.add((dest, dep, ret, price))
+    for dest, (iata, _slug) in DESTINATIONS.items():
+        offers: set[Offer] = set()
+        for month in months:
+            nxt = add_months(datetime.strptime(month + "-01", "%Y-%m-%d"), 1).strftime("%Y-%m")
+            for ret_month in (month, nxt):
+                rows, ok = fetch_offers(token, iata, month, ret_month)
+                stats["calls"] += 1
+                stats["calls_failed"] += 0 if ok else 1
+                time.sleep(0.12)
+                for f in rows:
+                    o, why = parse_offer(f)
+                    if o is None:
+                        stats[why] += 1
+                    elif o.dep > today.isoformat():
+                        offers.add(o)
+        stats["offers"] += len(offers)
 
-                    duration = (datetime.strptime(ret, "%Y-%m-%d") - datetime.strptime(dep, "%Y-%m-%d")).days
-                    dtype = deal_type(duration)
-                    if not dtype:
-                        stats["bad_duration"] += 1
-                        continue
+        by_month: dict[str, list[int]] = {}
+        for o in offers:
+            by_month.setdefault(o.dep[:7], []).append(o.price)
+        price_stats += [{"destination": dest, "depart_month": m + "-01", "observed_on": today.isoformat(),
+                         "min_price": min(p), "median_price": round(statistics.median(p)), "n_offers": len(p)}
+                        for m, p in by_month.items()]
 
-                    month_num = int(dep[5:7])
-                    season = get_season(month_num)
-                    avg = bench.get((dest, season))
-                    v = evaluate(price, avg)
-                    if not v.publish:
-                        stats[v.reason] += 1
-                        if v.reason in ("above_benchmark", "below_min_discount"):
-                            print(f"  · ignoré {dest} {season} {price}€ vs {avg}€ ({v.reason})")
-                        continue
-                    if sb.is_duplicate(dest, dep, price):
-                        stats["duplicate"] += 1
-                        continue
+        for p in select_deals(dest, list(offers), bench, stats):
+            deal = build_deal(dest, iata, p, now)
+            selected[(dest, p.offer.dep, p.offer.ret)] = deal
+            print(f"  {deal['title']} · {p.offer.dep} → {p.offer.ret} · -{p.verdict.discount_pct}% vs {p.benchmark:.0f} €")
 
-                    link = f"https://www.kiwi.com/fr/search/results/bale-suisse/{slug}/{dep}/{ret}/?affilid={KIWI_AFFILID}"
-                    deal = build_deal(dest, slug, f, dep, ret, duration, dtype, season, v)
-                    link = deal["deal_url"]
-                    if not publish:
-                        stats["would_publish"] += 1
-                        print(f"  [dry-run] {deal['title']} (-{v.discount_pct}% vs {avg}€)")
-                        continue
-                    if sb.insert(deal):
-                        stats["published"] += 1
-                        print(f"  ✅ {deal['title']} (-{v.discount_pct}%)")
-                        if v.score >= 4:
-                            send_telegram(f"🔥 {dest} à {price}€ A/R -{v.discount_pct}% Score:{v.score}/5\n{link}")
+    # Garde-fou : si l'API ne répond pas (jeton invalide, panne), on ne touche à rien.
+    if stats["calls_failed"] > stats["calls"] / 2 or stats["offers"] == 0:
+        msg = f"⚠️ Robot deals : source de prix indisponible ({stats['calls_failed']}/{stats['calls']} appels en échec). Rien n'a été modifié."
+        print(msg)
+        if publish:
+            send_telegram(msg)
+        return 1
 
-    summary = "Run terminé" + (" (dry-run)" if not publish else "") + " | " + \
-              " | ".join(f"{k}: {n}" for k, n in stats.items())
+    existing = sb.active_deals()
+    inserts, updates, stale = plan_sync(existing, selected, now)
+    done = {"nouveaux": 0, "mis à jour": 0, "retirés": 0}
+    if publish:
+        done["nouveaux"] = sum(sb.insert(d) for d in inserts)
+        refresh = ("price", "original_price", "price_average_estimated", "discount_percentage", "deal_score",
+                   "score_ai", "score_final", "expires_at", "deal_url", "title", "description", "airline", "image_url")
+        done["mis à jour"] = sum(sb.update(i, {k: d[k] for k in refresh}) for i, d in updates)
+        done["retirés"] = sum(sb.update(i, {"is_active": False, "status": "stale"}) for i in stale)
+        history = sb.record_price_stats(price_stats)
+    else:
+        done = {"nouveaux": len(inserts), "mis à jour": len(updates), "retirés": len(stale)}
+        history = f"{len(price_stats)} lignes (non écrites)"
+
+    tag = "" if publish else " (dry-run, rien n'est écrit)"
+    summary = (f"Run terminé{tag} | deals retenus: {len(selected)} | " + " | ".join(f"{k}: {n}" for k, n in done.items())
+               + f" | historique: {history}\n" + " | ".join(f"{k}: {n}" for k, n in stats.items()))
     print("\n" + summary)
     if publish:
-        send_telegram(summary)
-    return stats
+        best = sorted(inserts, key=lambda d: -d["discount_percentage"])[:5]
+        lines = [f"• {d['title']} (-{d['discount_percentage']} %), {d['departure_date']} → {d['return_date']}" for d in best]
+        send_telegram(f"Robot deals : {len(selected)} deals en ligne, dont {done['nouveaux']} nouveaux, "
+                      f"{done['retirés']} retirés." + ("\n\nNouveautés :\n" + "\n".join(lines) if lines else ""))
+    return 0
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--publish", action="store_true", help="écrit réellement dans Supabase")
-    run(publish=ap.parse_args().publish)
+    sys.exit(run(publish=ap.parse_args().publish))

@@ -1,0 +1,66 @@
+# Fait tourner le robot sur les serveurs de GitHub : plus besoin que le PC soit allumé.
+#
+# Mise en service (une seule fois) : GitHub > dépôt > Settings > Secrets and variables > Actions,
+# ajouter les secrets SUPABASE_URL, SUPABASE_SERVICE_KEY, TRAVELPAYOUTS_TOKEN et, pour les
+# notifications, TELEGRAM_BOT_TOKEN et TELEGRAM_CHAT_ID. Tant qu'ils manquent, le robot ne fait rien.
+# Ensuite, désactiver les deux tâches « BaselMulhouse » du Planificateur Windows (sinon double passage).
+#
+# Les horaires sont en UTC. Les journaux sont publics (dépôt public) : le robot n'y écrit aucun secret.
+# GitHub suspend les tâches planifiées d'un dépôt sans activité depuis 60 jours (un clic pour réactiver).
+name: Robot deals
+
+on:
+  schedule:
+    - cron: '0 18 * * 2,5' # recherche de deals : mardi et vendredi, 19 h (heure d'hiver)
+    - cron: '0 5 * * *' # retrait des deals périmés : tous les jours, 6 h (heure d'hiver)
+  workflow_dispatch:
+    inputs:
+      job:
+        description: 'Que lancer ?'
+        type: choice
+        options: [recherche, retrait, test-a-blanc]
+        default: test-a-blanc
+
+permissions:
+  contents: read
+
+concurrency:
+  group: robot-deals
+  cancel-in-progress: false
+
+jobs:
+  robot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+      TRAVELPAYOUTS_TOKEN: ${{ secrets.TRAVELPAYOUTS_TOKEN }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Secrets configurés ?
+        id: cfg
+        run: |
+          if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_SERVICE_KEY" ] && [ -n "$TRAVELPAYOUTS_TOKEN" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::Secrets non configurés : le robot ne fait rien (voir l'en-tête de ce fichier)."
+          fi
+
+      - name: Tests des règles
+        run: python3 -m unittest pipeline/test_dealhunter.py
+
+      - name: Recherche de deals
+        if: steps.cfg.outputs.ready == 'true' && (github.event.schedule == '0 18 * * 2,5' || inputs.job == 'recherche')
+        run: python3 pipeline/dealhunter.py --publish
+
+      - name: Retrait des deals périmés
+        if: steps.cfg.outputs.ready == 'true' && (github.event.schedule == '0 5 * * *' || inputs.job == 'retrait')
+        run: python3 pipeline/expire.py --apply
+
+      - name: Test à blanc (n'écrit rien)
+        if: steps.cfg.outputs.ready == 'true' && inputs.job == 'test-a-blanc'
+        run: python3 pipeline/dealhunter.py
