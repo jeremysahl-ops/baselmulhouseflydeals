@@ -39,6 +39,10 @@ from datetime import date, datetime, timedelta, timezone
 
 MIN_DISCOUNT_PCT = int(os.environ.get("MIN_DISCOUNT_PCT", "15"))
 MAX_PER_DESTINATION = int(os.environ.get("MAX_PER_DESTINATION", "3"))
+# Les prix de référence de la table destination_benchmarks datent d'avant la hausse générale des
+# tarifs aériens de 2026. Décision du propriétaire du site (14/11/2026) : les relever de 25 %.
+# La table n'est pas modifiée : remettre 1.0 ici (ou BENCHMARK_FACTOR=1.0) annule le relèvement.
+BENCHMARK_FACTOR = float(os.environ.get("BENCHMARK_FACTOR", "1.25"))
 DEAL_TTL_DAYS = 5          # un deal non retrouvé reste affiché au plus 5 jours
 SCAN_MONTHS = 9
 ORIGIN = "BSL"
@@ -334,7 +338,7 @@ class Supabase:
             k = (r["destination"], r["season"])
             if k in out:
                 sys.exit(f"Benchmark en double pour {k} : corrige la table avant de publier.")
-            out[k] = r["avg_price"]
+            out[k] = None if r["avg_price"] is None else round(float(r["avg_price"]) * BENCHMARK_FACTOR)
         return out
 
     def active_deals(self) -> dict[tuple[str, str, str], dict]:
