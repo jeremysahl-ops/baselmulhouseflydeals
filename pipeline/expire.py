@@ -17,13 +17,13 @@ import urllib.parse
 from datetime import date
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from dealhunter import env, http_json, send_telegram  # noqa: E402
+from dealhunter import env, http_json, send_telegram, supabase_headers  # noqa: E402
 
 
 def main(apply: bool, today: date | None = None) -> int:
     url = env("SUPABASE_URL").rstrip("/")
     key = env("SUPABASE_SERVICE_KEY")
-    h = {"apikey": key, "Authorization": f"Bearer {key}", "Content-Type": "application/json"}
+    h = supabase_headers(key)
     cutoff = (today or date.today()).isoformat()
     filt = {"is_active": "eq.true", "departure_date": f"lt.{cutoff}"}
 

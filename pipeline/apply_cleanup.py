@@ -20,7 +20,7 @@ import urllib.parse
 from datetime import date
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from dealhunter import env, http_json  # noqa: E402
+from dealhunter import env, http_json, supabase_headers  # noqa: E402
 
 SQL = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sql", "2026-11-12_restore_benchmarks.sql")
 RE_BENCH = re.compile(r"^UPDATE public\.destination_benchmarks SET avg_price = (\d+) WHERE id = '([0-9a-f-]{36})' AND avg_price = (\d+);")
@@ -41,7 +41,7 @@ class Api:
     def __init__(self):
         self.url = env("SUPABASE_URL").rstrip("/")
         key = env("SUPABASE_SERVICE_KEY")
-        self.h = {"apikey": key, "Authorization": f"Bearer {key}", "Content-Type": "application/json"}
+        self.h = supabase_headers(key)
 
     def get(self, table, params):
         status, body = http_json(f"{self.url}/rest/v1/{table}?{urllib.parse.urlencode(params)}", self.h)

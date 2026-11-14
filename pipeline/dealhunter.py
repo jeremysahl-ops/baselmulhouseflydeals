@@ -272,10 +272,19 @@ def http_json(url, headers=None, data=None, method="GET"):
         return None, str(e)
 
 
+def supabase_headers(key: str) -> dict:
+    """En-têtes Supabase. Les nouvelles clés (sb_secret_… / sb_publishable_…) ne sont pas des JWT :
+    on les passe uniquement dans `apikey`. Les anciennes clés JWT vont aussi dans Authorization."""
+    h = {"apikey": key, "Content-Type": "application/json"}
+    if not key.startswith("sb_"):
+        h["Authorization"] = f"Bearer {key}"
+    return h
+
+
 class Supabase:
     def __init__(self, url: str, key: str):
         self.url = url.rstrip("/")
-        self.h = {"apikey": key, "Authorization": f"Bearer {key}", "Content-Type": "application/json"}
+        self.h = supabase_headers(key)
 
     def benchmarks(self) -> dict[tuple[str, str], float]:
         status, rows = http_json(f"{self.url}/rest/v1/destination_benchmarks?select=destination,season,avg_price", self.h)

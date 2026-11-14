@@ -53,6 +53,12 @@ class EvaluateTest(unittest.TestCase):
         self.assertEqual((d["price"], d["discount_percentage"], d["month_departure"]), (66, 18, 12))
         self.assertIn("/nice-france/2026-12-04/2026-12-08/", d["deal_url"])
 
+    def test_supabase_headers(self):
+        from dealhunter import supabase_headers
+        self.assertNotIn("Authorization", supabase_headers("sb_secret_abc"))
+        self.assertEqual(supabase_headers("sb_secret_abc")["apikey"], "sb_secret_abc")
+        self.assertEqual(supabase_headers("eyJ.x.y")["Authorization"], "Bearer eyJ.x.y")
+
     def test_seasons_and_scores(self):
         self.assertEqual([get_season(m) for m in (1, 4, 7, 10, 12)],
                          ["hiver", "printemps", "ete", "automne", "hiver"])
