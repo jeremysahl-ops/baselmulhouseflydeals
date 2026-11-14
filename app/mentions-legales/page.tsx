@@ -6,11 +6,6 @@ export const metadata: Metadata = {
   alternates: { canonical: '/mentions-legales' },
 };
 
-/** Affiche la valeur, ou signale clairement qu'elle reste à renseigner dans lib/site.ts. */
-function Field({ value }: { value: string | null }) {
-  return value ? <>{value}</> : <mark className="rounded bg-amber-100 px-1 text-amber-900">à compléter</mark>;
-}
-
 export default function MentionsLegalesPage() {
   return (
     <article className="container-page prose-page py-14">
@@ -18,14 +13,23 @@ export default function MentionsLegalesPage() {
         <h1 className="text-3xl font-bold tracking-tight text-ink sm:text-4xl">Mentions légales</h1>
 
         <h2>Éditeur du site</h2>
-        <ul>
-          <li>Éditeur : <Field value={LEGAL.publisher} /></li>
-          <li>Statut : <Field value={LEGAL.status} /></li>
-          <li>Adresse : <Field value={LEGAL.address} /></li>
-          <li>SIRET : <Field value={LEGAL.siret} /></li>
-          <li>Directeur de la publication : <Field value={LEGAL.publicationDirector} /></li>
-          <li>Contact : <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a></li>
-        </ul>
+        {LEGAL.publisher ? (
+          <ul>
+            <li>Éditeur : {LEGAL.publisher}</li>
+            {LEGAL.status && <li>Statut : {LEGAL.status}</li>}
+            {LEGAL.address && <li>Adresse : {LEGAL.address}</li>}
+            {LEGAL.siret && <li>SIRET : {LEGAL.siret}</li>}
+            {LEGAL.publicationDirector && <li>Directeur de la publication : {LEGAL.publicationDirector}</li>}
+          </ul>
+        ) : (
+          <p>
+            {SITE.name} est édité à titre personnel par un particulier. Son identité et ses coordonnées ont été
+            communiquées à l&apos;hébergeur du site, indiqué ci-dessous.
+          </p>
+        )}
+        <p>
+          Contact : <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>
+        </p>
 
         <h2>Hébergeur</h2>
         <p>

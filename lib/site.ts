@@ -12,8 +12,8 @@ export const SITE = {
 } as const;
 
 /**
- * Mentions légales : À COMPLÉTER avant mise en ligne (obligation légale pour un site
- * qui perçoit des commissions). Tant qu'un champ vaut null, la page l'indique clairement.
+ * Mentions légales. Tant que `publisher` vaut null, la page indique que le site est édité
+ * à titre personnel par un particulier. À compléter dès qu'une structure existe (micro-entreprise…).
  */
 export const LEGAL: {
   publisher: string | null; // nom et prénom, ou raison sociale
