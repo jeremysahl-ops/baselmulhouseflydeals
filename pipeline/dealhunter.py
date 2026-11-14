@@ -72,6 +72,62 @@ DESTINATIONS = {
 
 DEFAULT_IMAGE = "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80"
 
+# Photos par destination (reprises de l'agent gflights)
+IMAGES = {
+    "Agadir": DEFAULT_IMAGE,  # photo d'origine en 404
+    "Alicante": "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=80",
+    "Amsterdam": "https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=800&q=80",
+    "Antalya": "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=800&q=80",
+    "Athenes": "https://images.unsplash.com/photo-1555993539-1732b0258235?w=800&q=80",
+    "Barcelone": "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=800&q=80",
+    "Belgrade": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    "Berlin": "https://images.unsplash.com/photo-1560969184-10fe8719e047?w=800&q=80",
+    "Bucarest": "https://images.unsplash.com/photo-1586724237569-f3d0c1dee8c6?w=800&q=80",
+    "Budapest": "https://images.unsplash.com/photo-1541343672885-9be56236302a?w=800&q=80",
+    "Casablanca": DEFAULT_IMAGE,  # photo d'origine en 404
+    "Copenhague": "https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=800&q=80",
+    "Cracovie": DEFAULT_IMAGE,  # photo d'origine en 404
+    "Djerba": DEFAULT_IMAGE,  # photo d'origine en 404
+    "Dublin": "https://images.unsplash.com/photo-1549918864-48ac978761a4?w=800&q=80",
+    "Dubrovnik": DEFAULT_IMAGE,  # photo d'origine en 404
+    "Edimbourg": "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&q=80",
+    "Faro": "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80",
+    "Fuerteventura": "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=80",
+    "Grande Canarie": "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=80",
+    "Hambourg": "https://images.unsplash.com/photo-1560969184-10fe8719e047?w=800&q=80",
+    "Heraklion": "https://images.unsplash.com/photo-1555993539-1732b0258235?w=800&q=80",
+    "Hurghada": "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=800&q=80",
+    "Ibiza": "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=80",
+    "Istanbul": "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=800&q=80",
+    "Lanzarote": "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=80",
+    "Lisbonne": "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80",
+    "Londres": "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&q=80",
+    "Madrid": "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=800&q=80",
+    "Malaga": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=800&q=80",
+    "Manchester": "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&q=80",
+    "Marrakech": DEFAULT_IMAGE,  # photo d'origine en 404
+    "Marseille": DEFAULT_IMAGE,  # photo d'origine en 404
+    "Munich": "https://images.unsplash.com/photo-1595867818082-083862f3d630?w=800&q=80",
+    "Mykonos": "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&q=80",
+    "Naples": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800&q=80",
+    "Nice": DEFAULT_IMAGE,  # photo d'origine en 404
+    "Oslo": "https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=800&q=80",
+    "Palma de Mallorca": "https://images.unsplash.com/photo-1504512485720-7d83a16ee930?w=800&q=80",
+    "Paris": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&q=80",
+    "Porto": "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80",
+    "Prague": "https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=800&q=80",
+    "Rhodes": "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&q=80",
+    "Rome": "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800&q=80",
+    "Sofia": DEFAULT_IMAGE,  # photo d'origine en 404
+    "Split": DEFAULT_IMAGE,  # photo d'origine en 404
+    "Tenerife": "https://images.unsplash.com/photo-1511300636408-a63a89df3482?w=800&q=80",
+    "Tunis": DEFAULT_IMAGE,  # photo d'origine en 404
+    "Varsovie": DEFAULT_IMAGE,  # photo d'origine en 404
+    "Venise": "https://images.unsplash.com/photo-1534113414509-0eec2bfb493f?w=800&q=80",
+    "Vienne": DEFAULT_IMAGE,  # photo d'origine en 404
+    "Zagreb": DEFAULT_IMAGE,  # photo d'origine en 404
+}
+
 
 # ─── Logique métier pure (testée dans test_dealhunter.py) ─────────────────────
 
@@ -122,6 +178,38 @@ def evaluate(price, avg_price, min_discount_pct: int = MIN_DISCOUNT_PCT) -> Verd
     if discount < min_discount_pct:
         return Verdict(False, "below_min_discount", discount, get_score(discount))
     return Verdict(True, "ok", discount, get_score(discount))
+
+
+# Colonnes réelles de public.deals (lues le 12/11/2026). Pas de `company` ni de `link` :
+# les envoyer fait échouer l'insertion (PGRST204). Le site retombe sur airline / deal_url.
+DEAL_COLUMNS = frozenset({
+    "airline", "category", "created_at", "deal_score", "deal_url", "departure_city",
+    "departure_date", "description", "destination", "discount_percentage", "duration_days",
+    "expires_at", "hotel_rating", "hotel_stars", "id", "image_url", "insider_tip", "is_active",
+    "is_featured", "is_school_holiday", "month_departure", "original_price", "price",
+    "price_average_estimated", "price_per_night", "return_date", "score_ai", "score_editor",
+    "score_final", "season", "source", "status", "title",
+})
+
+
+def build_deal(dest: str, slug: str, flight: dict, dep: str, ret: str, duration: int,
+               dtype: str, season: str, v: Verdict) -> dict:
+    link = f"https://www.kiwi.com/fr/search/results/bale-suisse/{slug}/{dep}/{ret}/?affilid={KIWI_AFFILID}"
+    deal = {
+        "title": f"✈️ {dest} à {flight['price']}€ A/R depuis Bâle",
+        "destination": dest, "price": flight["price"], "airline": flight.get("airline", ""),
+        "category": CATEGORY[dtype],
+        "departure_date": dep, "return_date": ret, "duration_days": duration,
+        "month_departure": int(dep[5:7]), "season": season,
+        "discount_percentage": v.discount_pct,
+        "score_ai": v.score, "score_final": v.score, "deal_score": v.score,
+        "deal_url": link, "image_url": IMAGES.get(dest, DEFAULT_IMAGE),
+        "is_active": True, "status": "active", "source": "travelpayouts",
+    }
+    unknown = set(deal) - DEAL_COLUMNS
+    if unknown:
+        raise ValueError(f"colonnes inexistantes dans deals : {sorted(unknown)}")
+    return deal
 
 
 def deal_type(duration_days: int) -> str | None:
@@ -281,18 +369,8 @@ def run(publish: bool) -> dict:
                         continue
 
                     link = f"https://www.kiwi.com/fr/search/results/bale-suisse/{slug}/{dep}/{ret}/?affilid={KIWI_AFFILID}"
-                    deal = {
-                        "title": f"✈️ {dest} à {price}€ A/R depuis Bâle",
-                        "destination": dest, "price": price,
-                        "airline": f.get("airline", ""), "company": f.get("airline", ""),
-                        "category": CATEGORY[dtype],
-                        "departure_date": dep, "return_date": ret, "duration_days": duration,
-                        "month_departure": month_num, "season": season,
-                        "discount_percentage": v.discount_pct,
-                        "score_ai": v.score, "score_final": v.score, "deal_score": v.score,
-                        "deal_url": link, "link": link, "image_url": DEFAULT_IMAGE,
-                        "is_active": True, "status": "active", "source": "travelpayouts",
-                    }
+                    deal = build_deal(dest, slug, f, dep, ret, duration, dtype, season, v)
+                    link = deal["deal_url"]
                     if not publish:
                         stats["would_publish"] += 1
                         print(f"  [dry-run] {deal['title']} (-{v.discount_pct}% vs {avg}€)")

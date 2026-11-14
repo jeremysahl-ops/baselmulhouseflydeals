@@ -4,7 +4,7 @@ import sys
 import unittest
 
 sys.path.insert(0, os.path.dirname(__file__))
-from dealhunter import evaluate, get_season, get_score, parse_dates  # noqa: E402
+from dealhunter import DEAL_COLUMNS, build_deal, evaluate, get_season, get_score, parse_dates  # noqa: E402
 
 
 class EvaluateTest(unittest.TestCase):
@@ -42,6 +42,16 @@ class EvaluateTest(unittest.TestCase):
         self.assertEqual(parse_dates({"departure_at": "2026-12-04T07:00:00+01:00",
                                       "return_at": "2026-12-07T21:30:00+01:00"}),
                          ("2026-12-04", "2026-12-07"))
+
+    def test_deal_only_uses_existing_columns(self):
+        # Le 14/11/2026, 19 insertions ont échoué à cause de `company` / `link` (PGRST204).
+        d = build_deal("Nice", "nice-france", {"price": 66, "airline": "U2"},
+                       "2026-12-04", "2026-12-08", 4, "weekend", "hiver", evaluate(66, 80))
+        self.assertLessEqual(set(d), DEAL_COLUMNS)
+        self.assertNotIn("company", d)
+        self.assertNotIn("link", d)
+        self.assertEqual((d["price"], d["discount_percentage"], d["month_departure"]), (66, 18, 12))
+        self.assertIn("/nice-france/2026-12-04/2026-12-08/", d["deal_url"])
 
     def test_seasons_and_scores(self):
         self.assertEqual([get_season(m) for m in (1, 4, 7, 10, 12)],
