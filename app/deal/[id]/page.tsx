@@ -10,6 +10,7 @@ import {
   airlineName, daysUntil, destinationCountry, destinationLabel, formatDay, formatDayLong, formatPrice, formatStamp, nights, nightsLabel, saving,
 } from '@/lib/format';
 import { itineraryFor } from '@/lib/itineraries';
+import { guidePath } from '@/lib/guides';
 import ItinerarySection from '@/components/ItinerarySection';
 import { HOTEL_PARTNER, hotelSearchLink } from '@/lib/hotels';
 import { hotelPicksForDeal } from '@/lib/hotel-picks';
@@ -107,7 +108,7 @@ export default async function DealPage({ params }: Props) {
             </dl>
           </section>
 
-          {itinerary && <ItinerarySection label={label} itinerary={itinerary} />}
+          {itinerary && <ItinerarySection label={label} itinerary={itinerary} guideHref={guidePath(deal.destination)} />}
 
           {deal.insider_tip && (
             <section className="card mt-6 p-5">

@@ -28,6 +28,7 @@ export default function Footer() {
         <nav aria-label="Informations">
           <h2 className="text-xs font-semibold uppercase tracking-wider text-white">Informations</h2>
           <ul className="mt-4 space-y-2.5 text-sm">
+            <li><Link href="/destinations" className="hover:text-white">Guides des destinations</Link></li>
             <li><Link href="/comment-ca-marche" className="hover:text-white">Notre méthode</Link></li>
             <li><Link href="/alertes" className="hover:text-white">Alertes par e-mail</Link></li>
             <li><Link href="/partenaires" className="hover:text-white">Devenir partenaire</Link></li>

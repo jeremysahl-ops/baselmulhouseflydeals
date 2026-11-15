@@ -8,6 +8,7 @@ import { SECTIONS } from '@/lib/site';
 
 const NAV = [
   ...SECTIONS.map((s) => ({ href: `/${s.slug}`, label: s.label })),
+  { href: '/destinations', label: 'Destinations' },
   { href: '/comment-ca-marche', label: 'Notre méthode' },
 ];
 
@@ -22,7 +23,7 @@ export default function Header() {
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Navigation principale">
           {NAV.map(({ href, label }) => {
-            const active = pathname === href;
+            const active = pathname === href || pathname.startsWith(href + '/');
             return (
               <Link
                 key={href}

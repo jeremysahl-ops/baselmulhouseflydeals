@@ -11,6 +11,14 @@ export const HOTEL_PARTNER = 'Booking.com';
  * Pas encore de commission : pour être rémunéré, il faudra rejoindre un programme hôtels
  * (Travelpayouts, Booking.com…) puis transformer ce lien ici, à un seul endroit.
  */
+/** Recherche d'hôtels dans une ville, sans dates (pages guides). Renvoie null si la destination est inconnue. */
+export function hotelCityLink(destination: string): string | null {
+  const info = DESTINATIONS[destination];
+  if (!info) return null;
+  const q = new URLSearchParams({ ss: `${info.label}, ${info.country}`, lang: 'fr', selected_currency: 'EUR' });
+  return `https://www.booking.com/searchresults.html?${q.toString()}`;
+}
+
 export function hotelSearchLink(deal: Pick<Deal, 'destination' | 'departure_date' | 'return_date'>): string | null {
   const info = DESTINATIONS[deal.destination];
   const checkin = deal.departure_date?.slice(0, 10);

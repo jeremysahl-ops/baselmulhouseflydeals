@@ -38,6 +38,10 @@ export function getDealsByCategory(category: string, limit = 60): Promise<Deal[]
   return run('getDealsByCategory', activeDeals().eq('category', category).limit(limit));
 }
 
+export function getDealsByDestination(destination: string, limit = 12): Promise<Deal[]> {
+  return run('getDealsByDestination', activeDeals().eq('destination', destination).limit(limit));
+}
+
 /** Départs dans les `days` prochains jours, les plus proches d'abord. */
 export function getUpcomingDeals(days = 30, limit = 60): Promise<Deal[]> {
   const until = new Date(Date.now() + days * 86_400_000).toISOString().slice(0, 10);

@@ -25,6 +25,12 @@ export interface Itinerary {
   spare: number;
 }
 
+/** Programme complet d'une destination (pages guides), ou null si elle n'en a pas. */
+export function fullItinerary(destination: string): DayPlan[] | null {
+  const all = ITINERARIES[destination];
+  return all && all.length > 0 ? all.map(([title, text]) => ({ title, text })) : null;
+}
+
 /** Programme adapté à la durée du séjour, ou null si la destination n'en a pas. */
 export function itineraryFor(destination: string, nights: number | null): Itinerary | null {
   const all = ITINERARIES[destination];
