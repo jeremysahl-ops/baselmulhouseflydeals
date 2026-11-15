@@ -4,6 +4,8 @@ import DealExplorer from '@/components/DealExplorer';
 import NewsletterForm from '@/components/NewsletterForm';
 import PartnerCard from '@/components/PartnerCard';
 import { partnersForHome } from '@/lib/partners';
+import HotelPickCard from '@/components/HotelPickCard';
+import { activeHotelPicks } from '@/lib/hotel-picks';
 import { formatPrice, formatStamp, saving } from '@/lib/format';
 import { SECTIONS, SITE } from '@/lib/site';
 
@@ -46,6 +48,7 @@ const FAQ = [
 export default async function HomePage() {
   const deals = await getDeals();
   const partners = partnersForHome();
+  const hotelPicks = activeHotelPicks();
   const best = deals.reduce((max, d) => Math.max(max, saving(d)?.percent ?? 0), 0);
   const cheapest = deals.reduce((min, d) => Math.min(min, d.price), Infinity);
   const updated = deals.reduce((latest, d) => (d.created_at > latest ? d.created_at : latest), '');
@@ -119,6 +122,22 @@ export default async function HomePage() {
           </div>
         )}
       </section>
+
+      {hotelPicks.length > 0 && (
+        <section id="hotels" className="container-page scroll-mt-20 pb-12">
+          <h2 className="text-2xl font-bold tracking-tight text-ink">Les bons plans hôtels du moment</h2>
+          <p className="mt-1 max-w-2xl text-sm text-ink-muted">
+            Des offres repérées par nos soins, directement sur le site des hôteliers, dans les villes desservies depuis
+            Bâle-Mulhouse.
+            {!hotelPicks.some((p) => p.partner) && " Nous ne touchons pas de commission sur ces liens."}
+          </p>
+          <div className="mt-6 space-y-4">
+            {hotelPicks.map((p) => (
+              <HotelPickCard key={`${p.destination}-${p.name}-${p.checkedOn}`} pick={p} showDestination />
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="border-y border-line bg-white">
         <div className="container-page py-14">

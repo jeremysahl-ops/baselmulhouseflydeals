@@ -10,6 +10,8 @@ import {
   airlineName, daysUntil, destinationCountry, destinationLabel, formatDay, formatDayLong, formatPrice, formatStamp, nightsLabel, saving,
 } from '@/lib/format';
 import { HOTEL_PARTNER, hotelSearchLink } from '@/lib/hotels';
+import { hotelPicksForDeal } from '@/lib/hotel-picks';
+import HotelPickCard from '@/components/HotelPickCard';
 import { SITE, getSection } from '@/lib/site';
 
 export const revalidate = 600;
@@ -59,6 +61,7 @@ export default async function DealPage({ params }: Props) {
   const stay = nightsLabel(deal);
   const available = deal.is_active !== false && !!deal.departure_date && daysUntil(deal.departure_date) >= 0;
   const hotels = hotelSearchLink(deal) !== null;
+  const hotelPicks = available ? hotelPicksForDeal(deal) : [];
   const others = (await getDeals()).filter((d) => d.id !== deal.id).slice(0, 3);
 
   return (
@@ -105,6 +108,21 @@ export default async function DealPage({ params }: Props) {
             <section className="card mt-6 p-5">
               <h2 className="font-semibold text-ink">Conseil pour ce voyage</h2>
               <p className="mt-2 text-sm leading-relaxed text-ink-soft">{deal.insider_tip}</p>
+            </section>
+          )}
+
+          {hotelPicks.length > 0 && (
+            <section className="mt-6" aria-label="Bons plans hôtels">
+              <h2 className="text-lg font-bold text-ink">Où dormir à {label} : nos bons plans</h2>
+              <p className="mt-1 text-sm text-ink-muted">
+                Repérés par nos soins, directement sur le site de l&apos;hôtel.
+                {!hotelPicks.some((p) => p.partner) && " Nous ne touchons pas de commission sur ces liens."}
+              </p>
+              <div className="mt-4 space-y-4">
+                {hotelPicks.map((p) => (
+                  <HotelPickCard key={`${p.name}-${p.checkedOn}`} pick={p} />
+                ))}
+              </div>
             </section>
           )}
 
