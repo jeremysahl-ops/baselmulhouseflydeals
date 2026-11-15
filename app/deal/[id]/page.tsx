@@ -7,8 +7,10 @@ import PartnerCard from '@/components/PartnerCard';
 import { partnersForDestination } from '@/lib/partners';
 import DealVisual from '@/components/DealVisual';
 import {
-  airlineName, daysUntil, destinationCountry, destinationLabel, formatDay, formatDayLong, formatPrice, formatStamp, nightsLabel, saving,
+  airlineName, daysUntil, destinationCountry, destinationLabel, formatDay, formatDayLong, formatPrice, formatStamp, nights, nightsLabel, saving,
 } from '@/lib/format';
+import { itineraryFor } from '@/lib/itineraries';
+import ItinerarySection from '@/components/ItinerarySection';
 import { HOTEL_PARTNER, hotelSearchLink } from '@/lib/hotels';
 import { hotelPicksForDeal } from '@/lib/hotel-picks';
 import HotelPickCard from '@/components/HotelPickCard';
@@ -60,6 +62,7 @@ export default async function DealPage({ params }: Props) {
   const airline = airlineName(deal.airline);
   const stay = nightsLabel(deal);
   const available = deal.is_active !== false && !!deal.departure_date && daysUntil(deal.departure_date) >= 0;
+  const itinerary = itineraryFor(deal.destination, nights(deal));
   const hotels = hotelSearchLink(deal) !== null;
   const hotelPicks = available ? hotelPicksForDeal(deal) : [];
   const others = (await getDeals()).filter((d) => d.id !== deal.id).slice(0, 3);
@@ -103,6 +106,8 @@ export default async function DealPage({ params }: Props) {
               <Row label="Prix constaté le">{formatStamp(deal.created_at)}</Row>
             </dl>
           </section>
+
+          {itinerary && <ItinerarySection label={label} itinerary={itinerary} />}
 
           {deal.insider_tip && (
             <section className="card mt-6 p-5">
