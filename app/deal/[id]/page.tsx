@@ -7,8 +7,9 @@ import PartnerCard from '@/components/PartnerCard';
 import { partnersForDestination } from '@/lib/partners';
 import DealVisual from '@/components/DealVisual';
 import {
-  airlineName, daysUntil, destinationCountry, destinationLabel, formatDayLong, formatPrice, formatStamp, nightsLabel, saving,
+  airlineName, daysUntil, destinationCountry, destinationLabel, formatDay, formatDayLong, formatPrice, formatStamp, nightsLabel, saving,
 } from '@/lib/format';
+import { HOTEL_PARTNER, hotelSearchLink } from '@/lib/hotels';
 import { SITE, getSection } from '@/lib/site';
 
 export const revalidate = 600;
@@ -57,6 +58,7 @@ export default async function DealPage({ params }: Props) {
   const airline = airlineName(deal.airline);
   const stay = nightsLabel(deal);
   const available = deal.is_active !== false && !!deal.departure_date && daysUntil(deal.departure_date) >= 0;
+  const hotels = hotelSearchLink(deal) !== null;
   const others = (await getDeals()).filter((d) => d.id !== deal.id).slice(0, 3);
 
   return (
@@ -162,6 +164,19 @@ export default async function DealPage({ params }: Props) {
                 Lien partenaire : s&apos;ouvre dans un nouvel onglet, avec les dates déjà remplies. Si vous réservez, nous
                 pouvons toucher une commission, sans surcoût pour vous.
               </p>
+              {hotels && (
+                <div className="mt-6 border-t border-line pt-5">
+                  <h2 className="font-semibold text-ink">Et pour dormir sur place ?</h2>
+                  <p className="mt-1 text-sm text-ink-muted">
+                    Hôtels à {label} du {formatDay(deal.departure_date)} au {formatDay(deal.return_date)}
+                    {stay ? ` (${stay})` : ''}, pour 2 personnes.
+                  </p>
+                  <a href={`/hotel/${deal.id}`} target="_blank" rel="nofollow noopener" className="btn-secondary mt-3 w-full">
+                    Trouver un hôtel pour ces dates
+                  </a>
+                  <p className="mt-2 text-xs text-ink-muted">S&apos;ouvre sur {HOTEL_PARTNER}, dates et ville déjà remplies.</p>
+                </div>
+              )}
             </>
           ) : (
             <p className="mt-6 rounded-lg bg-surface px-4 py-3 text-sm text-ink-soft">
