@@ -7,7 +7,8 @@ export const SITE = {
   tagline: 'Les bons plans vols des trois frontières',
   url: 'https://www.baselmulhouseflydeals.com',
   airport: 'EuroAirport Bâle-Mulhouse-Fribourg',
-  contactEmail: 'contact@baselmulhouseflydeals.com',
+  /** Boîte Gmail dédiée au site. À remplacer par contact@flybsl.com une fois le domaine acheté. */
+  contactEmail: 'flybslmlh@gmail.com',
   /** Remise minimale appliquée par le robot (pipeline/dealhunter.py, MIN_DISCOUNT_PCT). */
   minDiscount: 15,
   bookingPartner: 'Kiwi.com',
