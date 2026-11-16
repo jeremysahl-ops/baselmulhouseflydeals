@@ -1,12 +1,13 @@
 import type { Partner } from '@/lib/partners';
+import { getDict, type Lang } from '@/lib/i18n';
 
 /** Encart partenaire. La mention « Partenaire » et rel="sponsored" ne sont pas optionnels. */
-export default function PartnerCard({ partner }: { partner: Partner }) {
+export default function PartnerCard({ partner, lang }: { partner: Partner; lang: Lang }) {
   return (
     <div className="card flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
       <div>
         <p className="flex flex-wrap items-center gap-2 text-xs">
-          <span className="rounded bg-brand-soft px-2 py-0.5 font-semibold uppercase tracking-wider text-brand">Partenaire</span>
+          <span className="rounded bg-brand-soft px-2 py-0.5 font-semibold uppercase tracking-wider text-brand">{getDict(lang).common.partnerBadge}</span>
           <span className="text-ink-muted">{partner.kind}</span>
         </p>
         <p className="mt-2 font-semibold text-ink">{partner.name}</p>

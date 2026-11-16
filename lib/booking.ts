@@ -1,5 +1,6 @@
 import { Deal } from '@/types/deal';
 import { DESTINATIONS } from '@/lib/destinations';
+import { DEFAULT_LANG, isLang, type Lang } from '@/lib/i18n/config';
 
 // Identifiant d'affiliation Kiwi fourni par Travelpayouts (public : il figure dans tout lien kiwi.tpx.gr).
 // Même valeur que dans pipeline/dealhunter.py. L'ancien site envoyait seulement « 707798 »,
@@ -10,15 +11,18 @@ const ORIGIN_IATA = 'BSL';
 
 /**
  * Lien de réservation officiel (deep link Kiwi) : recherche pré-remplie sur les dates du deal,
- * vols directs. Renvoie null si la destination ou les dates sont inconnues.
+ * vols directs, dans la langue du visiteur. Renvoie null si la destination ou les dates sont inconnues.
  */
-export function bookingLink(deal: Pick<Deal, 'destination' | 'departure_date' | 'return_date'>): string | null {
+export function bookingLink(
+  deal: Pick<Deal, 'destination' | 'departure_date' | 'return_date'>,
+  lang: Lang = DEFAULT_LANG,
+): string | null {
   const iata = DESTINATIONS[deal.destination]?.iata;
   if (!iata || !deal.departure_date || !deal.return_date) return null;
   const q = new URLSearchParams({
     affilid: KIWI_AFFILID,
     sub1: TP_MARKER,
-    lang: 'fr',
+    lang,
     currency: 'eur',
     from: ORIGIN_IATA,
     to: iata,
@@ -30,4 +34,12 @@ export function bookingLink(deal: Pick<Deal, 'destination' | 'departure_date' | 
 }
 
 /** Lien générique (page d'accueil Kiwi attribuée au compte), en dernier recours. */
-export const BOOKING_FALLBACK = `https://www.kiwi.com/deep?affilid=${KIWI_AFFILID}&sub1=${TP_MARKER}&lang=fr`;
+export function bookingFallback(lang: Lang = DEFAULT_LANG): string {
+  return `https://www.kiwi.com/deep?affilid=${KIWI_AFFILID}&sub1=${TP_MARKER}&lang=${lang}`;
+}
+
+/** Langue demandée par un lien /go/… ou /hotel/… (?lang=de), français par défaut. */
+export function langFromRequest(request: Request): Lang {
+  const value = new URL(request.url).searchParams.get('lang') ?? '';
+  return isLang(value) ? value : DEFAULT_LANG;
+}

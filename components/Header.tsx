@@ -5,31 +5,54 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Logo from '@/components/Logo';
 import { SECTIONS } from '@/lib/site';
+import { LANG_NAME, LOCALES, getDict, localePath, stripLocale, type Lang } from '@/lib/i18n';
 
-const NAV = [
-  ...SECTIONS.map((s) => ({ href: `/${s.slug}`, label: s.label })),
-  { href: '/destinations', label: 'Destinations' },
-  { href: '/comment-ca-marche', label: 'Notre méthode' },
-];
-
-export default function Header() {
+export default function Header({ lang }: { lang: Lang }) {
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
+  const t = getDict(lang);
+  // Adresse sans préfixe de langue : identique côté serveur (/fr/… après réécriture) et côté navigateur.
+  const path = stripLocale(usePathname() ?? '/');
+
+  const nav = [
+    ...SECTIONS.map((s) => ({ href: `/${s.slug}`, label: t.sections[s.slug].label })),
+    { href: '/destinations', label: t.nav.destinations },
+    { href: '/comment-ca-marche', label: t.nav.method },
+  ];
+
+  const languages = (
+    <ul className="flex items-center gap-0.5 text-xs font-semibold" aria-label={t.nav.language}>
+      {LOCALES.map((l) => (
+        <li key={l}>
+          <Link
+            href={localePath(l, path)}
+            hrefLang={l}
+            lang={l}
+            title={LANG_NAME[l]}
+            aria-current={l === lang ? 'true' : undefined}
+            onClick={() => setOpen(false)}
+            className={`rounded px-1.5 py-1 uppercase ${l === lang ? 'bg-brand-soft text-brand' : 'text-ink-muted hover:text-ink'}`}
+          >
+            {l}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
-      <div className="container-page flex h-16 items-center justify-between gap-6">
-        <Logo />
+      <div className="container-page flex h-16 items-center justify-between gap-4">
+        <Logo lang={lang} />
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Navigation principale">
-          {NAV.map(({ href, label }) => {
-            const active = pathname === href || pathname.startsWith(href + '/');
+        <nav className="hidden items-center gap-0.5 xl:flex" aria-label={t.nav.main}>
+          {nav.map(({ href, label }) => {
+            const active = path === href || path.startsWith(href + '/');
             return (
               <Link
                 key={href}
-                href={href}
+                href={localePath(lang, href)}
                 aria-current={active ? 'page' : undefined}
-                className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                className={`whitespace-nowrap rounded-md px-2.5 py-2 text-sm font-medium transition-colors ${
                   active ? 'bg-brand-soft text-brand' : 'text-ink-soft hover:text-ink'
                 }`}
               >
@@ -40,16 +63,17 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link href="/alertes" className="btn-primary hidden !py-2.5 sm:inline-flex">
-            Recevoir les alertes
+          <div className="hidden sm:block">{languages}</div>
+          <Link href={localePath(lang, '/alertes')} className="btn-primary hidden whitespace-nowrap !py-2.5 sm:inline-flex">
+            {t.nav.alerts}
           </Link>
           <button
             type="button"
             onClick={() => setOpen(!open)}
-            className="rounded-md p-2 text-ink-soft hover:bg-surface lg:hidden"
+            className="rounded-md p-2 text-ink-soft hover:bg-surface xl:hidden"
             aria-expanded={open}
             aria-controls="menu-mobile"
-            aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
+            aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
           >
             <svg className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d={open ? 'M6 18 18 6M6 6l12 12' : 'M4 7h16M4 12h16M4 17h16'} />
@@ -59,20 +83,21 @@ export default function Header() {
       </div>
 
       {open && (
-        <nav id="menu-mobile" className="border-t border-line bg-white lg:hidden" aria-label="Navigation mobile">
+        <nav id="menu-mobile" className="border-t border-line bg-white xl:hidden" aria-label={t.nav.mobile}>
           <div className="container-page flex flex-col py-3">
-            {NAV.map(({ href, label }) => (
+            {nav.map(({ href, label }) => (
               <Link
                 key={href}
-                href={href}
+                href={localePath(lang, href)}
                 onClick={() => setOpen(false)}
                 className="rounded-md px-2 py-3 text-base font-medium text-ink hover:bg-surface"
               >
                 {label}
               </Link>
             ))}
-            <Link href="/alertes" onClick={() => setOpen(false)} className="btn-primary mt-2">
-              Recevoir les alertes
+            <div className="px-2 py-3">{languages}</div>
+            <Link href={localePath(lang, '/alertes')} onClick={() => setOpen(false)} className="btn-primary mt-2">
+              {t.nav.alerts}
             </Link>
           </div>
         </nav>

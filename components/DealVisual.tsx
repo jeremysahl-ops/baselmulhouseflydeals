@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { DESTINATIONS } from '@/lib/destinations';
 import { destinationLabel, destinationPhoto } from '@/lib/format';
+import { getDict, type Lang } from '@/lib/i18n';
 
 /**
  * Visuel d'un deal : la photo de la destination quand on en a une contrôlée, sinon une vignette
@@ -8,23 +9,26 @@ import { destinationLabel, destinationPhoto } from '@/lib/format';
  */
 export default function DealVisual({
   destination,
+  lang,
   sizes,
   priority = false,
   width = 800,
 }: {
   destination: string;
+  lang: Lang;
   sizes: string;
   priority?: boolean;
   width?: number;
 }) {
   const photo = destinationPhoto(destination, width);
-  const label = destinationLabel(destination);
+  const t = getDict(lang);
+  const label = destinationLabel(destination, lang);
 
   if (photo) {
     return (
       <Image
         src={photo}
-        alt={`Vue de ${label}`}
+        alt={t.card.photoAlt(label)}
         fill
         sizes={sizes}
         priority={priority}
@@ -44,7 +48,7 @@ export default function DealVisual({
       <svg className="absolute inset-0 h-full w-full opacity-25" viewBox="0 0 400 250" preserveAspectRatio="none" fill="none">
         <path d="M-10 210 C 120 60, 260 60, 410 150" stroke="white" strokeWidth="1.5" strokeDasharray="5 7" />
       </svg>
-      <p className="relative text-[11px] font-semibold uppercase tracking-[0.22em] text-white/60">Vol direct</p>
+      <p className="relative text-[11px] font-semibold uppercase tracking-[0.22em] text-white/60">{t.card.direct}</p>
       <div className="relative">
         <p className="flex items-baseline gap-3 font-bold tracking-wide">
           <span className="text-xl text-white/60">BSL</span>
@@ -53,7 +57,7 @@ export default function DealVisual({
           </svg>
           <span className="text-4xl">{iata ?? label}</span>
         </p>
-        <p className="mt-1 text-sm font-medium text-white/75">Bâle-Mulhouse → {label}</p>
+        <p className="mt-1 text-sm font-medium text-white/75">{t.card.routeLine(t.place.city, label)}</p>
       </div>
     </div>
   );

@@ -4,15 +4,11 @@ import { useMemo, useState } from 'react';
 import { Deal } from '@/types/deal';
 import DealCard from '@/components/DealCard';
 import { formatMonth, saving } from '@/lib/format';
+import { getDict, type Lang } from '@/lib/i18n';
 
 type Sort = 'remise' | 'prix' | 'date';
 
 const BUDGETS = [50, 75, 100, 150];
-const SORTS: { value: Sort; label: string }[] = [
-  { value: 'remise', label: 'Meilleure remise' },
-  { value: 'prix', label: 'Prix croissant' },
-  { value: 'date', label: 'Départ le plus proche' },
-];
 
 function Chip({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
@@ -30,7 +26,13 @@ function Chip({ active, onClick, children }: { active: boolean; onClick: () => v
 }
 
 /** Grille de deals avec filtres (mois de départ, budget) et tri. Tout se passe dans le navigateur. */
-export default function DealExplorer({ deals, defaultSort = 'remise' }: { deals: Deal[]; defaultSort?: Sort }) {
+export default function DealExplorer({ deals, lang, defaultSort = 'remise' }: { deals: Deal[]; lang: Lang; defaultSort?: Sort }) {
+  const t = getDict(lang).explorer;
+  const sorts: { value: Sort; label: string }[] = [
+    { value: 'remise', label: t.sortBest },
+    { value: 'prix', label: t.sortPrice },
+    { value: 'date', label: t.sortDate },
+  ];
   const [month, setMonth] = useState<string | null>(null);
   const [budget, setBudget] = useState<number | null>(null);
   const [sort, setSort] = useState<Sort>(defaultSort);
@@ -56,10 +58,9 @@ export default function DealExplorer({ deals, defaultSort = 'remise' }: { deals:
   if (deals.length === 0) {
     return (
       <div className="card px-6 py-14 text-center">
-        <p className="text-lg font-semibold text-ink">Aucun deal dans cette rubrique pour le moment</p>
+        <p className="text-lg font-semibold text-ink">{t.emptyTitle}</p>
         <p className="mx-auto mt-2 max-w-md text-sm text-ink-soft">
-          Nous ne publions que les prix réellement bas. Les vols sont vérifiés deux fois par semaine : revenez bientôt ou
-          recevez les prochains deals par e-mail.
+          {t.emptyText}
         </p>
       </div>
     );
@@ -70,21 +71,21 @@ export default function DealExplorer({ deals, defaultSort = 'remise' }: { deals:
       <div className="mb-6 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex flex-col gap-3">
           {months.length > 1 && (
-            <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0" role="group" aria-label="Mois de départ">
-              <Chip active={!month} onClick={() => setMonth(null)}>Tous les mois</Chip>
+            <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0" role="group" aria-label={t.monthsAria}>
+              <Chip active={!month} onClick={() => setMonth(null)}>{t.allMonths}</Chip>
               {months.map((m) => (
                 <Chip key={m} active={month === m} onClick={() => setMonth(month === m ? null : m)}>
-                  {formatMonth(m)}
+                  {formatMonth(m, lang)}
                 </Chip>
               ))}
             </div>
           )}
           {budgets.length > 0 && (
-            <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0" role="group" aria-label="Budget maximum">
-              <Chip active={!budget} onClick={() => setBudget(null)}>Tous les budgets</Chip>
+            <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0" role="group" aria-label={t.budgetAria}>
+              <Chip active={!budget} onClick={() => setBudget(null)}>{t.allBudgets}</Chip>
               {budgets.map((b) => (
                 <Chip key={b} active={budget === b} onClick={() => setBudget(budget === b ? null : b)}>
-                  Jusqu&apos;à {b} €
+                  {t.upTo(b)}
                 </Chip>
               ))}
             </div>
@@ -92,13 +93,13 @@ export default function DealExplorer({ deals, defaultSort = 'remise' }: { deals:
         </div>
 
         <label className="flex items-center gap-2 text-sm text-ink-soft">
-          <span className="whitespace-nowrap">Trier par</span>
+          <span className="whitespace-nowrap">{t.sortBy}</span>
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value as Sort)}
             className="rounded-lg border border-line bg-white px-3 py-2 text-sm font-medium text-ink"
           >
-            {SORTS.map((s) => (
+            {sorts.map((s) => (
               <option key={s.value} value={s.value}>{s.label}</option>
             ))}
           </select>
@@ -106,21 +107,20 @@ export default function DealExplorer({ deals, defaultSort = 'remise' }: { deals:
       </div>
 
       <p className="mb-4 text-sm text-ink-muted" aria-live="polite">
-        {shown.length} deal{shown.length > 1 ? 's' : ''}
-        {shown.length !== deals.length ? ` sur ${deals.length}` : ''}
+        {t.count(shown.length, deals.length)}
       </p>
 
       {shown.length === 0 ? (
         <div className="card px-6 py-12 text-center">
-          <p className="font-semibold text-ink">Aucun deal ne correspond à ces filtres</p>
+          <p className="font-semibold text-ink">{t.noMatch}</p>
           <button type="button" onClick={() => { setMonth(null); setBudget(null); }} className="mt-3 text-sm font-semibold text-action hover:underline">
-            Réinitialiser les filtres
+            {t.reset}
           </button>
         </div>
       ) : (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {shown.map((deal, i) => (
-            <DealCard key={deal.id} deal={deal} priority={i < 3} />
+            <DealCard key={deal.id} deal={deal} lang={lang} priority={i < 3} />
           ))}
         </div>
       )}
