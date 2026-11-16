@@ -6,18 +6,27 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!; // clé « publi
 
 export const supabase = createClient(supabaseUrl, supabaseKey, { auth: { persistSession: false } });
 
+/**
+ * Le robot range dans la base ses prix plafond et l'écart calculé avec eux. Ce ne sont pas des prix
+ * de marché : le site ne les affiche pas et ne les envoie pas au navigateur.
+ */
+function strip(row: Deal): Deal {
+  const { original_price, price_average_estimated, discount_percentage, ...deal } = row as Deal & Record<string, unknown>;
+  void original_price; void price_average_estimated; void discount_percentage;
+  return deal as Deal;
+}
+
 function today(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
-/** Deals affichables : actifs et dont le départ n'est pas passé, meilleure remise d'abord. */
+/** Deals affichables : actifs et dont le départ n'est pas passé, les moins chers d'abord. */
 function activeDeals() {
   return supabase
     .from('deals')
     .select('*')
     .eq('is_active', true)
     .gte('departure_date', today())
-    .order('discount_percentage', { ascending: false, nullsFirst: false })
     .order('price', { ascending: true });
 }
 
@@ -27,7 +36,7 @@ async function run(label: string, query: PromiseLike<{ data: Deal[] | null; erro
     console.error(`Supabase ${label}:`, error.message);
     return [];
   }
-  return data ?? [];
+  return (data ?? []).map(strip);
 }
 
 export function getDeals(limit = 60): Promise<Deal[]> {
@@ -66,7 +75,7 @@ export async function getDealById(id: string): Promise<Deal | null> {
     console.error('Supabase getDealById:', error.message);
     return null;
   }
-  return data;
+  return data ? strip(data) : null;
 }
 
 export async function getAllDealIds(): Promise<string[]> {

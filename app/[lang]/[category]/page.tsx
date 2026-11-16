@@ -55,7 +55,7 @@ export default async function SectionPage({ params }: Props) {
         <p className="mt-3 text-ink-soft">{text.intro}</p>
       </header>
 
-      <DealExplorer deals={deals} lang={lang} defaultSort={upcoming ? 'date' : 'remise'} />
+      <DealExplorer deals={deals} lang={lang} defaultSort={upcoming ? 'date' : 'prix'} />
     </div>
   );
 }

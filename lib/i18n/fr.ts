@@ -4,8 +4,8 @@ export const fr = {
   meta: {
     defaultTitle: 'Vols directs pas chers au départ de Bâle-Mulhouse',
     description:
-      "Les vols directs à prix réellement bas au départ de l'EuroAirport Bâle-Mulhouse : chaque prix est comparé au tarif habituel de la destination. Site indépendant, mis à jour deux fois par semaine.",
-    ogDescription: 'Uniquement les prix réellement bas, comparés au tarif habituel de chaque destination.',
+      "Les vols directs à petit prix au départ de l'EuroAirport Bâle-Mulhouse, vers une cinquantaine de destinations. Site indépendant, mis à jour deux fois par semaine.",
+    ogDescription: 'Des vols directs à petit prix vers une cinquantaine de destinations, relevés deux fois par semaine.',
   },
   place: {
     airport: 'EuroAirport Bâle-Mulhouse-Fribourg',
@@ -62,7 +62,7 @@ export const fr = {
   },
   footer: {
     about: (airport: string) =>
-      `Site indépendant qui repère les vols directs à prix réellement bas au départ de l'${airport}. Nous ne vendons pas de billets : la réservation se fait chez notre partenaire.`,
+      `Site indépendant qui repère les vols directs à petit prix au départ de l'${airport}. Nous ne vendons pas de billets : la réservation se fait chez notre partenaire.`,
     dealsHeading: 'Les deals',
     dealsAria: 'Rubriques',
     allDeals: 'Tous les deals',
@@ -80,7 +80,6 @@ export const fr = {
   },
   card: {
     direct: 'Vol direct',
-    usualPrice: 'Prix habituel',
     roundTrip: 'aller-retour',
     seeDeal: 'Voir le deal',
     photoAlt: (label: string) => `Vue de ${label}`,
@@ -88,13 +87,12 @@ export const fr = {
     routeLine: (city: string, label: string) => `${city} → ${label}`,
   },
   explorer: {
-    sortBest: 'Meilleure remise',
     sortPrice: 'Prix croissant',
     sortDate: 'Départ le plus proche',
     sortBy: 'Trier par',
     emptyTitle: 'Aucun deal dans cette rubrique pour le moment',
     emptyText:
-      'Nous ne publions que les prix réellement bas. Les vols sont vérifiés deux fois par semaine : revenez bientôt ou recevez les prochains deals par e-mail.',
+      'Nous ne publions que les petits prix. Les vols sont vérifiés deux fois par semaine : revenez bientôt ou recevez les prochains deals par e-mail.',
     monthsAria: 'Mois de départ',
     allMonths: 'Tous les mois',
     budgetAria: 'Budget maximum',
@@ -117,15 +115,14 @@ export const fr = {
     privacy: 'Confidentialité',
   },
   home: {
-    h1: (city: string) => `Les vols directs à prix réellement bas, au départ de ${city}`,
-    lead: (min: number) =>
-      `Nous comparons chaque vol au prix habituel de sa destination et ne publions que ceux qui sont au moins ${min} % moins chers. Pas de fausses promotions.`,
+    h1: (city: string) => `Les vols directs à petit prix, au départ de ${city}`,
+    lead:
+      'Deux fois par semaine, nous relevons les prix des vols directs vers une cinquantaine de destinations et ne publions que ceux qui passent sous le prix plafond que nous nous fixons pour chacune.',
     ctaDeals: 'Voir les deals du moment',
     ctaMethod: 'Notre méthode',
     statDeals: 'Deals en ligne',
-    statBest: 'Meilleure remise',
+    statDestinations: 'Destinations',
     statFrom: 'Aller-retour dès',
-    notAvailable: 'n. c.',
     dealsHeading: 'Les deals du moment',
     lastUpdate: (date: string) => `Dernier relevé de prix : ${date}`,
     sectionsAria: 'Rubriques',
@@ -134,14 +131,14 @@ export const fr = {
     hotelsText: (city: string) =>
       `Des offres repérées par nos soins, directement sur le site des hôteliers, dans les villes desservies depuis ${city}.`,
     stepsHeading: 'Comment nous sélectionnons les deals',
-    steps: (min: number, partner: string) => [
+    steps: (partner: string) => [
       {
         title: 'Nous relevons les prix',
         text: 'Deux fois par semaine, notre outil relève les prix des vols directs aller-retour vers une cinquantaine de destinations, sur les neuf mois à venir.',
       },
       {
-        title: 'Nous les comparons au prix habituel',
-        text: `Chaque prix est comparé au tarif habituel de la destination pour la saison. Nous ne gardons que les vols au moins ${min} % moins chers.`,
+        title: 'Nous ne gardons que les petits prix',
+        text: 'Pour chaque destination, nous nous fixons un prix plafond. Seuls les vols directs qui passent en dessous sont publiés.',
       },
       {
         title: 'Vous réservez chez notre partenaire',
@@ -163,7 +160,7 @@ export const fr = {
       },
       {
         q: 'Comment le site est-il financé ?',
-        a: "Par l'affiliation : si vous réservez après avoir cliqué sur un de nos liens, notre partenaire peut nous reverser une commission. Cela ne change pas le prix que vous payez et n'influence pas notre sélection, qui repose uniquement sur l'écart avec le prix habituel.",
+        a: "Par l'affiliation : si vous réservez après avoir cliqué sur un de nos liens, notre partenaire peut nous reverser une commission. Cela ne change pas le prix que vous payez et n'influence pas notre sélection, qui repose uniquement sur le prix du vol.",
       },
       {
         q: "D'où partent les vols ?",
@@ -174,10 +171,8 @@ export const fr = {
   deal: {
     notFoundTitle: 'Deal introuvable',
     metaTitle: (city: string, label: string, price: string) => `${city} → ${label} à ${price} aller-retour`,
-    metaDescription: (city: string, label: string, price: string, percent: number | null, date: string) =>
-      `Vol direct aller-retour vers ${label} au départ de ${city} à ${price}${
-        percent ? `, soit ${percent} % sous le prix habituel` : ''
-      }. Prix constaté le ${date}.`,
+    metaDescription: (city: string, label: string, price: string, date: string) =>
+      `Vol direct aller-retour vers ${label} au départ de ${city} à ${price}. Prix constaté le ${date}.`,
     eyebrow: (city: string) => `Vol direct au départ de ${city}`,
     detailsAria: 'Détails du vol',
     departure: 'Départ',
@@ -209,10 +204,7 @@ export const fr = {
       },
     ],
     asideAria: 'Prix et réservation',
-    belowUsual: (percent: number) => `−${percent} % par rapport au prix habituel`,
     perPerson: 'aller-retour par personne, taxes comprises',
-    usualForSeason: 'Prix habituel pour la saison',
-    estimatedSaving: 'Économie estimée',
     bookOn: (partner: string) => `Voir ce vol sur ${partner}`,
     partnerNote:
       "Lien partenaire : s'ouvre dans un nouvel onglet, avec les dates déjà remplies. Si vous réservez, nous pouvons toucher une commission, sans surcoût pour vous.",
@@ -268,10 +260,9 @@ export const fr = {
       `${label} fait partie des destinations que nous surveillons en vol direct au départ de l'${airport}. Voici notre programme jour par jour pour en profiter, les bons prix du moment pour y aller et de quoi trouver où dormir.`,
     flightsAria: 'Vols du moment',
     flightsHeading: (label: string) => `Les vols du moment vers ${label}`,
-    flightsText: (city: string, min: number) =>
-      `Vols directs aller-retour au départ de ${city}, au moins ${min} % sous le prix habituel.`,
+    flightsText: (city: string) => `Vols directs aller-retour au départ de ${city}, relevés deux fois par semaine.`,
     noFlights: (label: string) =>
-      `Pas de vol à prix cassé vers ${label} en ce moment. Nous relevons les prix deux fois par semaine : les alertes vous préviennent dès qu'un bon prix apparaît.`,
+      `Pas de vol à petit prix vers ${label} en ce moment. Nous relevons les prix deux fois par semaine : les alertes vous préviennent dès qu'un bon prix apparaît.`,
     daysHeading: (label: string) => `${label} jour par jour`,
     daysText:
       "Pour un week-end, suivez les trois premières journées : ce sont les incontournables. Pour une semaine, ajoutez les excursions des journées suivantes, dans l'ordre qui vous convient.",
@@ -293,12 +284,12 @@ export const fr = {
   alerts: {
     metaTitle: 'Alertes deals par e-mail',
     metaDescription: (city: string) =>
-      `Recevez par e-mail les vols directs à prix réellement bas au départ de ${city}, dès leur publication.`,
+      `Recevez par e-mail les vols directs à petit prix au départ de ${city}, dès leur publication.`,
     eyebrow: 'Alertes par e-mail',
     h1: (city: string) => `Les bons prix au départ de ${city}, directement dans votre boîte`,
     lead: "Les meilleurs tarifs disparaissent en quelques jours. Inscrivez-vous pour être prévenu dès qu'ils sont publiés.",
-    points: (min: number) => [
-      ['Uniquement de vrais bons prix', `Des vols directs au moins ${min} % sous le prix habituel de la destination.`],
+    points: [
+      ['Uniquement des petits prix', 'Des vols directs sous le prix plafond que nous nous fixons pour chaque destination.'],
       ['Peu de messages', 'Un e-mail quand de nouveaux deals sont publiés, deux fois par semaine au maximum.'],
       ['Gratuit et sans engagement', "Désinscription en un clic, votre adresse ne sert à rien d'autre."],
     ],

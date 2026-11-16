@@ -36,7 +36,7 @@ function Fr({ airport }: { airport: string }) {
       <h1 className="mt-2 text-3xl font-bold tracking-tight text-ink sm:text-4xl">Notre méthode</h1>
       <p className="mt-4 text-lg">
         {SITE.name} est un site indépendant. Nous ne vendons pas de billets : nous repérons les vols directs
-        anormalement bon marché au départ de l&apos;{airport} et vous renvoyons vers un site de réservation.
+        à petit prix au départ de l&apos;{airport} et vous renvoyons vers un site de réservation.
       </p>
 
       <h2>D&apos;où viennent les prix</h2>
@@ -52,15 +52,13 @@ function Fr({ airport }: { airport: string }) {
         <li>Un vol <strong>direct</strong> à l&apos;aller comme au retour.</li>
         <li>Un <strong>aller-retour</strong> de 2 à 15 nuits sur place.</li>
         <li>
-          Un prix au moins <strong>{SITE.minDiscount} % inférieur au prix habituel</strong> de la destination pour la
-          saison du départ.
+          Un prix inférieur au <strong>prix plafond</strong> que nous nous fixons pour la destination.
         </li>
         <li>Au plus trois deals par destination, sur des mois différents.</li>
       </ul>
       <p>
-        Le « prix habituel » est une référence que nous tenons pour chaque destination et chaque saison. C&apos;est une
-        estimation, pas une moyenne officielle : elle sert à écarter les prix simplement corrects et à ne garder que les
-        écarts nets. Aucun deal n&apos;est choisi ou rédigé à la main, et aucun deal n&apos;est mis en avant contre
+        Ce prix plafond est un choix de notre part, pas un tarif officiel ni une moyenne du marché : il sert à écarter
+        les vols que nous jugeons trop chers. Aucun deal n&apos;est choisi ou rédigé à la main, et aucun deal n&apos;est mis en avant contre
         rémunération.
       </p>
 
@@ -82,7 +80,7 @@ function Fr({ airport }: { airport: string }) {
       <p>
         Le bouton de réservation ouvre {SITE.bookingPartner} avec un lien d&apos;affiliation. Si vous réservez, ce
         partenaire peut nous reverser une commission. Vous ne payez rien de plus, et cela n&apos;intervient pas dans la
-        sélection : celle-ci dépend uniquement de l&apos;écart entre le prix constaté et le prix habituel. Vous pouvez
+        sélection : celle-ci dépend uniquement du prix constaté. Vous pouvez
         aussi réserver directement auprès de la compagnie aérienne.
       </p>
       <p>
@@ -104,7 +102,7 @@ function De({ airport }: { airport: string }) {
       <p className="eyebrow">Transparenz</p>
       <h1 className="mt-2 text-3xl font-bold tracking-tight text-ink sm:text-4xl">Unsere Methode</h1>
       <p className="mt-4 text-lg">
-        {SITE.name} ist eine unabhängige Website. Wir verkaufen keine Tickets: Wir spüren ungewöhnlich günstige
+        {SITE.name} ist eine unabhängige Website. Wir verkaufen keine Tickets: Wir spüren günstige
         Direktflüge ab dem {airport} auf und leiten Sie zu einer Buchungsseite weiter.
       </p>
 
@@ -121,15 +119,13 @@ function De({ airport }: { airport: string }) {
         <li>Ein <strong>Direktflug</strong> auf dem Hin- und dem Rückweg.</li>
         <li>Ein <strong>Hin- und Rückflug</strong> mit 2 bis 15 Nächten vor Ort.</li>
         <li>
-          Ein Preis, der mindestens <strong>{SITE.minDiscount} % unter dem üblichen Preis</strong> des Reiseziels für
-          die Reisesaison liegt.
+          Ein Preis unter der <strong>Preisobergrenze</strong>, die wir für das Reiseziel selbst festlegen.
         </li>
         <li>Höchstens drei Deals pro Reiseziel, in verschiedenen Monaten.</li>
       </ul>
       <p>
-        Der „übliche Preis“ ist ein Richtwert, den wir für jedes Reiseziel und jede Saison führen. Er ist eine
-        Schätzung, kein offizieller Durchschnitt: Er dient dazu, lediglich ordentliche Preise auszusortieren und nur
-        deutliche Abweichungen zu behalten. Kein Deal wird von Hand ausgewählt oder verfasst, und kein Deal wird gegen
+        Diese Preisobergrenze ist unsere eigene Entscheidung, kein offizieller Tarif und kein Marktdurchschnitt: Sie
+        dient dazu, Flüge auszusortieren, die wir zu teuer finden. Kein Deal wird von Hand ausgewählt oder verfasst, und kein Deal wird gegen
         Bezahlung hervorgehoben.
       </p>
 
@@ -150,7 +146,7 @@ function De({ airport }: { airport: string }) {
       <p>
         Die Buchungsschaltfläche öffnet {SITE.bookingPartner} über einen Partnerlink. Wenn Sie buchen, kann uns dieser
         Partner eine Provision zahlen. Sie zahlen nichts zusätzlich, und die Auswahl wird davon nicht beeinflusst: Sie
-        hängt allein vom Abstand zwischen dem festgestellten und dem üblichen Preis ab. Sie können auch direkt bei der
+        hängt allein vom festgestellten Preis ab. Sie können auch direkt bei der
         Airline buchen.
       </p>
       <p>
@@ -172,7 +168,7 @@ function En({ airport }: { airport: string }) {
       <p className="eyebrow">Transparency</p>
       <h1 className="mt-2 text-3xl font-bold tracking-tight text-ink sm:text-4xl">Our method</h1>
       <p className="mt-4 text-lg">
-        {SITE.name} is an independent site. We do not sell tickets: we spot unusually cheap direct flights from{' '}
+        {SITE.name} is an independent site. We do not sell tickets: we spot cheap direct flights from{' '}
         {airport} and send you to a booking site.
       </p>
 
@@ -188,14 +184,13 @@ function En({ airport }: { airport: string }) {
         <li>A <strong>direct</strong> flight both ways.</li>
         <li>A <strong>return trip</strong> with 2 to 15 nights at the destination.</li>
         <li>
-          A price at least <strong>{SITE.minDiscount}% below the usual price</strong> for the destination in the
-          season of departure.
+          A price below the <strong>price ceiling</strong> we set ourselves for the destination.
         </li>
         <li>No more than three deals per destination, in different months.</li>
       </ul>
       <p>
-        The &quot;usual price&quot; is a reference we keep for each destination and each season. It is an estimate,
-        not an official average: it is used to rule out prices that are merely decent and keep only clear gaps. No
+        This price ceiling is our own choice, not an official fare or a market average: it is used to rule out
+        flights we consider too expensive. No
         deal is chosen or written by hand, and no deal is promoted in exchange for payment.
       </p>
 
@@ -215,8 +210,8 @@ function En({ airport }: { airport: string }) {
       <h2>How the site is funded</h2>
       <p>
         The booking button opens {SITE.bookingPartner} through an affiliate link. If you book, this partner may pay
-        us a commission. You pay nothing extra, and it plays no part in the selection, which depends solely on the gap
-        between the observed price and the usual price. You can also book directly with the airline.
+        us a commission. You pay nothing extra, and it plays no part in the selection, which depends solely on the
+        observed price. You can also book directly with the airline.
       </p>
       <p>
         The site may also feature partner businesses (hotels, car parks, shuttles). Their listings are kept separate

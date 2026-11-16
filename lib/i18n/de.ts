@@ -6,8 +6,8 @@ export const de: Dict = {
   meta: {
     defaultTitle: 'Günstige Direktflüge ab Basel-Mulhouse',
     description:
-      'Direktflüge zu wirklich niedrigen Preisen ab dem EuroAirport Basel-Mulhouse: Jeder Preis wird mit dem üblichen Tarif des Reiseziels verglichen. Unabhängige Website, zweimal pro Woche aktualisiert.',
-    ogDescription: 'Nur wirklich niedrige Preise, verglichen mit dem üblichen Tarif jedes Reiseziels.',
+      'Günstige Direktflüge ab dem EuroAirport Basel-Mulhouse zu rund fünfzig Reisezielen. Unabhängige Website, zweimal pro Woche aktualisiert.',
+    ogDescription: 'Günstige Direktflüge zu rund fünfzig Reisezielen, zweimal pro Woche erfasst.',
   },
   place: {
     airport: 'EuroAirport Basel-Mulhouse-Freiburg',
@@ -64,7 +64,7 @@ export const de: Dict = {
   },
   footer: {
     about: (airport) =>
-      `Unabhängige Website, die Direktflüge zu wirklich niedrigen Preisen ab dem ${airport} aufspürt. Wir verkaufen keine Tickets: Die Buchung erfolgt bei unserem Partner.`,
+      `Unabhängige Website, die günstige Direktflüge ab dem ${airport} aufspürt. Wir verkaufen keine Tickets: Die Buchung erfolgt bei unserem Partner.`,
     dealsHeading: 'Die Deals',
     dealsAria: 'Rubriken',
     allDeals: 'Alle Deals',
@@ -82,7 +82,6 @@ export const de: Dict = {
   },
   card: {
     direct: 'Direktflug',
-    usualPrice: 'Üblicher Preis',
     roundTrip: 'Hin- und Rückflug',
     seeDeal: 'Deal ansehen',
     photoAlt: (label) => `Ansicht: ${label}`,
@@ -90,13 +89,12 @@ export const de: Dict = {
     routeLine: (city, label) => `${city} → ${label}`,
   },
   explorer: {
-    sortBest: 'Größter Rabatt',
     sortPrice: 'Preis aufsteigend',
     sortDate: 'Nächster Abflug',
     sortBy: 'Sortieren nach',
     emptyTitle: 'Zurzeit kein Deal in dieser Rubrik',
     emptyText:
-      'Wir veröffentlichen nur wirklich niedrige Preise. Die Flüge werden zweimal pro Woche geprüft: Schauen Sie bald wieder vorbei oder erhalten Sie die nächsten Deals per E-Mail.',
+      'Wir veröffentlichen nur günstige Preise. Die Flüge werden zweimal pro Woche geprüft: Schauen Sie bald wieder vorbei oder erhalten Sie die nächsten Deals per E-Mail.',
     monthsAria: 'Abflugmonat',
     allMonths: 'Alle Monate',
     budgetAria: 'Maximales Budget',
@@ -118,15 +116,14 @@ export const de: Dict = {
     privacy: 'Datenschutz',
   },
   home: {
-    h1: (city) => `Direktflüge zu wirklich niedrigen Preisen ab ${city}`,
-    lead: (min) =>
-      `Wir vergleichen jeden Flug mit dem üblichen Preis seines Reiseziels und veröffentlichen nur Flüge, die mindestens ${min} % günstiger sind. Keine Scheinangebote.`,
+    h1: (city) => `Günstige Direktflüge ab ${city}`,
+    lead:
+      'Zweimal pro Woche erfassen wir die Preise für Direktflüge zu rund fünfzig Reisezielen und veröffentlichen nur Flüge, die unter der Preisobergrenze liegen, die wir für jedes Reiseziel selbst festlegen.',
     ctaDeals: 'Aktuelle Deals ansehen',
     ctaMethod: 'Unsere Methode',
     statDeals: 'Deals online',
-    statBest: 'Größter Rabatt',
+    statDestinations: 'Reiseziele',
     statFrom: 'Hin und zurück ab',
-    notAvailable: 'k. A.',
     dealsHeading: 'Die aktuellen Deals',
     lastUpdate: (date) => `Letzte Preisabfrage: ${date}`,
     sectionsAria: 'Rubriken',
@@ -135,14 +132,14 @@ export const de: Dict = {
     hotelsText: (city) =>
       `Von uns entdeckte Angebote, direkt auf den Websites der Hotels, in Städten mit Direktflug ab ${city}.`,
     stepsHeading: 'So wählen wir die Deals aus',
-    steps: (min, partner) => [
+    steps: (partner) => [
       {
         title: 'Wir erfassen die Preise',
         text: 'Zweimal pro Woche erfasst unser Tool die Preise für Direktflüge (Hin- und Rückflug) zu rund fünfzig Reisezielen für die kommenden neun Monate.',
       },
       {
-        title: 'Wir vergleichen mit dem üblichen Preis',
-        text: `Jeder Preis wird mit dem für die Saison üblichen Tarif des Reiseziels verglichen. Wir behalten nur Flüge, die mindestens ${min} % günstiger sind.`,
+        title: 'Wir behalten nur günstige Preise',
+        text: 'Für jedes Reiseziel legen wir selbst eine Preisobergrenze fest. Veröffentlicht werden nur Direktflüge, die darunter liegen.',
       },
       {
         title: 'Sie buchen bei unserem Partner',
@@ -164,7 +161,7 @@ export const de: Dict = {
       },
       {
         q: 'Wie finanziert sich die Website?',
-        a: 'Über Partnerlinks: Wenn Sie nach einem Klick auf einen unserer Links buchen, kann unser Partner uns eine Provision zahlen. Das ändert weder Ihren Preis noch unsere Auswahl, die allein auf dem Abstand zum üblichen Preis beruht.',
+        a: 'Über Partnerlinks: Wenn Sie nach einem Klick auf einen unserer Links buchen, kann unser Partner uns eine Provision zahlen. Das ändert weder Ihren Preis noch unsere Auswahl, die allein auf dem Flugpreis beruht.',
       },
       {
         q: 'Von wo starten die Flüge?',
@@ -175,10 +172,8 @@ export const de: Dict = {
   deal: {
     notFoundTitle: 'Deal nicht gefunden',
     metaTitle: (city, label, price) => `${city} → ${label} für ${price} hin und zurück`,
-    metaDescription: (city, label, price, percent, date) =>
-      `Direktflug hin und zurück nach ${label} ab ${city} für ${price}${
-        percent ? `, ${percent} % unter dem üblichen Preis` : ''
-      }. Preis festgestellt am ${date}.`,
+    metaDescription: (city, label, price, date) =>
+      `Direktflug hin und zurück nach ${label} ab ${city} für ${price}. Preis festgestellt am ${date}.`,
     eyebrow: (city) => `Direktflug ab ${city}`,
     detailsAria: 'Flugdetails',
     departure: 'Hinflug',
@@ -210,10 +205,7 @@ export const de: Dict = {
       },
     ],
     asideAria: 'Preis und Buchung',
-    belowUsual: (percent) => `−${percent} % gegenüber dem üblichen Preis`,
     perPerson: 'hin und zurück pro Person, inklusive Steuern',
-    usualForSeason: 'Üblicher Preis in der Saison',
-    estimatedSaving: 'Geschätzte Ersparnis',
     bookOn: (partner) => `Flug auf ${partner} ansehen`,
     partnerNote:
       'Partnerlink: öffnet sich in einem neuen Tab, die Daten sind bereits ausgefüllt. Wenn Sie buchen, können wir eine Provision erhalten, ohne Mehrkosten für Sie.',
@@ -267,9 +259,9 @@ export const de: Dict = {
       `${label} gehört zu den Reisezielen, die wir per Direktflug ab dem ${airport} beobachten. Hier finden Sie unser Programm Tag für Tag, die aktuellen günstigen Preise für die Anreise und Hinweise zur Unterkunft.`,
     flightsAria: 'Aktuelle Flüge',
     flightsHeading: (label) => `Aktuelle Flüge nach ${label}`,
-    flightsText: (city, min) => `Direktflüge hin und zurück ab ${city}, mindestens ${min} % unter dem üblichen Preis.`,
+    flightsText: (city) => `Direktflüge hin und zurück ab ${city}, zweimal pro Woche erfasst.`,
     noFlights: (label) =>
-      `Zurzeit kein besonders günstiger Flug nach ${label}. Wir erfassen die Preise zweimal pro Woche: Der Preisalarm informiert Sie, sobald ein guter Preis auftaucht.`,
+      `Zurzeit kein günstiger Flug nach ${label}. Wir erfassen die Preise zweimal pro Woche: Der Preisalarm informiert Sie, sobald ein guter Preis auftaucht.`,
     daysHeading: (label) => `${label} Tag für Tag`,
     daysText:
       'Für ein Wochenende folgen Sie den ersten drei Tagen: Das sind die Höhepunkte. Für eine Woche kommen die Ausflüge der folgenden Tage hinzu, in der Reihenfolge, die Ihnen passt.',
@@ -291,12 +283,12 @@ export const de: Dict = {
   alerts: {
     metaTitle: 'Preisalarm per E-Mail',
     metaDescription: (city) =>
-      `Erhalten Sie Direktflüge zu wirklich niedrigen Preisen ab ${city} per E-Mail, sobald sie veröffentlicht werden.`,
+      `Erhalten Sie günstige Direktflüge ab ${city} per E-Mail, sobald sie veröffentlicht werden.`,
     eyebrow: 'Preisalarm per E-Mail',
     h1: (city) => `Gute Preise ab ${city}, direkt in Ihrem Postfach`,
     lead: 'Die besten Tarife verschwinden innerhalb weniger Tage. Melden Sie sich an, um informiert zu werden, sobald sie veröffentlicht sind.',
-    points: (min) => [
-      ['Nur wirklich gute Preise', `Direktflüge mindestens ${min} % unter dem üblichen Preis des Reiseziels.`],
+    points: [
+      ['Nur günstige Preise', 'Direktflüge unter der Preisobergrenze, die wir für jedes Reiseziel selbst festlegen.'],
       ['Wenige Nachrichten', 'Eine E-Mail, wenn neue Deals veröffentlicht werden, höchstens zweimal pro Woche.'],
       ['Kostenlos und unverbindlich', 'Abmeldung mit einem Klick, Ihre Adresse wird für nichts anderes verwendet.'],
     ],

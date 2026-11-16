@@ -13,7 +13,6 @@ import { activeHotelPicks } from '@/lib/hotel-picks';
 import { HOTEL_PARTNER, hotelCityLink } from '@/lib/hotels';
 import { fullItinerary } from '@/lib/itineraries';
 import { partnersForDestination } from '@/lib/partners';
-import { SITE } from '@/lib/site';
 import { getDealsByDestination } from '@/lib/supabase';
 import { LOCALES, alternatesFor, getDict, isLang, localePath } from '@/lib/i18n';
 import { langParam } from '@/lib/i18n/params';
@@ -88,7 +87,7 @@ export default async function GuidePage({ params }: Props) {
         <h2 className="text-2xl font-bold tracking-tight text-ink">{t.flightsHeading(label)}</h2>
         {deals.length > 0 ? (
           <>
-            <p className="mt-1 text-sm text-ink-muted">{t.flightsText(dict.place.city, SITE.minDiscount)}</p>
+            <p className="mt-1 text-sm text-ink-muted">{t.flightsText(dict.place.city)}</p>
             <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {deals.map((d) => (
                 <DealCard key={d.id} deal={d} lang={lang} />

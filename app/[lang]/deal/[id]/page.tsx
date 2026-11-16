@@ -7,7 +7,7 @@ import PartnerCard from '@/components/PartnerCard';
 import { partnersForDestination } from '@/lib/partners';
 import DealVisual from '@/components/DealVisual';
 import {
-  airlineName, daysUntil, destinationCountry, destinationLabel, formatDay, formatDayLong, formatPrice, formatStamp, nights, saving,
+  airlineName, daysUntil, destinationCountry, destinationLabel, formatDay, formatDayLong, formatPrice, formatStamp, nights,
 } from '@/lib/format';
 import { itineraryFor } from '@/lib/itineraries';
 import { guidePath } from '@/lib/guides';
@@ -38,10 +38,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!deal) return { title: dict.deal.notFoundTitle };
   const label = destinationLabel(deal.destination, lang);
   const price = formatPrice(deal.price, lang);
-  const save = saving(deal);
   return {
     title: dict.deal.metaTitle(dict.place.city, label, price),
-    description: dict.deal.metaDescription(dict.place.city, label, price, save?.percent ?? null, formatStamp(deal.created_at, lang)),
+    description: dict.deal.metaDescription(dict.place.city, label, price, formatStamp(deal.created_at, lang)),
     alternates: alternatesFor(lang, `/deal/${deal.id}`),
   };
 }
@@ -67,7 +66,6 @@ export default async function DealPage({ params }: Props) {
   const label = destinationLabel(deal.destination, lang);
   const country = destinationCountry(deal.destination, lang);
   const section = getSection(deal.category);
-  const save = saving(deal);
   const airline = airlineName(deal.airline);
   const n = nights(deal);
   const stay = n ? dict.card.nights(n) : null;
@@ -166,26 +164,8 @@ export default async function DealPage({ params }: Props) {
         </div>
 
         <aside className="card p-6 lg:sticky lg:top-24" aria-label={t.asideAria}>
-          {save && (
-            <p className="inline-block rounded-md bg-saving-soft px-2.5 py-1 text-sm font-bold text-saving">
-              {t.belowUsual(save.percent)}
-            </p>
-          )}
-          <p className="mt-4 text-5xl font-bold tracking-tight text-ink">{formatPrice(deal.price, lang)}</p>
+          <p className="text-5xl font-bold tracking-tight text-ink">{formatPrice(deal.price, lang)}</p>
           <p className="mt-1 text-sm text-ink-muted">{t.perPerson}</p>
-
-          {save && (
-            <dl className="mt-5 space-y-2 border-t border-line pt-5 text-sm">
-              <div className="flex justify-between gap-4">
-                <dt className="text-ink-muted">{t.usualForSeason}</dt>
-                <dd className="text-ink-soft line-through">{formatPrice(save.reference, lang)}</dd>
-              </div>
-              <div className="flex justify-between gap-4">
-                <dt className="text-ink-muted">{t.estimatedSaving}</dt>
-                <dd className="font-semibold text-saving">{formatPrice(save.amount, lang)}</dd>
-              </div>
-            </dl>
-          )}
 
           {available ? (
             <>

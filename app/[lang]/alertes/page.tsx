@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import NewsletterForm from '@/components/NewsletterForm';
-import { SITE } from '@/lib/site';
 import { alternatesFor, getDict, isLang } from '@/lib/i18n';
 import { langParam } from '@/lib/i18n/params';
 
@@ -35,7 +34,7 @@ export default async function AlertesPage({ params }: Props) {
         </div>
 
         <ul className="mt-10 space-y-5">
-          {t.points(SITE.minDiscount).map(([title, text]) => (
+          {t.points.map(([title, text]) => (
             <li key={title} className="flex gap-4">
               <span className="mt-1 flex h-6 w-6 flex-none items-center justify-center rounded-full bg-saving-soft text-saving" aria-hidden="true">
                 <svg viewBox="0 0 20 20" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m4 10 4 4 8-8" /></svg>

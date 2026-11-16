@@ -77,17 +77,6 @@ export function nights(deal: Deal): number | null {
   return Math.round((parseDay(deal.return_date).getTime() - parseDay(deal.departure_date).getTime()) / 86_400_000);
 }
 
-/** Prix habituel et remise : uniquement si le robot les a fournis et qu'ils sont cohérents. */
-export function saving(deal: Deal): { reference: number; percent: number; amount: number } | null {
-  let reference = deal.original_price ?? deal.price_average_estimated ?? null;
-  // Deals publiés avant la v2 du robot : seule la remise est stockée, on en déduit le prix habituel.
-  const pct = deal.discount_percentage;
-  if (!reference && pct && pct > 0 && pct < 100) reference = deal.price / (1 - pct / 100);
-  if (!reference || reference <= deal.price) return null;
-  const percent = Math.round(((reference - deal.price) / reference) * 100);
-  return percent >= 1 ? { reference: Math.round(reference), percent, amount: Math.round(reference - deal.price) } : null;
-}
-
 export function daysUntil(day: string, from = new Date()): number {
   const today = Date.UTC(from.getUTCFullYear(), from.getUTCMonth(), from.getUTCDate());
   return Math.round((parseDay(day).getTime() - today) / 86_400_000);

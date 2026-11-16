@@ -1,14 +1,13 @@
 import Link from 'next/link';
 import { Deal } from '@/types/deal';
 import DealVisual from '@/components/DealVisual';
-import { airlineName, destinationCountry, destinationLabel, formatDay, formatPrice, nights, saving } from '@/lib/format';
+import { airlineName, destinationCountry, destinationLabel, formatDay, formatPrice, nights } from '@/lib/format';
 import { getDict, localePath, type Lang } from '@/lib/i18n';
 
 export default function DealCard({ deal, lang, priority = false }: { deal: Deal; lang: Lang; priority?: boolean }) {
   const t = getDict(lang);
   const label = destinationLabel(deal.destination, lang);
   const country = destinationCountry(deal.destination, lang);
-  const save = saving(deal);
   const airline = airlineName(deal.airline);
   const n = nights(deal);
   const stay = n ? t.card.nights(n) : null;
@@ -20,11 +19,6 @@ export default function DealCard({ deal, lang, priority = false }: { deal: Deal;
           <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-[1.03]">
             <DealVisual destination={deal.destination} lang={lang} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" priority={priority} />
           </div>
-          {save && (
-            <span className="absolute right-3 top-3 rounded-md bg-saving px-2 py-1 text-sm font-bold text-white shadow-sm">
-              −{save.percent} %
-            </span>
-          )}
         </div>
 
         <div className="flex flex-1 flex-col p-4">
@@ -43,11 +37,6 @@ export default function DealCard({ deal, lang, priority = false }: { deal: Deal;
 
           <div className="mt-auto flex items-end justify-between pt-4">
             <div>
-              {save && (
-                <p className="text-xs text-ink-muted">
-                  {t.card.usualPrice} <span className="line-through">{formatPrice(save.reference, lang)}</span>
-                </p>
-              )}
               <p className="text-2xl font-bold leading-none text-ink">
                 {formatPrice(deal.price, lang)}
                 <span className="ml-1.5 text-xs font-medium text-ink-muted">{t.card.roundTrip}</span>

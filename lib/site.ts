@@ -9,8 +9,6 @@ export const SITE = {
   airport: 'EuroAirport Bâle-Mulhouse-Fribourg',
   /** Boîte Gmail dédiée au site. À remplacer par contact@flybsl.com une fois le domaine acheté. */
   contactEmail: 'flybslmlh@gmail.com',
-  /** Remise minimale appliquée par le robot (pipeline/dealhunter.py, MIN_DISCOUNT_PCT). */
-  minDiscount: 15,
   bookingPartner: 'Kiwi.com',
 } as const;
 

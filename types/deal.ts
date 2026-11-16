@@ -7,10 +7,6 @@ export interface Deal {
   title: string;
   description?: string | null;
   price: number;
-  /** Prix habituel de la destination pour la saison (référence de la remise). */
-  original_price?: number | null;
-  price_average_estimated?: number | null;
-  discount_percentage?: number | null;
   destination: string;
   departure_city?: string | null;
   departure_date?: string | null;

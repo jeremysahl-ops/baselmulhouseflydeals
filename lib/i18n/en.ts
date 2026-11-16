@@ -5,8 +5,8 @@ export const en: Dict = {
   meta: {
     defaultTitle: 'Cheap direct flights from Basel-Mulhouse',
     description:
-      'Direct flights at genuinely low prices from EuroAirport Basel-Mulhouse: every price is compared with the usual fare for the destination. Independent site, updated twice a week.',
-    ogDescription: 'Only genuinely low prices, compared with the usual fare for each destination.',
+      'Cheap direct flights from EuroAirport Basel-Mulhouse to around fifty destinations. Independent site, updated twice a week.',
+    ogDescription: 'Cheap direct flights to around fifty destinations, checked twice a week.',
   },
   place: {
     airport: 'EuroAirport Basel-Mulhouse-Freiburg',
@@ -63,7 +63,7 @@ export const en: Dict = {
   },
   footer: {
     about: (airport) =>
-      `Independent site that spots direct flights at genuinely low prices from ${airport}. We do not sell tickets: you book with our partner.`,
+      `Independent site that spots cheap direct flights from ${airport}. We do not sell tickets: you book with our partner.`,
     dealsHeading: 'Deals',
     dealsAria: 'Sections',
     allDeals: 'All deals',
@@ -80,7 +80,6 @@ export const en: Dict = {
   },
   card: {
     direct: 'Direct flight',
-    usualPrice: 'Usual price',
     roundTrip: 'return',
     seeDeal: 'View deal',
     photoAlt: (label) => `View of ${label}`,
@@ -88,13 +87,12 @@ export const en: Dict = {
     routeLine: (city, label) => `${city} → ${label}`,
   },
   explorer: {
-    sortBest: 'Biggest discount',
     sortPrice: 'Lowest price',
     sortDate: 'Soonest departure',
     sortBy: 'Sort by',
     emptyTitle: 'No deals in this section right now',
     emptyText:
-      'We only publish genuinely low prices. Flights are checked twice a week: come back soon or get the next deals by email.',
+      'We only publish low prices. Flights are checked twice a week: come back soon or get the next deals by email.',
     monthsAria: 'Departure month',
     allMonths: 'All months',
     budgetAria: 'Maximum budget',
@@ -116,15 +114,14 @@ export const en: Dict = {
     privacy: 'Privacy',
   },
   home: {
-    h1: (city) => `Direct flights at genuinely low prices from ${city}`,
-    lead: (min) =>
-      `We compare every flight with the usual price for its destination and only publish those that are at least ${min}% cheaper. No fake promotions.`,
+    h1: (city) => `Cheap direct flights from ${city}`,
+    lead:
+      'Twice a week, we check prices for direct flights to around fifty destinations and only publish those below the price ceiling we set ourselves for each one.',
     ctaDeals: 'See current deals',
     ctaMethod: 'Our method',
     statDeals: 'Deals online',
-    statBest: 'Best discount',
+    statDestinations: 'Destinations',
     statFrom: 'Return flights from',
-    notAvailable: 'n/a',
     dealsHeading: 'Current deals',
     lastUpdate: (date) => `Prices last checked: ${date}`,
     sectionsAria: 'Sections',
@@ -133,14 +130,14 @@ export const en: Dict = {
     hotelsText: (city) =>
       `Offers we found ourselves, directly on the hotels' own websites, in cities served from ${city}.`,
     stepsHeading: 'How we select deals',
-    steps: (min, partner) => [
+    steps: (partner) => [
       {
         title: 'We collect prices',
         text: 'Twice a week, our tool collects prices for direct return flights to around fifty destinations over the next nine months.',
       },
       {
-        title: 'We compare them with the usual price',
-        text: `Each price is compared with the usual fare for the destination in that season. We only keep flights that are at least ${min}% cheaper.`,
+        title: 'We only keep low prices',
+        text: 'For each destination, we set our own price ceiling. Only direct flights below it are published.',
       },
       {
         title: 'You book with our partner',
@@ -162,7 +159,7 @@ export const en: Dict = {
       },
       {
         q: 'How is the site funded?',
-        a: 'Through affiliate links: if you book after clicking one of our links, our partner may pay us a commission. This does not change the price you pay or influence our selection, which is based solely on the gap with the usual price.',
+        a: 'Through affiliate links: if you book after clicking one of our links, our partner may pay us a commission. This does not change the price you pay or influence our selection, which is based solely on the price of the flight.',
       },
       {
         q: 'Where do the flights leave from?',
@@ -173,10 +170,8 @@ export const en: Dict = {
   deal: {
     notFoundTitle: 'Deal not found',
     metaTitle: (city, label, price) => `${city} → ${label} for ${price} return`,
-    metaDescription: (city, label, price, percent, date) =>
-      `Direct return flight to ${label} from ${city} for ${price}${
-        percent ? `, ${percent}% below the usual price` : ''
-      }. Price observed on ${date}.`,
+    metaDescription: (city, label, price, date) =>
+      `Direct return flight to ${label} from ${city} for ${price}. Price observed on ${date}.`,
     eyebrow: (city) => `Direct flight from ${city}`,
     detailsAria: 'Flight details',
     departure: 'Outbound',
@@ -208,10 +203,7 @@ export const en: Dict = {
       },
     ],
     asideAria: 'Price and booking',
-    belowUsual: (percent) => `−${percent}% compared with the usual price`,
     perPerson: 'return per person, taxes included',
-    usualForSeason: 'Usual price for the season',
-    estimatedSaving: 'Estimated saving',
     bookOn: (partner) => `View this flight on ${partner}`,
     partnerNote:
       'Partner link: opens in a new tab with the dates already filled in. If you book, we may earn a commission, at no extra cost to you.',
@@ -267,9 +259,9 @@ export const en: Dict = {
       `${label} is one of the destinations we track with direct flights from ${airport}. Here is our day-by-day itinerary to make the most of it, the current low prices to get there and where to find somewhere to stay.`,
     flightsAria: 'Current flights',
     flightsHeading: (label) => `Current flights to ${label}`,
-    flightsText: (city, min) => `Direct return flights from ${city}, at least ${min}% below the usual price.`,
+    flightsText: (city) => `Direct return flights from ${city}, checked twice a week.`,
     noFlights: (label) =>
-      `No bargain flights to ${label} right now. We check prices twice a week: alerts let you know as soon as a good price appears.`,
+      `No cheap flights to ${label} right now. We check prices twice a week: alerts let you know as soon as a good price appears.`,
     daysHeading: (label) => `${label} day by day`,
     daysText:
       'For a weekend, follow the first three days: they are the essentials. For a week, add the day trips from the following days, in whatever order suits you.',
@@ -291,12 +283,12 @@ export const en: Dict = {
   alerts: {
     metaTitle: 'Deal alerts by email',
     metaDescription: (city) =>
-      `Get direct flights at genuinely low prices from ${city} by email, as soon as they are published.`,
+      `Get cheap direct flights from ${city} by email, as soon as they are published.`,
     eyebrow: 'Email alerts',
     h1: (city) => `Good prices from ${city}, straight to your inbox`,
     lead: 'The best fares disappear within days. Sign up to be told as soon as they are published.',
-    points: (min) => [
-      ['Only genuinely good prices', `Direct flights at least ${min}% below the usual price for the destination.`],
+    points: [
+      ['Only low prices', 'Direct flights below the price ceiling we set ourselves for each destination.'],
       ['Few messages', 'One email when new deals are published, twice a week at most.'],
       ['Free, no commitment', 'Unsubscribe in one click; your address is used for nothing else.'],
     ],

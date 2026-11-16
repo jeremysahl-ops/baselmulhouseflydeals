@@ -3,10 +3,10 @@
 import { useMemo, useState } from 'react';
 import { Deal } from '@/types/deal';
 import DealCard from '@/components/DealCard';
-import { formatMonth, saving } from '@/lib/format';
+import { formatMonth } from '@/lib/format';
 import { getDict, type Lang } from '@/lib/i18n';
 
-type Sort = 'remise' | 'prix' | 'date';
+type Sort = 'prix' | 'date';
 
 const BUDGETS = [50, 75, 100, 150];
 
@@ -26,10 +26,9 @@ function Chip({ active, onClick, children }: { active: boolean; onClick: () => v
 }
 
 /** Grille de deals avec filtres (mois de départ, budget) et tri. Tout se passe dans le navigateur. */
-export default function DealExplorer({ deals, lang, defaultSort = 'remise' }: { deals: Deal[]; lang: Lang; defaultSort?: Sort }) {
+export default function DealExplorer({ deals, lang, defaultSort = 'prix' }: { deals: Deal[]; lang: Lang; defaultSort?: Sort }) {
   const t = getDict(lang).explorer;
   const sorts: { value: Sort; label: string }[] = [
-    { value: 'remise', label: t.sortBest },
     { value: 'prix', label: t.sortPrice },
     { value: 'date', label: t.sortDate },
   ];
@@ -48,7 +47,6 @@ export default function DealExplorer({ deals, lang, defaultSort = 'remise' }: { 
       (d) => (!month || d.departure_date?.startsWith(month)) && (!budget || d.price <= budget),
     );
     const by: Record<Sort, (a: Deal, b: Deal) => number> = {
-      remise: (a, b) => (saving(b)?.percent ?? 0) - (saving(a)?.percent ?? 0) || a.price - b.price,
       prix: (a, b) => a.price - b.price,
       date: (a, b) => (a.departure_date ?? '').localeCompare(b.departure_date ?? ''),
     };

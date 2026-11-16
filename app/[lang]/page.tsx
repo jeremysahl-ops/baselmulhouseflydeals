@@ -6,7 +6,7 @@ import PartnerCard from '@/components/PartnerCard';
 import { partnersForHome } from '@/lib/partners';
 import HotelPickCard from '@/components/HotelPickCard';
 import { activeHotelPicks } from '@/lib/hotel-picks';
-import { formatPrice, formatStamp, saving } from '@/lib/format';
+import { formatPrice, formatStamp } from '@/lib/format';
 import { SECTIONS, SITE } from '@/lib/site';
 import { getDict, localePath } from '@/lib/i18n';
 import { langParam } from '@/lib/i18n/params';
@@ -20,10 +20,10 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   const deals = await getDeals();
   const partners = partnersForHome();
   const hotelPicks = activeHotelPicks();
-  const best = deals.reduce((max, d) => Math.max(max, saving(d)?.percent ?? 0), 0);
+  const destinations = new Set(deals.map((d) => d.destination)).size;
   const cheapest = deals.reduce((min, d) => Math.min(min, d.price), Infinity);
   const updated = deals.reduce((latest, d) => (d.created_at > latest ? d.created_at : latest), '');
-  const steps = t.steps(SITE.minDiscount, SITE.bookingPartner);
+  const steps = t.steps(SITE.bookingPartner);
 
   const faqJsonLd = {
     '@context': 'https://schema.org',
@@ -39,7 +39,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60">{dict.common.tagline}</p>
             <h1 className="mt-4 text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl">{t.h1(dict.place.city)}</h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/75">{t.lead(SITE.minDiscount)}</p>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/75">{t.lead}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#deals" className="btn-primary">{t.ctaDeals}</a>
               <Link href={localePath(lang, '/comment-ca-marche')} className="btn-secondary !border-white/25 !bg-transparent !text-white hover:!border-white/60">
@@ -55,8 +55,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
                 <dd className="mt-1 whitespace-nowrap text-2xl font-bold sm:text-3xl">{deals.length}</dd>
               </div>
               <div className="px-4 py-5 lg:px-6">
-                <dt className="text-xs font-medium uppercase tracking-wider text-white/55">{t.statBest}</dt>
-                <dd className="mt-1 whitespace-nowrap text-2xl font-bold sm:text-3xl">{best > 0 ? `−${best} %` : t.notAvailable}</dd>
+                <dt className="text-xs font-medium uppercase tracking-wider text-white/55">{t.statDestinations}</dt>
+                <dd className="mt-1 whitespace-nowrap text-2xl font-bold sm:text-3xl">{destinations}</dd>
               </div>
               <div className="px-4 py-5 lg:px-6">
                 <dt className="text-xs font-medium uppercase tracking-wider text-white/55">{t.statFrom}</dt>
