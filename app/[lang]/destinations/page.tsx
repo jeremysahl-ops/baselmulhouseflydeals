@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { AIRPORTS, airportCountry, airportName, airportSlug } from '@/lib/airports';
+import DestinationTile from '@/components/DestinationTile';
+import { AIRPORTS, airportName } from '@/lib/airports';
 import { meilleurParVille } from '@/lib/prix';
-import { formatPrice } from '@/lib/format';
 import { alternatesFor, getDict, isLang, localePath } from '@/lib/i18n';
 import { langParam } from '@/lib/i18n/params';
 
@@ -28,7 +28,10 @@ export default async function DestinationsPage({ params }: Props) {
   const dict = getDict(lang);
   const t = dict.destinations;
   const from = new Map(meilleurParVille().map((c) => [c.code, c.prix]));
-  const codes = Object.keys(AIRPORTS).sort((a, b) => airportName(a, lang).localeCompare(airportName(b, lang), lang));
+  // Les villes avec photo et guide d'abord, puis les autres, chacune par ordre alphabétique.
+  const codes = Object.keys(AIRPORTS).sort(
+    (a, b) => Number(!!AIRPORTS[b].guide) - Number(!!AIRPORTS[a].guide) || airportName(a, lang).localeCompare(airportName(b, lang), lang),
+  );
 
   return (
     <div className="container-page py-10">
@@ -44,24 +47,11 @@ export default async function DestinationsPage({ params }: Props) {
         <p className="mt-3 text-ink-soft">{t.lead(dict.place.airport)}</p>
       </header>
 
-      <ul className="grid gap-x-8 border-t border-line sm:grid-cols-2 lg:grid-cols-3">
-        {codes.map((c) => {
-          const p = from.get(c);
+      <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {codes.map((c, i) => {
           return (
-            <li key={c} className="border-b border-line">
-              <Link href={localePath(lang, `/vols/${airportSlug(c)}`)} className="group flex items-center justify-between gap-3 py-3">
-                <span className="min-w-0">
-                  <span className="block truncate font-semibold text-ink group-hover:underline group-hover:underline-offset-4">{airportName(c, lang)}</span>
-                  <span className="block truncate text-xs text-ink-muted">
-                    <span className="font-board">{c}</span> · {airportCountry(c, lang)}
-                  </span>
-                </span>
-                {p != null ? (
-                  <span className="shrink-0 rounded bg-board px-2 py-1 font-board text-sm font-bold text-flap">{t.from(formatPrice(p, lang))}</span>
-                ) : (
-                  <span className="shrink-0 text-xs text-ink-muted">{t.pending}</span>
-                )}
-              </Link>
+            <li key={c}>
+              <DestinationTile code={c} lang={lang} price={from.get(c)} priority={i < 4} />
             </li>
           );
         })}

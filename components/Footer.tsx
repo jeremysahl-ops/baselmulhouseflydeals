@@ -40,9 +40,9 @@ export default function Footer({ lang }: { lang: Lang }) {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="container-page flex flex-col gap-2 py-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between">
+        <div className="container-page flex flex-col gap-2 py-6 text-xs text-white/60 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
           <p>© {new Date().getFullYear()} {SITE.name}. {t.footer.madeIn}</p>
-          <p>{t.footer.affiliateNote}</p>
+          <p className="max-w-2xl sm:text-right">{t.footer.affiliateNote}</p>
         </div>
       </div>
     </footer>

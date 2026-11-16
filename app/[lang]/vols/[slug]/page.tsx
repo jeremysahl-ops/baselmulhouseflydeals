@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import AirportVisual from '@/components/AirportVisual';
+import { conseils } from '@/lib/conseils';
+import { fullItinerary } from '@/lib/itineraries';
 import { notFound } from 'next/navigation';
 import { AIRPORTS, airportCountry, airportFromSlug, airportName, airportSlug, lienEasyJet } from '@/lib/airports';
-import { DUREES, getVille } from '@/lib/prix';
+import { DUREES, getVille, meilleurParVille } from '@/lib/prix';
 import { guidePath } from '@/lib/guides';
 import { formatDay, formatMonth, formatPrice, formatStamp } from '@/lib/format';
 import { LOCALES, alternatesFor, getDict, isLang, localePath } from '@/lib/i18n';
@@ -41,6 +44,9 @@ export default async function VillePage({ params }: Props) {
   const label = airportName(code, lang);
   const ville = getVille(code);
   const guide = AIRPORTS[code].guide;
+  const must = guide ? (fullItinerary(guide, lang)?.slice(0, 3) ?? null) : null;
+  const tips = conseils(code, lang);
+  const best = meilleurParVille().find((c) => c.code === code)?.prix ?? null;
 
   return (
     <div className="container-page py-10">
@@ -52,19 +58,65 @@ export default async function VillePage({ params }: Props) {
         <span className="text-ink-soft">{label}</span>
       </nav>
 
-      <header className="mb-8 mt-4 max-w-3xl">
-        <p className="eyebrow">{t.eyebrow(airportCountry(code, lang))}</p>
-        <h1 className="display mt-2 text-6xl text-ink sm:text-7xl">
-          <span className="font-board text-2xl text-ink-muted sm:text-3xl">BSL → {code}</span>
-          <span className="block">{label}</span>
-        </h1>
-        {ville && <p className="mt-4 text-ink-soft">{t.lead(dict.place.city, formatStamp(ville.vuLe, lang))}</p>}
-        {guide && (
-          <Link href={localePath(lang, guidePath(guide))} className="mt-4 inline-block font-semibold text-ink underline underline-offset-4">
-            {t.guide(label)} →
-          </Link>
-        )}
+      <header className="relative mt-4 aspect-[4/3] overflow-hidden rounded-xl bg-board sm:aspect-[21/9]">
+        <AirportVisual code={code} lang={lang} sizes="(max-width: 1152px) 100vw, 1152px" width={1600} priority />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" aria-hidden="true" />
+        <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-4 p-5 sm:p-8">
+          <div>
+            <p className="eyebrow !text-white/80">{t.eyebrow(airportCountry(code, lang))}</p>
+            <h1 className="display mt-2 text-6xl text-white sm:text-7xl">
+              <span className="font-board text-xl text-white/70 sm:text-2xl">BSL → {code}</span>
+              <span className="block">{label}</span>
+            </h1>
+          </div>
+          {best != null && (
+            <a href="#prix" className="flex items-center gap-3 rounded-lg bg-board/85 px-4 py-3 font-board text-board-text backdrop-blur hover:bg-board">
+              <span className="text-sm">{t.fromLabel}</span>
+              <span className="flap text-2xl">{formatPrice(best, lang)}</span>
+            </a>
+          )}
+        </div>
       </header>
+
+      {must && (
+        <section className="mt-12" aria-labelledby="incontournables">
+          <h2 id="incontournables" className="display text-4xl text-ink">{t.mustHeading(label)}</h2>
+          <ol className="mt-6 grid gap-6 md:grid-cols-3">
+            {must.map((d, i) => (
+              <li key={d.title} className="border-t-2 border-ink pt-4">
+                <span className="font-board text-sm font-bold text-ink-muted">0{i + 1}</span>
+                <h3 className="mt-1 text-lg font-semibold text-ink">{d.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-soft">{d.text}</p>
+              </li>
+            ))}
+          </ol>
+          {guide && (
+            <Link href={localePath(lang, guidePath(guide))} className="mt-5 inline-block font-semibold text-ink underline underline-offset-4">
+              {t.mustMore} →
+            </Link>
+          )}
+        </section>
+      )}
+
+      {tips && (
+        <section className="mt-12" aria-labelledby="conseils">
+          <h2 id="conseils" className="display text-4xl text-ink">{t.tipsHeading}</h2>
+          <dl className="mt-6 grid gap-x-8 gap-y-5 rounded-xl border border-line bg-white p-6 sm:grid-cols-2">
+            {tips.map((tip, i) => (
+              <div key={i}>
+                <dt className="eyebrow">{t.tipLabels[i]}</dt>
+                <dd className="mt-1 text-sm leading-relaxed text-ink-soft">{tip}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="mt-2 text-xs text-ink-muted">{t.tipsNote}</p>
+        </section>
+      )}
+
+      <section id="prix" className="mt-12 scroll-mt-24" aria-labelledby="prix-titre">
+        <h2 id="prix-titre" className="display text-4xl text-ink">{t.pricesHeading}</h2>
+        {ville && <p className="mb-6 mt-2 text-ink-soft">{t.lead(dict.place.city, formatStamp(ville.vuLe, lang))}</p>}
+      </section>
 
       {!ville || ville.mois.length === 0 ? (
         <p className="board px-5 py-8 text-sm text-board-dim">{t.noData(label)}</p>

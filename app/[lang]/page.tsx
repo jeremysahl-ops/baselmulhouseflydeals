@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import Board from '@/components/Board';
+import DestinationTile from '@/components/DestinationTile';
+import MonthTile from '@/components/MonthTile';
 import PartnerCard from '@/components/PartnerCard';
 import HotelPickCard from '@/components/HotelPickCard';
 import { partnersForHome } from '@/lib/partners';
@@ -23,12 +25,14 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   const href = (p: string) => localePath(lang, p);
 
   const top = meilleurParVille();
-  const mois = moisDisponibles().map((m) => {
-    const l = combosDuMois(m);
-    return { mois: m, from: l[0]?.prix ?? null, villes: new Set(l.map((c) => c.code)).size };
-  });
+  const mois = moisDisponibles().map((m) => ({ mois: m, combos: combosDuMois(m) }));
   const fromByCode = new Map(top.map((c) => [c.code, c.prix]));
-  const codes = Object.keys(AIRPORTS).sort((a, b) => airportName(a, lang).localeCompare(airportName(b, lang), lang));
+  const codes = Object.keys(AIRPORTS);
+  // Vitrine : les villes avec un prix (les moins chères d'abord), complétées par des villes avec photo.
+  const vitrine = [
+    ...top.map((c) => c.code),
+    ...codes.filter((c) => AIRPORTS[c].guide && !fromByCode.has(c)).sort((a, b) => airportName(a, lang).localeCompare(airportName(b, lang), lang)),
+  ].slice(0, 8);
   const updated = dernierReleve();
   const partners = partnersForHome();
   const hotelPicks = activeHotelPicks();
@@ -97,11 +101,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
             {mois.map((m) => (
               <li key={m.mois}>
-                <Link href={href(`/mois/${m.mois}`)} className="board block px-4 py-4 transition-colors hover:bg-board-row">
-                  <span className="block text-[11px] uppercase tracking-[0.18em] text-board-dim">{formatMonth(m.mois, lang)}</span>
-                  {m.from != null && <span className="flap mt-2 text-xl">{t.monthFrom(formatPrice(m.from, lang))}</span>}
-                  <span className="mt-2 block text-[11px] text-board-dim">{t.monthCities(m.villes)}</span>
-                </Link>
+                <MonthTile mois={m.mois} combos={m.combos} lang={lang} />
               </li>
             ))}
           </ul>
@@ -115,24 +115,17 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               <h2 className="display text-4xl text-ink">{t.destHeading}</h2>
               <p className="mt-2 max-w-2xl text-ink-soft">{t.destText(codes.length)}</p>
             </div>
-            <Link href={href('/destinations')} className="font-semibold text-ink underline underline-offset-4">{t.destAll} →</Link>
           </div>
-          <ul className="mt-6 flex flex-wrap gap-2">
-            {codes.map((c) => {
-              const p = fromByCode.get(c);
-              return (
-                <li key={c}>
-                  <Link
-                    href={href(`/vols/${airportSlug(c)}`)}
-                    className="inline-flex items-baseline gap-2 rounded-md border border-line bg-surface px-3 py-1.5 text-sm text-ink hover:border-ink"
-                  >
-                    {airportName(c, lang)}
-                    {p != null && <span className="font-board text-xs font-bold text-ink-soft">{formatPrice(p, lang)}</span>}
-                  </Link>
-                </li>
-              );
-            })}
+          <ul className="-mx-4 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-4">
+            {vitrine.map((c) => (
+              <li key={c} className="w-[78%] shrink-0 snap-start sm:w-auto">
+                <DestinationTile code={c} lang={lang} price={fromByCode.get(c)} sizes="(max-width: 640px) 80vw, (max-width: 1024px) 50vw, 25vw" />
+              </li>
+            ))}
           </ul>
+          <div className="mt-6 text-center">
+            <Link href={href('/destinations')} className="btn-secondary">{t.destAllCount(codes.length)} →</Link>
+          </div>
         </div>
       </section>
 

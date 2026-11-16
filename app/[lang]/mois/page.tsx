@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import MonthTile from '@/components/MonthTile';
 import { combosDuMois, moisDisponibles } from '@/lib/prix';
-import { formatMonth, formatPrice } from '@/lib/format';
 import { alternatesFor, getDict, isLang, localePath } from '@/lib/i18n';
 import { langParam } from '@/lib/i18n/params';
 
@@ -26,10 +26,7 @@ export default async function MoisIndexPage({ params }: Props) {
   const lang = await langParam(params);
   const dict = getDict(lang);
   const t = dict.moisIndex;
-  const mois = moisDisponibles().map((m) => {
-    const l = combosDuMois(m);
-    return { mois: m, from: l[0]?.prix ?? null, villes: new Set(l.map((c) => c.code)).size };
-  });
+  const mois = moisDisponibles().map((m) => ({ mois: m, combos: combosDuMois(m) }));
 
   return (
     <div className="container-page py-10">
@@ -46,14 +43,10 @@ export default async function MoisIndexPage({ params }: Props) {
       {mois.length === 0 ? (
         <p className="text-ink-soft">{dict.board.empty}</p>
       ) : (
-        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {mois.map((m) => (
             <li key={m.mois}>
-              <Link href={localePath(lang, `/mois/${m.mois}`)} className="board block px-5 py-5 transition-colors hover:bg-board-row">
-                <span className="block text-xs uppercase tracking-[0.18em] text-board-dim">{formatMonth(m.mois, lang)}</span>
-                {m.from != null && <span className="flap mt-3 text-2xl">{dict.home.monthFrom(formatPrice(m.from, lang))}</span>}
-                <span className="mt-3 block text-xs text-board-dim">{dict.home.monthCities(m.villes)}</span>
-              </Link>
+              <MonthTile mois={m.mois} combos={m.combos} lang={lang} big />
             </li>
           ))}
         </ul>
