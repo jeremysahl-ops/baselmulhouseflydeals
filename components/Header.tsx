@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Logo from '@/components/Logo';
-import { SECTIONS } from '@/lib/site';
+import Flag from '@/components/Flag';
 import { LANG_NAME, LOCALES, getDict, localePath, stripLocale, type Lang } from '@/lib/i18n';
 
 export default function Header({ lang }: { lang: Lang }) {
@@ -14,8 +14,9 @@ export default function Header({ lang }: { lang: Lang }) {
   const path = stripLocale(usePathname() ?? '/');
 
   const nav = [
-    ...SECTIONS.map((s) => ({ href: `/${s.slug}`, label: t.sections[s.slug].label })),
-    { href: '/destinations', label: t.nav.destinations },
+    { href: '/mois', label: t.nav.byMonth },
+    { href: '/destinations', label: t.nav.byDestination },
+    { href: '/prix', label: t.nav.allPrices },
     { href: '/comment-ca-marche', label: t.nav.method },
   ];
 
@@ -30,8 +31,9 @@ export default function Header({ lang }: { lang: Lang }) {
             title={LANG_NAME[l]}
             aria-current={l === lang ? 'true' : undefined}
             onClick={() => setOpen(false)}
-            className={`rounded px-1.5 py-1 uppercase ${l === lang ? 'bg-brand-soft text-brand' : 'text-ink-muted hover:text-ink'}`}
+            className={`flex items-center gap-1.5 rounded px-1.5 py-1 uppercase ${l === lang ? 'bg-brand-soft text-brand' : 'text-ink-muted hover:text-ink'}`}
           >
+            <Flag lang={l} />
             {l}
           </Link>
         </li>
@@ -40,11 +42,11 @@ export default function Header({ lang }: { lang: Lang }) {
   );
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-line bg-surface/95 backdrop-blur">
       <div className="container-page flex h-16 items-center justify-between gap-4">
         <Logo lang={lang} />
 
-        <nav className="hidden items-center gap-0.5 xl:flex" aria-label={t.nav.main}>
+        <nav className="hidden items-center gap-0.5 lg:flex" aria-label={t.nav.main}>
           {nav.map(({ href, label }) => {
             const active = path === href || path.startsWith(href + '/');
             return (
@@ -52,8 +54,8 @@ export default function Header({ lang }: { lang: Lang }) {
                 key={href}
                 href={localePath(lang, href)}
                 aria-current={active ? 'page' : undefined}
-                className={`whitespace-nowrap rounded-md px-2.5 py-2 text-sm font-medium transition-colors ${
-                  active ? 'bg-brand-soft text-brand' : 'text-ink-soft hover:text-ink'
+                className={`whitespace-nowrap px-2.5 py-2 font-display text-base font-semibold uppercase tracking-wide xl:text-lg transition-colors ${
+                  active ? 'text-ink underline decoration-action decoration-4 underline-offset-8' : 'text-ink-soft hover:text-ink'
                 }`}
               >
                 {label}
@@ -64,13 +66,10 @@ export default function Header({ lang }: { lang: Lang }) {
 
         <div className="flex items-center gap-2">
           <div className="hidden sm:block">{languages}</div>
-          <Link href={localePath(lang, '/alertes')} className="btn-primary hidden whitespace-nowrap !py-2.5 sm:inline-flex">
-            {t.nav.alerts}
-          </Link>
           <button
             type="button"
             onClick={() => setOpen(!open)}
-            className="rounded-md p-2 text-ink-soft hover:bg-surface xl:hidden"
+            className="rounded-md p-2 text-ink-soft hover:bg-surface lg:hidden"
             aria-expanded={open}
             aria-controls="menu-mobile"
             aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
@@ -83,7 +82,7 @@ export default function Header({ lang }: { lang: Lang }) {
       </div>
 
       {open && (
-        <nav id="menu-mobile" className="border-t border-line bg-white xl:hidden" aria-label={t.nav.mobile}>
+        <nav id="menu-mobile" className="border-t border-line bg-white lg:hidden" aria-label={t.nav.mobile}>
           <div className="container-page flex flex-col py-3">
             {nav.map(({ href, label }) => (
               <Link
@@ -96,9 +95,6 @@ export default function Header({ lang }: { lang: Lang }) {
               </Link>
             ))}
             <div className="px-2 py-3">{languages}</div>
-            <Link href={localePath(lang, '/alertes')} onClick={() => setOpen(false)} className="btn-primary mt-2">
-              {t.nav.alerts}
-            </Link>
           </div>
         </nav>
       )}

@@ -1,29 +1,37 @@
 import Link from 'next/link';
-import { getDeals } from '@/lib/supabase';
-import DealExplorer from '@/components/DealExplorer';
-import NewsletterForm from '@/components/NewsletterForm';
+import Board from '@/components/Board';
 import PartnerCard from '@/components/PartnerCard';
-import { partnersForHome } from '@/lib/partners';
 import HotelPickCard from '@/components/HotelPickCard';
+import { partnersForHome } from '@/lib/partners';
 import { activeHotelPicks } from '@/lib/hotel-picks';
-import { formatPrice, formatStamp } from '@/lib/format';
-import { SECTIONS, SITE } from '@/lib/site';
+import { AIRPORTS, airportName, airportSlug } from '@/lib/airports';
+import { DESTINATIONS } from '@/lib/destinations';
+import { combosDuMois, dernierReleve, meilleurParVille, moisDisponibles } from '@/lib/prix';
+import { formatMonth, formatPrice, formatStamp } from '@/lib/format';
 import { getDict, localePath } from '@/lib/i18n';
 import { langParam } from '@/lib/i18n/params';
 
-export const revalidate = 600;
+export const revalidate = 3600;
+
+/** Photo de l'accueil : une destination réelle au départ de Bâle, photo contrôlée (lib/destinations.ts). */
+const HERO = { code: 'FUE', photo: DESTINATIONS['Fuerteventura'].photo };
 
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
   const lang = await langParam(params);
   const dict = getDict(lang);
   const t = dict.home;
-  const deals = await getDeals();
+  const href = (p: string) => localePath(lang, p);
+
+  const top = meilleurParVille();
+  const mois = moisDisponibles().map((m) => {
+    const l = combosDuMois(m);
+    return { mois: m, from: l[0]?.prix ?? null, villes: new Set(l.map((c) => c.code)).size };
+  });
+  const fromByCode = new Map(top.map((c) => [c.code, c.prix]));
+  const codes = Object.keys(AIRPORTS).sort((a, b) => airportName(a, lang).localeCompare(airportName(b, lang), lang));
+  const updated = dernierReleve();
   const partners = partnersForHome();
   const hotelPicks = activeHotelPicks();
-  const destinations = new Set(deals.map((d) => d.destination)).size;
-  const cheapest = deals.reduce((min, d) => Math.min(min, d.price), Infinity);
-  const updated = deals.reduce((latest, d) => (d.created_at > latest ? d.created_at : latest), '');
-  const steps = t.steps(SITE.bookingPartner);
 
   const faqJsonLd = {
     '@context': 'https://schema.org',
@@ -34,67 +42,112 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
   return (
     <>
-      <section className="bg-brand text-white">
-        <div className="container-page grid gap-10 py-14 md:py-20 lg:grid-cols-[1.25fr_1fr] lg:items-center">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60">{dict.common.tagline}</p>
-            <h1 className="mt-4 text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl">{t.h1(dict.place.city)}</h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/75">{t.lead}</p>
+      <section className="relative isolate overflow-hidden bg-board">
+        {/* Photo de fond : Fuerteventura (destination desservie depuis Bâle), déjà contrôlée pour la page guide. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`https://images.unsplash.com/${HERO.photo}?auto=format&fit=crop&w=2000&q=70`}
+          alt=""
+          fetchPriority="high"
+          className="absolute inset-0 -z-20 h-full w-full object-cover object-[30%_20%]"
+        />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-board/70 via-board/40 to-board/75 lg:bg-gradient-to-r lg:from-board/75 lg:via-board/25 lg:to-transparent" aria-hidden="true" />
+
+        <div className="container-page grid gap-10 py-14 md:py-20 lg:grid-cols-[1fr_1.15fr] lg:items-start">
+          <div className="text-white">
+            <p className="eyebrow !text-white/75">{dict.common.tagline}</p>
+            <h1 className="display mt-4 text-6xl drop-shadow-sm sm:text-7xl">
+              {t.h1a}
+              <span className="mt-1 block text-4xl text-white/85 xl:text-5xl">{t.h1b(dict.place.city)}</span>
+            </h1>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/90">{t.lead}</p>
+            <p className="mt-4 max-w-xl text-lg leading-relaxed text-white/90">{t.lead2}</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#deals" className="btn-primary">{t.ctaDeals}</a>
-              <Link href={localePath(lang, '/comment-ca-marche')} className="btn-secondary !border-white/25 !bg-transparent !text-white hover:!border-white/60">
-                {t.ctaMethod}
+              <Link href={href('/prix')} className="btn-primary">{t.ctaCheapest}</Link>
+              <Link href={href('/mois')} className="btn-secondary !border-white/40 !bg-white/10 !text-white backdrop-blur hover:!border-white">
+                {t.ctaMonths}
               </Link>
             </div>
+            {updated && <p className="eyebrow mt-8 !text-white/70">{t.lastUpdate(formatStamp(updated, lang))}</p>}
           </div>
 
-          {deals.length > 0 && (
-            <dl className="grid grid-cols-3 divide-x divide-white/10 rounded-xl border border-white/10 bg-white/5 text-center lg:grid-cols-1 lg:divide-x-0 lg:divide-y lg:text-left">
-              <div className="px-4 py-5 lg:px-6">
-                <dt className="text-xs font-medium uppercase tracking-wider text-white/55">{t.statDeals}</dt>
-                <dd className="mt-1 whitespace-nowrap text-2xl font-bold sm:text-3xl">{deals.length}</dd>
-              </div>
-              <div className="px-4 py-5 lg:px-6">
-                <dt className="text-xs font-medium uppercase tracking-wider text-white/55">{t.statDestinations}</dt>
-                <dd className="mt-1 whitespace-nowrap text-2xl font-bold sm:text-3xl">{destinations}</dd>
-              </div>
-              <div className="px-4 py-5 lg:px-6">
-                <dt className="text-xs font-medium uppercase tracking-wider text-white/55">{t.statFrom}</dt>
-                <dd className="mt-1 whitespace-nowrap text-2xl font-bold sm:text-3xl">{formatPrice(cheapest, lang)}</dd>
-              </div>
-            </dl>
-          )}
-        </div>
-      </section>
-
-      <section id="deals" className="container-page scroll-mt-20 py-12">
-        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h2 className="text-2xl font-bold tracking-tight text-ink">{t.dealsHeading}</h2>
-            {updated && <p className="mt-1 text-sm text-ink-muted">{t.lastUpdate(formatStamp(updated, lang))}</p>}
+            <div className="shadow-2xl shadow-black/40">
+              <Board combos={top.slice(0, 8)} lang={lang} title={t.boardHeading} />
+            </div>
+            <p className="mt-3 flex flex-wrap items-baseline justify-between gap-2 text-sm text-white/85 [text-shadow:0_1px_2px_rgb(0_0_0/0.6)]">
+              <span>{t.boardText}</span>
+              <Link href={href('/prix')} className="font-semibold text-white underline underline-offset-4">{t.boardAll} →</Link>
+            </p>
           </div>
-          <nav className="flex flex-wrap gap-x-5 gap-y-1 text-sm font-medium" aria-label={t.sectionsAria}>
-            {SECTIONS.map((s) => (
-              <Link key={s.slug} href={localePath(lang, `/${s.slug}`)} className="text-brand underline-offset-4 hover:underline">
-                {dict.sections[s.slug].label}
-              </Link>
-            ))}
-          </nav>
         </div>
-        <DealExplorer deals={deals} lang={lang} />
-        {partners.length > 0 && (
-          <div className="mt-10 space-y-4" aria-label={t.partnersAria}>
-            {partners.map((p) => (
-              <PartnerCard key={p.name} partner={p} lang={lang} />
-            ))}
-          </div>
-        )}
+
+        <Link
+          href={href(`/vols/${airportSlug(HERO.code)}`)}
+          className="absolute bottom-3 right-4 rounded bg-black/40 px-2 py-1 font-board text-[11px] text-white/85 backdrop-blur hover:text-white"
+        >
+          {t.heroPhoto(airportName(HERO.code, lang))}
+        </Link>
       </section>
+
+      {mois.length > 0 && (
+        <section className="container-page py-14">
+          <h2 className="display text-4xl text-ink">{t.monthsHeading}</h2>
+          <p className="mt-2 text-ink-soft">{t.monthsText}</p>
+          <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+            {mois.map((m) => (
+              <li key={m.mois}>
+                <Link href={href(`/mois/${m.mois}`)} className="board block px-4 py-4 transition-colors hover:bg-board-row">
+                  <span className="block text-[11px] uppercase tracking-[0.18em] text-board-dim">{formatMonth(m.mois, lang)}</span>
+                  {m.from != null && <span className="flap mt-2 text-xl">{t.monthFrom(formatPrice(m.from, lang))}</span>}
+                  <span className="mt-2 block text-[11px] text-board-dim">{t.monthCities(m.villes)}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <section className="border-y border-line bg-white">
+        <div className="container-page py-14">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h2 className="display text-4xl text-ink">{t.destHeading}</h2>
+              <p className="mt-2 max-w-2xl text-ink-soft">{t.destText(codes.length)}</p>
+            </div>
+            <Link href={href('/destinations')} className="font-semibold text-ink underline underline-offset-4">{t.destAll} →</Link>
+          </div>
+          <ul className="mt-6 flex flex-wrap gap-2">
+            {codes.map((c) => {
+              const p = fromByCode.get(c);
+              return (
+                <li key={c}>
+                  <Link
+                    href={href(`/vols/${airportSlug(c)}`)}
+                    className="inline-flex items-baseline gap-2 rounded-md border border-line bg-surface px-3 py-1.5 text-sm text-ink hover:border-ink"
+                  >
+                    {airportName(c, lang)}
+                    {p != null && <span className="font-board text-xs font-bold text-ink-soft">{formatPrice(p, lang)}</span>}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </section>
+
+      {partners.length > 0 && (
+        <section className="container-page space-y-4 pt-12" aria-label={t.partnersAria}>
+          {partners.map((p) => (
+            <PartnerCard key={p.name} partner={p} lang={lang} />
+          ))}
+        </section>
+      )}
 
       {hotelPicks.length > 0 && (
-        <section id="hotels" className="container-page scroll-mt-20 pb-12">
-          <h2 className="text-2xl font-bold tracking-tight text-ink">{t.hotelsHeading}</h2>
-          <p className="mt-1 max-w-2xl text-sm text-ink-muted">
+        <section id="hotels" className="container-page scroll-mt-20 pt-12">
+          <h2 className="display text-4xl text-ink">{t.hotelsHeading}</h2>
+          <p className="mt-2 max-w-2xl text-sm text-ink-muted">
             {t.hotelsText(dict.place.city)}
             {!hotelPicks.some((p) => p.partner) && ` ${dict.deal.noCommission}`}
           </p>
@@ -106,39 +159,28 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </section>
       )}
 
-      <section className="border-y border-line bg-white">
-        <div className="container-page py-14">
-          <h2 className="text-2xl font-bold tracking-tight text-ink">{t.stepsHeading}</h2>
-          <ol className="mt-8 grid gap-8 md:grid-cols-3">
-            {steps.map((step, i) => (
-              <li key={step.title}>
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-soft text-sm font-bold text-brand">{i + 1}</span>
-                <h3 className="mt-4 font-semibold text-ink">{step.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-soft">{step.text}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
+      <section className="container-page py-14">
+        <h2 className="display text-4xl text-ink">{t.stepsHeading}</h2>
+        <ol className="mt-8 grid gap-8 md:grid-cols-3">
+          {t.steps.map((step, i) => (
+            <li key={step.title} className="border-t-2 border-ink pt-4">
+              <span className="font-board text-sm font-bold text-ink-muted">0{i + 1}</span>
+              <h3 className="mt-2 text-lg font-semibold text-ink">{step.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-ink-soft">{step.text}</p>
+            </li>
+          ))}
+        </ol>
       </section>
 
-      <section className="container-page py-14">
-        <div className="grid gap-8 rounded-2xl bg-brand px-6 py-10 text-white sm:px-10 lg:grid-cols-2 lg:items-center">
-          <div>
-            <h2 className="text-2xl font-bold tracking-tight">{t.newsletterHeading}</h2>
-            <p className="mt-3 max-w-md text-white/70">{t.newsletterText(dict.place.city)}</p>
-          </div>
-          <NewsletterForm source="accueil" tone="dark" lang={lang} />
-        </div>
-      </section>
 
       <section className="container-page pb-4">
-        <h2 className="text-2xl font-bold tracking-tight text-ink">{t.faqHeading}</h2>
-        <div className="mt-6 divide-y divide-line rounded-xl border border-line bg-white">
+        <h2 className="display text-4xl text-ink">{t.faqHeading}</h2>
+        <div className="mt-6 divide-y divide-line border-y border-line">
           {t.faq.map(({ q, a }) => (
-            <details key={q} className="group px-5 py-4">
+            <details key={q} className="group py-4">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-ink">
                 {q}
-                <span className="text-ink-muted transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+                <span className="font-board text-ink-muted transition-transform group-open:rotate-45" aria-hidden="true">+</span>
               </summary>
               <p className="mt-3 max-w-3xl text-sm leading-relaxed text-ink-soft">{a}</p>
             </details>

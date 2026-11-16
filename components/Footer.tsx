@@ -18,7 +18,8 @@ export default function Footer({ lang }: { lang: Lang }) {
         <nav aria-label={t.footer.dealsAria}>
           <h2 className="text-xs font-semibold uppercase tracking-wider text-white">{t.footer.dealsHeading}</h2>
           <ul className="mt-4 space-y-2.5 text-sm">
-            <li><Link href={href('/')} className="hover:text-white">{t.footer.allDeals}</Link></li>
+            <li><Link href={href('/prix')} className="hover:text-white">{t.footer.allDeals}</Link></li>
+            <li><Link href={href('/mois')} className="hover:text-white">{t.footer.byMonth}</Link></li>
             {SECTIONS.map((s) => (
               <li key={s.slug}><Link href={href(`/${s.slug}`)} className="hover:text-white">{t.sections[s.slug].label}</Link></li>
             ))}
@@ -30,7 +31,6 @@ export default function Footer({ lang }: { lang: Lang }) {
           <ul className="mt-4 space-y-2.5 text-sm">
             <li><Link href={href('/destinations')} className="hover:text-white">{t.footer.guides}</Link></li>
             <li><Link href={href('/comment-ca-marche')} className="hover:text-white">{t.footer.method}</Link></li>
-            <li><Link href={href('/alertes')} className="hover:text-white">{t.footer.alerts}</Link></li>
             <li><Link href={href('/partenaires')} className="hover:text-white">{t.footer.partner}</Link></li>
             <li><Link href={href('/mentions-legales')} className="hover:text-white">{t.footer.legal}</Link></li>
             <li><Link href={href('/confidentialite')} className="hover:text-white">{t.footer.privacy}</Link></li>

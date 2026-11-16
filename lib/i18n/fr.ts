@@ -2,10 +2,10 @@
 
 export const fr = {
   meta: {
-    defaultTitle: 'Vols directs pas chers au départ de Bâle-Mulhouse',
+    defaultTitle: 'Les meilleurs prix des vols au départ de Bâle-Mulhouse, mois par mois',
     description:
-      "Les vols directs à petit prix au départ de l'EuroAirport Bâle-Mulhouse, vers une cinquantaine de destinations. Site indépendant, mis à jour deux fois par semaine.",
-    ogDescription: 'Des vols directs à petit prix vers une cinquantaine de destinations, relevés deux fois par semaine.',
+      "Les prix des vols au départ de l'EuroAirport Bâle-Mulhouse, relevés chaque semaine : les meilleurs combos aller-retour par mois et par destination, triables par prix.",
+    ogDescription: 'Les meilleurs combos aller-retour au départ de Bâle-Mulhouse, par mois et par destination.',
   },
   place: {
     airport: 'EuroAirport Bâle-Mulhouse-Fribourg',
@@ -21,7 +21,9 @@ export const fr = {
     partnerBadge: 'Partenaire',
   },
   nav: {
-    destinations: 'Destinations',
+    byMonth: 'Par mois',
+    byDestination: 'Par destination',
+    allPrices: 'Tous les prix',
     method: 'Notre méthode',
     alerts: 'Recevoir les alertes',
     openMenu: 'Ouvrir le menu',
@@ -33,27 +35,27 @@ export const fr = {
   sections: {
     'city-trip': {
       label: 'Week-ends',
-      title: 'Week-ends et courts séjours',
+      title: 'Les meilleurs week-ends',
       hint: '2 à 4 nuits',
-      intro: 'Des vols directs pour partir 2 à 4 nuits : idéal pour un week-end prolongé en Europe.',
+      intro: 'Les combos aller-retour les moins chers pour partir 2 à 4 nuits, toutes destinations et tous mois confondus.',
     },
     vol: {
       label: 'Une semaine',
-      title: 'Une semaine sur place',
+      title: 'Les meilleures semaines',
       hint: '5 à 8 nuits',
-      intro: 'Des vols directs pour rester 5 à 8 nuits sur place, le format classique des vacances.',
+      intro: 'Les combos aller-retour les moins chers pour rester 5 à 8 nuits sur place.',
     },
     sejour: {
       label: 'Longs séjours',
-      title: 'Longs séjours',
+      title: 'Les meilleurs longs séjours',
       hint: '10 à 15 nuits',
-      intro: 'Des vols directs pour des séjours de 10 à 15 nuits, quand on veut vraiment couper.',
+      intro: 'Les combos aller-retour les moins chers pour partir 10 à 15 nuits, quand on veut vraiment couper.',
     },
     'derniere-minute': {
       label: 'Départs proches',
-      title: 'Départs dans les 30 jours',
+      title: 'Partir dans le mois',
       hint: 'dans les 30 jours',
-      intro: 'Les deals dont le départ a lieu dans les 30 prochains jours, du plus proche au plus lointain.',
+      intro: 'Les meilleurs combos dont le départ a lieu dans les 30 prochains jours, du moins cher au plus cher.',
     },
   },
   sectionPage: {
@@ -62,12 +64,13 @@ export const fr = {
   },
   footer: {
     about: (airport: string) =>
-      `Site indépendant qui repère les vols directs à petit prix au départ de l'${airport}. Nous ne vendons pas de billets : la réservation se fait chez notre partenaire.`,
-    dealsHeading: 'Les deals',
+      `Site indépendant qui relève chaque semaine les prix des vols au départ de l'${airport}. Nous ne vendons pas de billets : vous réservez directement auprès de la compagnie aérienne.`,
+    dealsHeading: 'Les prix',
     dealsAria: 'Rubriques',
-    allDeals: 'Tous les deals',
+    allDeals: 'Tous les prix',
+    byMonth: 'Par mois',
     infoHeading: 'Informations',
-    guides: 'Guides des destinations',
+    guides: 'Par destination',
     method: 'Notre méthode',
     alerts: 'Alertes par e-mail',
     partner: 'Devenir partenaire',
@@ -76,7 +79,7 @@ export const fr = {
     contact: 'Contact',
     madeIn: 'Conçu en Alsace.',
     affiliateNote:
-      'Les liens de réservation sont des liens partenaires : ils peuvent nous rapporter une commission, sans surcoût pour vous.',
+      'Nous ne touchons pas de commission sur les liens vers les compagnies aériennes. Certains autres liens peuvent être des liens partenaires, sans surcoût pour vous.',
   },
   card: {
     direct: 'Vol direct',
@@ -115,56 +118,64 @@ export const fr = {
     privacy: 'Confidentialité',
   },
   home: {
-    h1: (city: string) => `Les vols directs à petit prix, au départ de ${city}`,
-    lead:
-      'Deux fois par semaine, nous relevons les prix des vols directs vers une cinquantaine de destinations et ne publions que ceux qui passent sous le prix plafond que nous nous fixons pour chacune.',
-    ctaDeals: 'Voir les deals du moment',
-    ctaMethod: 'Notre méthode',
-    statDeals: 'Deals en ligne',
-    statDestinations: 'Destinations',
-    statFrom: 'Aller-retour dès',
-    dealsHeading: 'Les deals du moment',
-    lastUpdate: (date: string) => `Dernier relevé de prix : ${date}`,
+    h1a: 'Où partir',
+    h1b: (city: string) => `depuis ${city} ?`,
+    lead: "Trouvez en un clic les meilleurs prix, mois par mois et destination par destination, au départ de l'EuroAirport.",
+    lead2: "Pas d'idée ? Laissez-vous surprendre : triez par prix et dénichez votre prochaine escapade au meilleur tarif.",
+    heroPhoto: (label: string) => `Photo : ${label} · voir les prix →`,
+    ctaCheapest: 'Voir les prix les plus bas',
+    ctaMonths: 'Choisir un mois',
+    boardHeading: 'Les meilleurs combos du moment',
+    boardText: 'Un par destination, le moins cher de toute notre base, aller et retour compris.',
+    boardAll: 'Voir tous les prix',
+    monthsHeading: 'Vous savez quand ? Choisissez le mois',
+    monthsText: 'Pour chaque mois, le prix le plus bas trouvé, toutes destinations confondues.',
+    monthFrom: (price: string) => `dès ${price}`,
+    monthCities: (n: number) => `${n} destination${n > 1 ? 's' : ''}`,
+    destHeading: 'Vous savez où ? Choisissez la destination',
+    destText: (n: number) => `${n} destinations en vol direct, avec pour chacune le prix courant et les meilleurs combos de chaque mois.`,
+    destAll: 'Toutes les destinations',
+    lastUpdate: (date: string) => `Dernier relevé : ${date}`,
     sectionsAria: 'Rubriques',
     partnersAria: 'Partenaires',
     hotelsHeading: 'Les bons plans hôtels du moment',
     hotelsText: (city: string) =>
       `Des offres repérées par nos soins, directement sur le site des hôteliers, dans les villes desservies depuis ${city}.`,
-    stepsHeading: 'Comment nous sélectionnons les deals',
-    steps: (partner: string) => [
+    stepsHeading: 'Comment ça marche',
+    steps: [
       {
         title: 'Nous relevons les prix',
-        text: 'Deux fois par semaine, notre outil relève les prix des vols directs aller-retour vers une cinquantaine de destinations, sur les neuf mois à venir.',
+        text: 'Chaque semaine, nous relevons les prix des vols au départ de Bâle-Mulhouse pour chaque destination, sur toute la période ouverte à la réservation.',
       },
       {
-        title: 'Nous ne gardons que les petits prix',
-        text: 'Pour chaque destination, nous nous fixons un prix plafond. Seuls les vols directs qui passent en dessous sont publiés.',
+        title: 'Nous les assemblons en combos',
+        text: "Les compagnies vendent souvent l'aller et le retour séparément : nous assemblons les deux pour trouver, mois par mois, les week-ends, semaines et longs séjours les moins chers.",
       },
       {
-        title: 'Vous réservez chez notre partenaire',
-        text: `Un clic ouvre la recherche sur ${partner}, déjà remplie avec les bonnes dates. Vous y vérifiez le prix du jour avant de réserver.`,
+        title: 'Vous réservez auprès de la compagnie',
+        text: 'Un clic ouvre le site de la compagnie aux bonnes dates. Vous y vérifiez le prix du jour avant de payer : nous ne vendons rien.',
       },
     ],
-    newsletterHeading: "Recevez les deals avant qu'ils disparaissent",
+    newsletterHeading: 'Recevez les petits prix par e-mail',
     newsletterText: (city: string) =>
-      `Les meilleurs prix durent rarement plus de quelques jours. Nous vous écrivons uniquement quand de vrais bons prix apparaissent au départ de ${city}.`,
+      `Les meilleurs prix partent vite. Nous vous écrivons quand de vrais petits prix apparaissent au départ de ${city}.`,
     faqHeading: 'Questions fréquentes',
     faq: [
       {
+        q: "C'est quoi, le « prix courant » ?",
+        a: "C'est le prix typique d'un aller-retour pour un mois et une durée donnés, calculé à partir de tous les prix que nous avons relevés. Il donne une bonne idée du prix habituel de la destination sur cette période.",
+      },
+      {
         q: 'Les prix affichés sont-ils garantis ?',
-        a: 'Non. Ce sont des prix constatés à la date indiquée sur chaque deal. Les tarifs aériens changent plusieurs fois par jour : le prix final est celui affiché par le site de réservation au moment où vous payez.',
+        a: "Non. Ce sont les prix affichés par la compagnie le jour de notre relevé, indiqué à côté de chaque prix. Ils changent souvent : le prix final est celui affiché au moment où vous payez.",
       },
       {
         q: 'Que comprend le prix ?',
-        a: 'Le vol aller-retour pour une personne, taxes comprises, généralement avec un petit bagage cabine. Le bagage en soute, le choix du siège et parfois le bagage cabine standard sont en supplément selon la compagnie.',
-      },
-      {
-        q: 'Comment le site est-il financé ?',
-        a: "Par l'affiliation : si vous réservez après avoir cliqué sur un de nos liens, notre partenaire peut nous reverser une commission. Cela ne change pas le prix que vous payez et n'influence pas notre sélection, qui repose uniquement sur le prix du vol.",
+        a: "L'aller et le retour pour un adulte, taxes comprises. Les bagages inclus dépendent de la politique de chaque compagnie : vérifiez-les sur son site avant de réserver.",
       },
       {
         q: "D'où partent les vols ?",
-        a: "De l'EuroAirport Bâle-Mulhouse-Fribourg (codes BSL, MLH et EAP), situé à Saint-Louis, accessible depuis l'Alsace, la région de Bâle et le sud du pays de Bade.",
+        a: "De l'EuroAirport Bâle-Mulhouse-Fribourg (code BSL), un aéroport binational franco-suisse situé à Saint-Louis. On y accède aussi bien côté France que côté Suisse, depuis l'Alsace, la région de Bâle et le sud du pays de Bade.",
       },
     ],
   },
@@ -238,16 +249,16 @@ export const fr = {
     fullGuide: (label: string) => `Voir le guide complet de ${label}`,
   },
   destinations: {
-    metaTitle: (city: string) => `Destinations au départ de ${city} : nos guides`,
+    metaTitle: (city: string) => `Toutes les destinations en vol direct au départ de ${city}`,
     metaDescription: (city: string) =>
-      `Une cinquantaine de destinations en vol direct depuis ${city}, avec pour chacune un programme jour par jour et les bons prix du moment.`,
+      `Les destinations en vol direct depuis ${city}, avec le prix le plus bas relevé et le détail mois par mois.`,
     crumb: 'Destinations',
     eyebrow: (city: string, n: number) => `Au départ de ${city} · ${n} destinations`,
-    h1: 'Nos guides par destination',
+    h1: 'Par destination',
     lead: (airport: string) =>
-      `Pour chaque ville que nous surveillons en vol direct depuis l'${airport} : un programme jour par jour, les bons prix du moment et de quoi trouver où dormir.`,
+      `Toutes les villes desservies en vol direct depuis l'${airport} dont nous relevons les prix. Choisissez-en une pour voir, mois par mois, son prix courant et les meilleurs combos trouvés.`,
     from: (price: string) => `dès ${price}`,
-    dealsCount: (n: number) => `${n} deal${n > 1 ? 's' : ''} en cours`,
+    pending: 'relevé à venir',
   },
   guide: {
     notFoundTitle: 'Destination introuvable',
@@ -260,9 +271,10 @@ export const fr = {
       `${label} fait partie des destinations que nous surveillons en vol direct au départ de l'${airport}. Voici notre programme jour par jour pour en profiter, les bons prix du moment pour y aller et de quoi trouver où dormir.`,
     flightsAria: 'Vols du moment',
     flightsHeading: (label: string) => `Les vols du moment vers ${label}`,
-    flightsText: (city: string) => `Vols directs aller-retour au départ de ${city}, relevés deux fois par semaine.`,
+    flightsText: (city: string) => `Les meilleurs combos aller-retour au départ de ${city}, relevés chaque semaine.`,
     noFlights: (label: string) =>
-      `Pas de vol à petit prix vers ${label} en ce moment. Nous relevons les prix deux fois par semaine : les alertes vous préviennent dès qu'un bon prix apparaît.`,
+      `Pas encore de prix relevé pour ${label}. Les relevés tournent chaque semaine : revenez bientôt.`,
+    flightsMore: (label: string) => `Tous les prix pour ${label}, mois par mois`,
     daysHeading: (label: string) => `${label} jour par jour`,
     daysText:
       "Pour un week-end, suivez les trois premières journées : ce sont les incontournables. Pour une semaine, ajoutez les excursions des journées suivantes, dans l'ordre qui vous convient.",
@@ -275,11 +287,88 @@ export const fr = {
     othersHeading: "D'autres idées de destinations",
     all: 'Toutes les destinations',
   },
+  board: {
+    head: (city: string) => `Départs · ${city}`,
+    colDestination: 'Destination',
+    colDates: 'Aller · retour',
+    colPrice: 'A/R',
+    nights: (n: number) => `${n} nuit${n > 1 ? 's' : ''}`,
+    bookAria: (label: string, from: string, to: string, price: string) =>
+      `${label}, aller le ${from}, retour le ${to}, ${price} aller-retour : voir sur easyJet`,
+    seen: (date: string) => `vu le ${date}`,
+    empty: 'Pas encore de prix relevé ici. Les relevés tournent chaque semaine : revenez bientôt.',
+    note:
+      "Prix aller + retour pour 1 adulte, taxes comprises, tel qu'affiché par la compagnie le jour de notre relevé. Les bagages inclus dépendent de la compagnie. Le prix peut avoir changé : vérifiez-le avant de réserver.",
+  },
+  durees: {
+    '2-4': { label: 'Week-end', hint: '2 à 4 nuits' },
+    '5-8': { label: 'Une semaine', hint: '5 à 8 nuits' },
+    '10-15': { label: 'Long séjour', hint: '10 à 15 nuits' },
+  },
+  liste: {
+    destination: 'Destination',
+    allDestinations: 'Toutes',
+    month: 'Mois',
+    allMonths: 'Tous',
+    duration: 'Durée',
+    allDurations: 'Toutes',
+    sort: 'Tri',
+    cheapFirst: 'Prix croissant',
+    dearFirst: 'Prix décroissant',
+    soonFirst: 'Départ le plus proche',
+    count: (n: number) => `${n} combo${n > 1 ? 's' : ''}`,
+    noMatch: 'Aucun combo ne correspond à ces filtres.',
+    reset: 'Tout afficher',
+    more: 'Afficher plus',
+  },
+  prixPage: {
+    metaTitle: (city: string) => `Tous les prix des vols au départ de ${city}, triés par prix`,
+    metaDescription: (city: string) =>
+      `Tous les meilleurs combos aller-retour au départ de ${city} : triez par prix, filtrez par destination, par mois et par durée.`,
+    crumb: 'Tous les prix',
+    eyebrow: 'Laissez-vous surprendre',
+    h1: 'Tous les prix',
+    lead: 'Tous nos meilleurs combos aller-retour, toutes destinations et tous mois confondus. Triez par prix, puis filtrez par destination, par mois ou par durée.',
+  },
+  moisIndex: {
+    metaTitle: (city: string) => `Partir quand ? Les meilleurs prix mois par mois depuis ${city}`,
+    metaDescription: (city: string) =>
+      `Pour chaque mois, le prix aller-retour le plus bas trouvé au départ de ${city}, toutes destinations confondues.`,
+    crumb: 'Par mois',
+    eyebrow: 'Partir quand ?',
+    h1: 'Par mois',
+    lead: 'Choisissez un mois pour voir les meilleurs combos de toutes les destinations, du moins cher au plus cher.',
+  },
+  moisPage: {
+    metaTitle: (month: string, city: string) => `Partir en ${month} depuis ${city} : les meilleurs prix`,
+    metaDescription: (month: string, city: string) =>
+      `Les meilleurs combos aller-retour pour partir en ${month} au départ de ${city}, toutes destinations, triés par prix.`,
+    eyebrow: (city: string) => `Au départ de ${city}`,
+    h1: (month: string) => `Partir en ${month}`,
+    lead: "Les meilleurs combos de chaque destination pour ce mois, du moins cher au plus cher. Nous comptons aussi les départs des 5 derniers jours du mois d'avant et des 5 premiers jours du mois d'après.",
+    cheapestHeading: 'Le moins cher par destination',
+    allHeading: 'Tous les combos du mois',
+    otherMonths: 'Autres mois',
+  },
+  ville: {
+    metaTitle: (label: string, city: string) => `${label} depuis ${city} : les prix des vols mois par mois`,
+    metaDescription: (label: string, city: string) =>
+      `Vols ${city} – ${label} : prix courant et meilleurs combos aller-retour pour chaque mois, en week-end, une semaine ou un long séjour.`,
+    eyebrow: (country: string) => `Vol direct · ${country}`,
+    lead: (city: string, date: string) =>
+      `Au départ de ${city}, mois par mois : le prix courant d'un aller-retour et les meilleurs combos trouvés. Relevé du ${date}.`,
+    weekCourant: (price: string) => `Une semaine : prix courant ${price}`,
+    courant: (price: string) => `prix courant ${price}`,
+    noCombo: 'pas de combo ce mois-ci',
+    guide: (label: string) => `Que faire à ${label} ? Notre guide jour par jour`,
+    noData: (label: string) => `Pas encore de prix relevé pour ${label}. Les relevés tournent chaque semaine : revenez bientôt.`,
+    allDestinations: 'Toutes les destinations',
+  },
   notFound: {
     eyebrow: 'Erreur 404',
     h1: "Cette page n'existe pas ou plus",
     text: 'Le deal que vous cherchez a peut-être été retiré : les bons prix ne durent que quelques jours.',
-    button: 'Voir les deals du moment',
+    button: 'Voir les prix du moment',
   },
   alerts: {
     metaTitle: 'Alertes deals par e-mail',
@@ -289,8 +378,8 @@ export const fr = {
     h1: (city: string) => `Les bons prix au départ de ${city}, directement dans votre boîte`,
     lead: "Les meilleurs tarifs disparaissent en quelques jours. Inscrivez-vous pour être prévenu dès qu'ils sont publiés.",
     points: [
-      ['Uniquement des petits prix', 'Des vols directs sous le prix plafond que nous nous fixons pour chaque destination.'],
-      ['Peu de messages', 'Un e-mail quand de nouveaux deals sont publiés, deux fois par semaine au maximum.'],
+      ['Uniquement des petits prix', 'Les meilleurs combos aller-retour que nous trouvons dans nos relevés de prix.'],
+      ['Peu de messages', 'Un e-mail quand de vrais petits prix apparaissent, une fois par semaine au maximum.'],
       ['Gratuit et sans engagement', "Désinscription en un clic, votre adresse ne sert à rien d'autre."],
     ],
   },

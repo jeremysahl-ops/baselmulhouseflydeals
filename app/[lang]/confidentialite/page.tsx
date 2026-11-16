@@ -44,7 +44,7 @@ const COPY: Record<Lang, Copy> = {
     analytics:
       "Le site utilise Vercel Web Analytics, un outil de mesure d'audience qui ne dépose pas de cookie et ne permet pas de vous identifier : il compte les pages vues de façon agrégée.",
     bookingHeading: 'Liens vers les sites de réservation',
-    booking: `Lorsque vous cliquez sur un bouton de réservation, vous quittez ${SITE.name} pour le site d'un partenaire (${SITE.bookingPartner} pour les vols, Booking.com pour les hôtels). Le lien peut contenir un identifiant qui indique à ce partenaire que vous venez de notre site ; il ne contient aucune donnée personnelle vous concernant. Le partenaire applique ensuite sa propre politique de confidentialité et peut déposer ses propres cookies.`,
+    booking: `Lorsque vous cliquez sur un bouton de réservation, vous quittez ${SITE.name} pour le site d'un partenaire (la compagnie aérienne pour les vols, Booking.com pour les hôtels). Le lien peut contenir un identifiant qui indique à ce partenaire que vous venez de notre site ; il ne contient aucune donnée personnelle vous concernant. Le partenaire applique ensuite sa propre politique de confidentialité et peut déposer ses propres cookies.`,
     rightsHeading: 'Vos droits',
     rightsBefore:
       "Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, d'effacement, d'opposition et de portabilité de vos données. Pour les exercer, écrivez à",
@@ -68,7 +68,7 @@ const COPY: Record<Lang, Copy> = {
     analytics:
       'Die Website nutzt Vercel Web Analytics, ein Werkzeug zur Reichweitenmessung, das keine Cookies setzt und Sie nicht identifizieren kann: Es zählt Seitenaufrufe in zusammengefasster Form.',
     bookingHeading: 'Links zu den Buchungsseiten',
-    booking: `Wenn Sie auf eine Buchungsschaltfläche klicken, verlassen Sie ${SITE.name} und gelangen auf die Website eines Partners (${SITE.bookingPartner} für Flüge, Booking.com für Hotels). Der Link kann eine Kennung enthalten, die dem Partner anzeigt, dass Sie von unserer Website kommen; er enthält keine personenbezogenen Daten über Sie. Anschließend gilt die Datenschutzerklärung des Partners, der eigene Cookies setzen kann.`,
+    booking: `Wenn Sie auf eine Buchungsschaltfläche klicken, verlassen Sie ${SITE.name} und gelangen auf die Website eines Partners (die Fluggesellschaft für Flüge, Booking.com für Hotels). Der Link kann eine Kennung enthalten, die dem Partner anzeigt, dass Sie von unserer Website kommen; er enthält keine personenbezogenen Daten über Sie. Anschließend gilt die Datenschutzerklärung des Partners, der eigene Cookies setzen kann.`,
     rightsHeading: 'Ihre Rechte',
     rightsBefore:
       'Nach der DSGVO haben Sie das Recht auf Auskunft, Berichtigung, Löschung, Widerspruch und Datenübertragbarkeit. Um diese Rechte auszuüben, schreiben Sie an',
@@ -92,7 +92,7 @@ const COPY: Record<Lang, Copy> = {
     analytics:
       'The site uses Vercel Web Analytics, an audience measurement tool that sets no cookies and cannot identify you: it counts page views in aggregate.',
     bookingHeading: 'Links to booking sites',
-    booking: `When you click a booking button, you leave ${SITE.name} for a partner's website (${SITE.bookingPartner} for flights, Booking.com for hotels). The link may contain an identifier telling the partner that you came from our site; it contains no personal data about you. The partner then applies its own privacy policy and may set its own cookies.`,
+    booking: `When you click a booking button, you leave ${SITE.name} for a partner's website (the airline for flights, Booking.com for hotels). The link may contain an identifier telling the partner that you came from our site; it contains no personal data about you. The partner then applies its own privacy policy and may set its own cookies.`,
     rightsHeading: 'Your rights',
     rightsBefore:
       'Under the GDPR, you have the right to access, rectify, erase, object to the processing of and port your data. To exercise these rights, write to',
@@ -119,13 +119,6 @@ export default async function ConfidentialitePage({ params }: Props) {
           {t.introBefore} <Link href={localePath(lang, '/mentions-legales')}>{t.legalLink}</Link>.
         </p>
 
-        <h2>{t.alertsHeading}</h2>
-        <ul>
-          {t.alerts.map(([label, text]) => (
-            <li key={label}><strong>{label}</strong> {text}</li>
-          ))}
-        </ul>
-        <p>{t.unsubscribe} {mail}.</p>
 
         <h2>{t.analyticsHeading}</h2>
         <p>{t.analytics}</p>

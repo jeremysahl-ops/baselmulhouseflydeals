@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { SITE } from '@/lib/site';
-import { alternatesFor, getDict, isLang, type Lang } from '@/lib/i18n';
+import { alternatesFor, getDict, isLang, localePath, type Lang } from '@/lib/i18n';
 import { langParam } from '@/lib/i18n/params';
 
 interface Props {
@@ -10,16 +10,18 @@ interface Props {
 
 const META: Record<Lang, { title: string; description: string }> = {
   fr: {
-    title: 'Notre méthode : comment nous sélectionnons les deals',
-    description: "D'où viennent les prix, comment nous décidons qu'un vol est un bon prix, et comment le site est financé.",
+    title: 'Notre méthode : comment nous relevons les prix des vols',
+    description:
+      "D'où viennent les prix, comment nous les assemblons en combos aller-retour, ce que veut dire « prix courant » et comment le site est financé.",
   },
   de: {
-    title: 'Unsere Methode: So wählen wir die Deals aus',
-    description: 'Woher die Preise stammen, wann ein Flug für uns ein guter Preis ist und wie sich die Website finanziert.',
+    title: 'Unsere Methode: So erfassen wir die Flugpreise',
+    description:
+      'Woher die Preise stammen, wie wir sie zu Hin-und-Rückflug-Kombis zusammensetzen, was „üblicher Preis“ bedeutet und wie sich die Website finanziert.',
   },
   en: {
-    title: 'Our method: how we select deals',
-    description: 'Where the prices come from, how we decide that a flight is a good price, and how the site is funded.',
+    title: 'Our method: how we check flight prices',
+    description: 'Where the prices come from, how we combine them into return combos, what “usual price” means and how the site is funded.',
   },
 };
 
@@ -29,198 +31,186 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { ...META[lang], alternates: alternatesFor(lang, '/comment-ca-marche') };
 }
 
-function Fr({ airport }: { airport: string }) {
+type BodyProps = { airport: string; href: (p: string) => string };
+
+function Fr({ airport, href }: BodyProps) {
   return (
     <>
       <p className="eyebrow">Transparence</p>
-      <h1 className="mt-2 text-3xl font-bold tracking-tight text-ink sm:text-4xl">Notre méthode</h1>
+      <h1 className="display mt-2 text-5xl text-ink sm:text-6xl">Notre méthode</h1>
       <p className="mt-4 text-lg">
-        {SITE.name} est un site indépendant. Nous ne vendons pas de billets : nous repérons les vols directs
-        à petit prix au départ de l&apos;{airport} et vous renvoyons vers un site de réservation.
+        {SITE.name} est un site indépendant, pensé pour les voyageurs des trois frontières. Nous ne vendons pas de
+        billets : nous relevons les prix des vols au départ de l&apos;{airport}, vous montrons les meilleurs et vous redirigeons vers la compagnie qui opère le vol.
       </p>
 
       <h2>D&apos;où viennent les prix</h2>
       <p>
-        Deux fois par semaine, notre outil interroge une base de prix alimentée par les recherches de voyageurs sur un
-        comparateur de vols. Pour chaque destination, il relève les allers-retours directs les moins chers sur les neuf
-        mois à venir. Ce sont des prix <strong>constatés</strong> dans les 48 heures précédant le relevé, pas des prix
-        garantis.
+        Nous lisons le calendrier des prix des compagnies pour chaque destination desservie depuis Bâle-Mulhouse, comme le
+        ferait un voyageur : un prix par jour à l&apos;aller, un prix par jour au retour, sur toute la période ouverte à la
+        réservation. Les grandes destinations sont relevées chaque semaine, les autres toutes les deux semaines. La date du
+        relevé est indiquée à côté de chaque prix.
       </p>
 
-      <h2>Ce que nous appelons un deal</h2>
-      <ul>
-        <li>Un vol <strong>direct</strong> à l&apos;aller comme au retour.</li>
-        <li>Un <strong>aller-retour</strong> de 2 à 15 nuits sur place.</li>
-        <li>
-          Un prix inférieur au <strong>prix plafond</strong> que nous nous fixons pour la destination.
-        </li>
-        <li>Au plus trois deals par destination, sur des mois différents.</li>
-      </ul>
+      <h2>Comment nous assemblons les combos</h2>
       <p>
-        Ce prix plafond est un choix de notre part, pas un tarif officiel ni une moyenne du marché : il sert à écarter
-        les vols que nous jugeons trop chers. Aucun deal n&apos;est choisi ou rédigé à la main, et aucun deal n&apos;est mis en avant contre
-        rémunération.
+        Les compagnies vendent souvent l&apos;aller et le retour séparément. Nous assemblons donc chaque aller avec chaque retour possible pour
+        trois durées : le week-end (2 à 4 nuits), la semaine (5 à 8 nuits) et le long séjour (10 à 15 nuits). Pour chaque
+        mois et chaque durée, nous gardons les trois combos les moins chers, à des dates espacées d&apos;au moins quatre
+        jours. Un « mois » compte aussi les départs des cinq derniers jours du mois d&apos;avant et des cinq premiers jours
+        du mois d&apos;après.
+      </p>
+
+      <h2>Le prix courant</h2>
+      <p>
+        Pour chaque mois et chaque durée, nous indiquons aussi le <strong>prix courant</strong> : le prix typique d&apos;un
+        aller-retour, calculé à partir de tous les prix relevés. Nous prenons le prix situé au milieu de la liste plutôt
+        qu&apos;une moyenne, pour qu&apos;un pic de prix (Noël, mois d&apos;août) ne fausse pas le chiffre. C&apos;est un repère
+        pour juger un prix ce mois-là. Nous ne calculons pas de pourcentage de réduction : ce ne sont pas des promotions, seulement des prix
+        constatés.
       </p>
 
       <h2>Ce que le prix comprend</h2>
       <p>
-        Le prix affiché est celui d&apos;un aller-retour pour une personne, taxes comprises, au tarif de base de la
-        compagnie. Le bagage en soute, le choix du siège et, selon les compagnies, le bagage cabine standard sont en
-        supplément.
+        L&apos;aller et le retour pour un adulte, taxes comprises. Les bagages inclus et le choix du siège dépendent de la
+        politique de chaque compagnie : vérifiez-les sur son site avant de réserver.
       </p>
 
       <h2>Pourquoi le prix peut être différent quand vous cliquez</h2>
       <p>
-        Les tarifs aériens changent plusieurs fois par jour, et un prix vu par un voyageur hier peut avoir disparu
-        aujourd&apos;hui. Chaque deal indique la date à laquelle son prix a été constaté. Un deal que notre outil ne
-        retrouve plus est retiré du site au bout de cinq jours environ.
+        Les prix des vols changent souvent : un prix vu lors de notre relevé peut avoir monté, ou baissé. Le bouton ouvre le
+        site de la compagnie aux bonnes dates ; c&apos;est là que vous voyez le prix du jour, avant de payer. Un relevé de plus
+        de huit jours n&apos;est plus affiché.
       </p>
 
       <h2>Comment le site est financé</h2>
       <p>
-        Le bouton de réservation ouvre {SITE.bookingPartner} avec un lien d&apos;affiliation. Si vous réservez, ce
-        partenaire peut nous reverser une commission. Vous ne payez rien de plus, et cela n&apos;intervient pas dans la
-        sélection : celle-ci dépend uniquement du prix constaté. Vous pouvez
-        aussi réserver directement auprès de la compagnie aérienne.
-      </p>
-      <p>
-        Le site peut aussi présenter des établissements partenaires (hôtels, parkings, navettes). Leurs encarts sont
-        séparés des deals et portent toujours la mention « Partenaire ». Voir{' '}
-        <Link href="/partenaires">devenir partenaire</Link>.
+        Nous ne touchons rien sur les liens vers les compagnies aériennes. Le site peut présenter des établissements partenaires (hôtels, parkings,
+        navettes) : leurs encarts sont séparés des prix et portent toujours la mention « Partenaire ». Voir{' '}
+        <Link href={href('/partenaires')}>devenir partenaire</Link>.
       </p>
 
       <p className="mt-10">
-        <Link href="/#deals">Voir les deals du moment</Link>
+        <Link href={href('/prix')}>Voir tous les prix</Link>
       </p>
     </>
   );
 }
 
-function De({ airport }: { airport: string }) {
+function De({ airport, href }: BodyProps) {
   return (
     <>
       <p className="eyebrow">Transparenz</p>
-      <h1 className="mt-2 text-3xl font-bold tracking-tight text-ink sm:text-4xl">Unsere Methode</h1>
+      <h1 className="display mt-2 text-5xl text-ink sm:text-6xl">Unsere Methode</h1>
       <p className="mt-4 text-lg">
-        {SITE.name} ist eine unabhängige Website. Wir verkaufen keine Tickets: Wir spüren günstige
-        Direktflüge ab dem {airport} auf und leiten Sie zu einer Buchungsseite weiter.
+        {SITE.name} ist eine unabhängige Website für Reisende im Dreiländereck. Wir verkaufen keine Tickets: Wir erfassen
+        die Flugpreise ab dem {airport}, zeigen Ihnen die besten und leiten Sie zur Fluggesellschaft weiter, die den Flug durchführt.
       </p>
 
       <h2>Woher die Preise stammen</h2>
       <p>
-        Zweimal pro Woche fragt unser Tool eine Preisdatenbank ab, die aus den Suchanfragen von Reisenden auf einem
-        Flugvergleichsportal gespeist wird. Für jedes Reiseziel erfasst es die günstigsten Direktflüge (Hin- und
-        Rückflug) der kommenden neun Monate. Es handelt sich um Preise, die in den 48 Stunden vor der Abfrage{' '}
-        <strong>festgestellt</strong> wurden, nicht um garantierte Preise.
+        Wir lesen die Preiskalender der Fluggesellschaften für jedes Reiseziel ab Basel-Mulhouse, so wie es ein Reisender tun würde: ein
+        Preis pro Tag für den Hinflug, ein Preis pro Tag für den Rückflug, über den gesamten buchbaren Zeitraum. Große
+        Reiseziele werden jede Woche erfasst, die anderen alle zwei Wochen. Das Datum der Erfassung steht neben jedem Preis.
       </p>
 
-      <h2>Was wir einen Deal nennen</h2>
-      <ul>
-        <li>Ein <strong>Direktflug</strong> auf dem Hin- und dem Rückweg.</li>
-        <li>Ein <strong>Hin- und Rückflug</strong> mit 2 bis 15 Nächten vor Ort.</li>
-        <li>
-          Ein Preis unter der <strong>Preisobergrenze</strong>, die wir für das Reiseziel selbst festlegen.
-        </li>
-        <li>Höchstens drei Deals pro Reiseziel, in verschiedenen Monaten.</li>
-      </ul>
+      <h2>Wie wir die Kombis bilden</h2>
       <p>
-        Diese Preisobergrenze ist unsere eigene Entscheidung, kein offizieller Tarif und kein Marktdurchschnitt: Sie
-        dient dazu, Flüge auszusortieren, die wir zu teuer finden. Kein Deal wird von Hand ausgewählt oder verfasst, und kein Deal wird gegen
-        Bezahlung hervorgehoben.
+        Fluggesellschaften verkaufen Hin- und Rückflug oft einzeln. Wir kombinieren daher jeden Hinflug mit jedem möglichen Rückflug für drei
+        Reisedauern: Wochenende (2 bis 4 Nächte), Woche (5 bis 8 Nächte) und längere Reise (10 bis 15 Nächte). Für jeden
+        Monat und jede Dauer behalten wir die drei günstigsten Kombis mit mindestens vier Tagen Abstand. Ein „Monat“ umfasst
+        auch Abflüge in den letzten fünf Tagen des Vormonats und den ersten fünf Tagen des Folgemonats.
+      </p>
+
+      <h2>Der übliche Preis</h2>
+      <p>
+        Für jeden Monat und jede Dauer zeigen wir auch den <strong>üblichen Preis</strong>: den typischen Preis für Hin- und
+        Rückflug, berechnet aus allen erfassten Preisen. Wir nehmen den Preis in der Mitte der Liste statt eines
+        Durchschnitts, damit Preisspitzen (Weihnachten, August) das Ergebnis nicht verfälschen. So können Sie einen Preis in
+        diesem Monat einschätzen. Wir berechnen keine Rabatt-Prozentsätze: Es sind keine Aktionen, sondern festgestellte Preise.
       </p>
 
       <h2>Was im Preis enthalten ist</h2>
       <p>
-        Der angezeigte Preis gilt für einen Hin- und Rückflug für eine Person inklusive Steuern im Basistarif der
-        Airline. Aufgabegepäck, Sitzplatzwahl und je nach Airline das normale Handgepäck kosten extra.
+        Hin- und Rückflug für einen Erwachsenen, inklusive Steuern. Welches Gepäck enthalten ist und ob die Sitzplatzwahl
+        etwas kostet, hängt von der jeweiligen Fluggesellschaft ab: Prüfen Sie es vor der Buchung auf ihrer Website.
       </p>
 
       <h2>Warum der Preis beim Klick abweichen kann</h2>
       <p>
-        Flugpreise ändern sich mehrmals täglich, und ein Preis, den ein Reisender gestern gesehen hat, kann heute
-        verschwunden sein. Bei jedem Deal steht das Datum, an dem der Preis festgestellt wurde. Ein Deal, den unser
-        Tool nicht mehr findet, wird nach etwa fünf Tagen von der Website entfernt.
+        Flugpreise ändern sich oft: Ein bei unserer Erfassung gesehener Preis kann gestiegen oder gesunken sein. Der
+        Button öffnet die Website der Fluggesellschaft mit den richtigen Daten; dort sehen Sie den aktuellen Preis vor dem Bezahlen.
+        Erfassungen, die älter als acht Tage sind, werden nicht mehr angezeigt.
       </p>
 
       <h2>Wie sich die Website finanziert</h2>
       <p>
-        Die Buchungsschaltfläche öffnet {SITE.bookingPartner} über einen Partnerlink. Wenn Sie buchen, kann uns dieser
-        Partner eine Provision zahlen. Sie zahlen nichts zusätzlich, und die Auswahl wird davon nicht beeinflusst: Sie
-        hängt allein vom festgestellten Preis ab. Sie können auch direkt bei der
-        Airline buchen.
-      </p>
-      <p>
-        Die Website kann außerdem Partnerbetriebe vorstellen (Hotels, Parkplätze, Shuttles). Deren Hinweise sind von
-        den Deals getrennt und tragen stets den Vermerk „Partner“. Siehe{' '}
-        <Link href="/de/partenaires">Partner werden</Link>.
+        Für Links zu Fluggesellschaften erhalten wir nichts. Die Website kann Partnerbetriebe vorstellen (Hotels, Parkplätze, Shuttles):
+        Diese Hinweise sind von den Preisen getrennt und immer als „Partner“ gekennzeichnet. Siehe{' '}
+        <Link href={href('/partenaires')}>Partner werden</Link>.
       </p>
 
       <p className="mt-10">
-        <Link href="/de#deals">Aktuelle Deals ansehen</Link>
+        <Link href={href('/prix')}>Alle Preise ansehen</Link>
       </p>
     </>
   );
 }
 
-function En({ airport }: { airport: string }) {
+function En({ airport, href }: BodyProps) {
   return (
     <>
       <p className="eyebrow">Transparency</p>
-      <h1 className="mt-2 text-3xl font-bold tracking-tight text-ink sm:text-4xl">Our method</h1>
+      <h1 className="display mt-2 text-5xl text-ink sm:text-6xl">Our method</h1>
       <p className="mt-4 text-lg">
-        {SITE.name} is an independent site. We do not sell tickets: we spot cheap direct flights from{' '}
-        {airport} and send you to a booking site.
+        {SITE.name} is an independent site for travellers in the three-border region. We don&apos;t sell tickets: we check
+        flight prices from {airport}, show you the best ones and send you to the airline that operates the flight.
       </p>
 
       <h2>Where the prices come from</h2>
       <p>
-        Twice a week, our tool queries a price database fed by travellers&apos; searches on a flight comparison site.
-        For each destination, it collects the cheapest direct return flights over the next nine months. These are
-        prices <strong>observed</strong> in the 48 hours before the check, not guaranteed prices.
+        We read the airlines&apos; fare calendars for every destination served from Basel-Mulhouse, just as a traveller would:
+        one price per day outbound, one price per day for the return, over the whole period open for booking. Major
+        destinations are checked every week, the others every two weeks. The check date is shown next to every price.
       </p>
 
-      <h2>What we call a deal</h2>
-      <ul>
-        <li>A <strong>direct</strong> flight both ways.</li>
-        <li>A <strong>return trip</strong> with 2 to 15 nights at the destination.</li>
-        <li>
-          A price below the <strong>price ceiling</strong> we set ourselves for the destination.
-        </li>
-        <li>No more than three deals per destination, in different months.</li>
-      </ul>
+      <h2>How we build the combos</h2>
       <p>
-        This price ceiling is our own choice, not an official fare or a market average: it is used to rule out
-        flights we consider too expensive. No
-        deal is chosen or written by hand, and no deal is promoted in exchange for payment.
+        Airlines often sell outbound and return flights separately. So we pair every outbound flight with every possible return
+        for three lengths of stay: weekend (2 to 4 nights), one week (5 to 8 nights) and longer trip (10 to 15 nights). For
+        each month and length, we keep the three cheapest combos, at least four days apart. A &ldquo;month&rdquo; also
+        includes departures in the last five days of the previous month and the first five days of the next.
+      </p>
+
+      <h2>The usual price</h2>
+      <p>
+        For each month and length of stay we also show the <strong>usual price</strong>: the typical price of a return trip,
+        worked out from all the prices we checked. We take the price in the middle of the list rather than an average, so
+        that price peaks (Christmas, August) don&apos;t skew the figure. It is a benchmark to judge a price that month. We don&apos;t calculate
+        discount percentages: these are not promotions, just observed prices.
       </p>
 
       <h2>What the price includes</h2>
       <p>
-        The price shown is for a return flight for one person, taxes included, at the airline&apos;s basic fare. Hold
-        luggage, seat selection and, depending on the airline, a standard cabin bag cost extra.
+        The outbound and return flights for one adult, taxes included. Included baggage and seat selection depend on each
+        airline&apos;s policy: check them on their website before booking.
       </p>
 
       <h2>Why the price may differ when you click</h2>
       <p>
-        Air fares change several times a day, and a price seen by a traveller yesterday may be gone today. Each deal
-        shows the date on which its price was observed. A deal that our tool can no longer find is removed from the
-        site after about five days.
+        Flight prices change often: a price seen during our check may have gone up, or down. The button opens the
+        airline&apos;s website with the right dates; that is where you see the current price, before paying. Checks older
+        than eight days are no longer shown.
       </p>
 
       <h2>How the site is funded</h2>
       <p>
-        The booking button opens {SITE.bookingPartner} through an affiliate link. If you book, this partner may pay
-        us a commission. You pay nothing extra, and it plays no part in the selection, which depends solely on the
-        observed price. You can also book directly with the airline.
-      </p>
-      <p>
-        The site may also feature partner businesses (hotels, car parks, shuttles). Their listings are kept separate
-        from the deals and always carry the label &quot;Partner&quot;. See{' '}
-        <Link href="/en/partenaires">become a partner</Link>.
+        We earn nothing on links to airlines. The site may feature partner businesses (hotels, parking, shuttles): their boxes
+        are kept separate from the prices and are always labelled &ldquo;Partner&rdquo;. See{' '}
+        <Link href={href('/partenaires')}>become a partner</Link>.
       </p>
 
       <p className="mt-10">
-        <Link href="/en#deals">See current deals</Link>
+        <Link href={href('/prix')}>See all prices</Link>
       </p>
     </>
   );
@@ -229,11 +219,12 @@ function En({ airport }: { airport: string }) {
 export default async function MethodePage({ params }: Props) {
   const lang = await langParam(params);
   const airport = getDict(lang).place.airport;
+  const href = (p: string) => localePath(lang, p);
   const Body = { fr: Fr, de: De, en: En }[lang];
   return (
     <article className="container-page prose-page py-14">
       <div className="mx-auto max-w-2xl">
-        <Body airport={airport} />
+        <Body airport={airport} href={href} />
       </div>
     </article>
   );

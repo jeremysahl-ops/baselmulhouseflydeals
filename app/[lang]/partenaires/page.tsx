@@ -53,10 +53,6 @@ const COPY: Record<Lang, Copy> = {
         title: 'Partenaire destination',
         text: 'Hôtel, résidence ou activité sur place : votre encart apparaît sur les deals vers votre destination, à côté des dates et du prix du vol.',
       },
-      {
-        title: 'Mention dans les alertes',
-        text: 'Une recommandation identifiée comme partenaire dans les alertes envoyées aux abonnés lorsque des deals vers votre destination sont publiés.',
-      },
     ],
     terms:
       'Les conditions se discutent au cas par cas : tarif fixe, commission ou échange de visibilité. Les chiffres de fréquentation du site sont communiqués sur simple demande.',
@@ -95,10 +91,6 @@ const COPY: Record<Lang, Copy> = {
         title: 'Partner am Reiseziel',
         text: 'Hotel, Ferienanlage oder Aktivität vor Ort: Ihr Hinweis erscheint bei den Deals zu Ihrem Reiseziel, neben den Reisedaten und dem Flugpreis.',
       },
-      {
-        title: 'Erwähnung im Preisalarm',
-        text: 'Eine als Partner gekennzeichnete Empfehlung in den E-Mails an unsere Abonnenten, wenn Deals zu Ihrem Reiseziel veröffentlicht werden.',
-      },
     ],
     terms:
       'Die Konditionen werden im Einzelfall besprochen: Festpreis, Provision oder gegenseitige Sichtbarkeit. Die Besucherzahlen der Website teilen wir auf Anfrage mit.',
@@ -136,10 +128,6 @@ const COPY: Record<Lang, Copy> = {
       {
         title: 'Destination partner',
         text: 'Hotel, holiday residence or local activity: your listing appears on deals to your destination, next to the dates and the flight price.',
-      },
-      {
-        title: 'Mention in the alerts',
-        text: 'A recommendation clearly labelled as a partner in the alerts sent to subscribers when deals to your destination are published.',
       },
     ],
     terms:

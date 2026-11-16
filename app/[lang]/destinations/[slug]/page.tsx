@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import DealCard from '@/components/DealCard';
+import Board from '@/components/Board';
 import DealVisual from '@/components/DealVisual';
 import HotelPickCard from '@/components/HotelPickCard';
 import PartnerCard from '@/components/PartnerCard';
@@ -13,7 +13,8 @@ import { activeHotelPicks } from '@/lib/hotel-picks';
 import { HOTEL_PARTNER, hotelCityLink } from '@/lib/hotels';
 import { fullItinerary } from '@/lib/itineraries';
 import { partnersForDestination } from '@/lib/partners';
-import { getDealsByDestination } from '@/lib/supabase';
+import { AIRPORTS, airportForGuide, airportSlug } from '@/lib/airports';
+import { tousLesCombos } from '@/lib/prix';
 import { LOCALES, alternatesFor, getDict, isLang, localePath } from '@/lib/i18n';
 import { langParam } from '@/lib/i18n/params';
 
@@ -53,7 +54,10 @@ export default async function GuidePage({ params }: Props) {
   const label = destinationLabel(destination, lang);
   const country = destinationCountry(destination, lang) ?? '';
   const days = fullItinerary(destination, lang);
-  const deals = await getDealsByDestination(destination);
+  // Les vols : meilleurs combos relevés pour la ville (Londres : Gatwick et Luton).
+  const codes = Object.entries(AIRPORTS).filter(([, a]) => a.guide === destination).map(([c]) => c);
+  const code = airportForGuide(destination);
+  const deals = tousLesCombos().filter((c) => codes.includes(c.code)).slice(0, 6);
   const hotelPicks = activeHotelPicks().filter((p) => p.destination === destination);
   const hotelLink = hotelCityLink(destination, lang);
   const partners = partnersForDestination(destination);
@@ -88,16 +92,18 @@ export default async function GuidePage({ params }: Props) {
         {deals.length > 0 ? (
           <>
             <p className="mt-1 text-sm text-ink-muted">{t.flightsText(dict.place.city)}</p>
-            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {deals.map((d) => (
-                <DealCard key={d.id} deal={d} lang={lang} />
-              ))}
+            <div className="mt-6">
+              <Board combos={deals} lang={lang} />
             </div>
+            {code && (
+              <Link href={href(`/vols/${airportSlug(code)}`)} className="mt-3 inline-block font-semibold text-ink underline underline-offset-4">
+                {t.flightsMore(label)} →
+              </Link>
+            )}
           </>
         ) : (
           <div className="card mt-4 flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
             <p className="max-w-xl text-sm leading-relaxed text-ink-soft">{t.noFlights(label)}</p>
-            <Link href={href('/alertes')} className="btn-primary shrink-0">{dict.nav.alerts}</Link>
           </div>
         )}
       </section>

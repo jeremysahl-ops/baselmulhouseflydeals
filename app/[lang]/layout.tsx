@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Geist } from 'next/font/google';
+import { Barlow_Condensed, Geist, JetBrains_Mono } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import '../globals.css';
 import Header from '@/components/Header';
@@ -9,6 +9,8 @@ import { LOCALES, OG_LOCALE, alternatesFor, getDict, isLang, localePath } from '
 import { langParam } from '@/lib/i18n/params';
 
 const geist = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
+const display = Barlow_Condensed({ variable: '--ff-display', subsets: ['latin'], weight: ['600', '700'] });
+const board = JetBrains_Mono({ variable: '--ff-board', subsets: ['latin'], weight: ['500', '700'] });
 
 interface Props {
   params: Promise<{ lang: string }>;
@@ -42,14 +44,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export const viewport: Viewport = { themeColor: '#0b2545' };
+export const viewport: Viewport = { themeColor: '#0d1b2e' };
 
 export default async function RootLayout({ children, params }: Readonly<{ children: React.ReactNode }> & Props) {
   const lang = await langParam(params);
   const t = getDict(lang);
   return (
     <html lang={lang}>
-      <body className={`${geist.variable} font-sans antialiased`}>
+      <body className={`${geist.variable} ${display.variable} ${board.variable} font-sans antialiased`}>
         <a href="#contenu" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold">
           {t.common.skip}
         </a>
