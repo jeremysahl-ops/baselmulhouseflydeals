@@ -50,8 +50,13 @@ export function proxy(request: NextRequest) {
     return res;
   }
 
-  if (!ROBOT.test(request.headers.get('user-agent') ?? '')) {
-    const choix = request.cookies.get('lang')?.value ?? langueDuVisiteur(request);
+  // Navigation interne du site (requêtes RSC / préchargement) : jamais de changement de langue en cours de route,
+  // sinon la page s'affiche dans une langue et le menu dans une autre.
+  const navigationInterne = request.headers.has('rsc') || request.headers.has('next-router-prefetch') || request.headers.has('next-router-state-tree');
+  const dejaChoisi = request.cookies.get('lang')?.value;
+
+  if (!navigationInterne && !ROBOT.test(request.headers.get('user-agent') ?? '')) {
+    const choix = dejaChoisi ?? langueDuVisiteur(request);
     if (choix === 'de' || choix === 'en') {
       const url = request.nextUrl.clone();
       url.pathname = `/${choix}${pathname === '/' ? '' : pathname}`;
@@ -63,7 +68,10 @@ export function proxy(request: NextRequest) {
 
   const url = request.nextUrl.clone();
   url.pathname = `/fr${pathname === '/' ? '' : pathname}`;
-  return NextResponse.rewrite(url);
+  const res = NextResponse.rewrite(url);
+  // Visiteur servi en français : on retient ce choix pour qu'il ne bascule plus ensuite.
+  if (!dejaChoisi && !navigationInterne) res.cookies.set('lang', 'fr', { maxAge: UN_AN, path: '/' });
+  return res;
 }
 
 export const config = {

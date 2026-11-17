@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import AirportVisual from '@/components/AirportVisual';
+import { liensSejour, NOM_PARTENAIRE } from '@/lib/sejour-liens';
 import { conseils } from '@/lib/conseils';
 import { fullItinerary } from '@/lib/itineraries';
 import { notFound } from 'next/navigation';
@@ -176,6 +177,28 @@ export default async function VillePage({ params }: Props) {
       )}
 
       <p className="mt-6 max-w-3xl text-xs leading-relaxed text-ink-muted">{dict.board.note}</p>
+
+      <section className="mt-12" aria-labelledby="pour-ton-sejour">
+        <h2 id="pour-ton-sejour" className="display text-4xl text-ink">{dict.pourTonSejour.heading}</h2>
+        <p className="mt-2 max-w-2xl text-ink-soft">{dict.pourTonSejour.text(label)}</p>
+        <ul className="mt-6 grid gap-3 sm:grid-cols-3">
+          {liensSejour(code, lang).map((l) => (
+            <li key={l.partenaire}>
+              <a
+                href={l.url}
+                target="_blank"
+                rel={l.affilie ? "sponsored nofollow noopener" : "nofollow noopener"}
+                className="flex h-full flex-col rounded-lg border border-line bg-white p-4 shadow-sm transition hover:border-ink"
+              >
+                <span className="text-lg font-bold text-ink">{dict.pourTonSejour.boutons[l.partenaire].titre}</span>
+                <span className="text-sm text-ink-soft">{dict.pourTonSejour.boutons[l.partenaire].detail}</span>
+                <span className="mt-3 text-xs font-semibold uppercase tracking-wide text-ink-muted">{dict.pourTonSejour.via(NOM_PARTENAIRE[l.partenaire])}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        {liensSejour(code, lang).some((l) => l.affilie) && <p className="mt-3 text-xs text-ink-muted">{dict.pourTonSejour.mention}</p>}
+      </section>
       <p className="mt-8">
         <Link href={localePath(lang, '/destinations')} className="font-semibold text-ink underline underline-offset-4">← {t.allDestinations}</Link>
       </p>

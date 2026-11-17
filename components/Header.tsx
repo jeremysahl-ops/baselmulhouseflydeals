@@ -18,7 +18,6 @@ export default function Header({ lang }: { lang: Lang }) {
     { href: '/destinations', label: t.nav.byDestination },
     { href: '/prix', label: t.nav.allPrices },
     { href: '/sejours', label: t.nav.sejours },
-    { href: '/comment-ca-marche', label: t.nav.method },
   ];
 
   const languages = (

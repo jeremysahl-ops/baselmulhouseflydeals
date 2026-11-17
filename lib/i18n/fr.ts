@@ -337,6 +337,17 @@ export const fr = {
     formules: { 'petit-dejeuner': 'Petit-déjeuner', 'demi-pension': 'Demi-pension', 'pension-complete': 'Pension complète', 'tout-compris': 'Tout compris' },
     empty: 'Aucun séjour pour le moment. La sélection est mise à jour chaque semaine.',
   },
+  pourTonSejour: {
+    heading: 'Pour ton séjour',
+    text: (ville: string) => `Une fois ton vol trouvé : où dormir à ${ville}, quoi faire sur place et comment rejoindre ta chambre depuis l’aéroport.`,
+    boutons: {
+      booking: { titre: 'Où dormir', detail: 'Hôtels et appartements' },
+      getyourguide: { titre: 'Que faire', detail: 'Visites et activités' },
+      kiwitaxi: { titre: 'Depuis l’aéroport', detail: 'Transfert jusqu’à ton hôtel' },
+    },
+    via: (p: string) => `sur ${p} ↗`,
+    mention: 'Liens partenaires : FlyBSL peut toucher une commission si tu réserves, sans aucun surcoût pour toi.',
+  },
   durees: {
     '2-4': { label: 'Week-end', hint: '2 à 4 nuits' },
     '5-8': { label: 'Une semaine', hint: '5 à 8 nuits' },

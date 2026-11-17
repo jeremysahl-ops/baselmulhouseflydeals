@@ -336,6 +336,17 @@ export const en: Dict = {
     formules: { 'petit-dejeuner': 'Breakfast', 'demi-pension': 'Half board', 'pension-complete': 'Full board', 'tout-compris': 'All inclusive' },
     empty: 'No holidays right now. The selection is updated every week.',
   },
+  pourTonSejour: {
+    heading: 'For your stay',
+    text: (ville) => `Once you have your flight: where to sleep in ${ville}, what to do there and how to get from the airport to your room.`,
+    boutons: {
+      booking: { titre: 'Where to stay', detail: 'Hotels and apartments' },
+      getyourguide: { titre: 'Things to do', detail: 'Tours and activities' },
+      kiwitaxi: { titre: 'From the airport', detail: 'Transfer to your hotel' },
+    },
+    via: (p) => `on ${p} ↗`,
+    mention: 'Partner links: FlyBSL may earn a commission if you book, at no extra cost to you.',
+  },
   durees: {
     '2-4': { label: 'Weekend', hint: '2 to 4 nights' },
     '5-8': { label: 'One week', hint: '5 to 8 nights' },

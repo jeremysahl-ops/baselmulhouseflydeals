@@ -335,6 +335,17 @@ export const de: Dict = {
     formules: { 'petit-dejeuner': 'Frühstück', 'demi-pension': 'Halbpension', 'pension-complete': 'Vollpension', 'tout-compris': 'All inclusive' },
     empty: 'Zurzeit keine Angebote. Die Auswahl wird jede Woche aktualisiert.',
   },
+  pourTonSejour: {
+    heading: 'Für deinen Aufenthalt',
+    text: (ville) => `Wenn dein Flug steht: wo du in ${ville} übernachtest, was du dort unternimmst und wie du vom Flughafen zu deiner Unterkunft kommst.`,
+    boutons: {
+      booking: { titre: 'Übernachten', detail: 'Hotels und Apartments' },
+      getyourguide: { titre: 'Unternehmen', detail: 'Touren und Aktivitäten' },
+      kiwitaxi: { titre: 'Vom Flughafen', detail: 'Transfer zu deinem Hotel' },
+    },
+    via: (p) => `bei ${p} ↗`,
+    mention: 'Partnerlinks: FlyBSL kann eine Provision erhalten, wenn du buchst – ohne Mehrkosten für dich.',
+  },
   durees: {
     '2-4': { label: 'Wochenende', hint: '2 bis 4 Nächte' },
     '5-8': { label: 'Eine Woche', hint: '5 bis 8 Nächte' },
