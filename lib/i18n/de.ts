@@ -331,7 +331,7 @@ export const de: Dict = {
     perPerson: 'pro Pers.',
     by: (v, s) => `${v} · veröffentlicht von ${s}`,
     seen: (d) => `Preis gesehen am ${d}`,
-    see: (s) => `Angebot bei ${s} ansehen`,
+    see: () => 'Zum Angebot',
     formules: { 'petit-dejeuner': 'Frühstück', 'demi-pension': 'Halbpension', 'pension-complete': 'Vollpension', 'tout-compris': 'All inclusive' },
     empty: 'Zurzeit keine Angebote. Die Auswahl wird jede Woche aktualisiert.',
   },
@@ -343,7 +343,7 @@ export const de: Dict = {
       getyourguide: { titre: 'Unternehmen', detail: 'Touren und Aktivitäten' },
       kiwitaxi: { titre: 'Vom Flughafen', detail: 'Transfer zu deinem Hotel' },
     },
-    via: (p) => `bei ${p} ↗`,
+    via: (p) => `Ansehen bei ${p} ↗`,
     mention: 'Partnerlinks: FlyBSL kann eine Provision erhalten, wenn du buchst – ohne Mehrkosten für dich.',
   },
   durees: {

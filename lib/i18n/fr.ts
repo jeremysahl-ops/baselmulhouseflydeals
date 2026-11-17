@@ -333,7 +333,7 @@ export const fr = {
     perPerson: 'par pers.',
     by: (v: string, s: string) => `${v} · publié par ${s}`,
     seen: (d: string) => `prix vu le ${d}`,
-    see: (s: string) => `Voir l’offre sur ${s}`,
+    see: (_s: string) => 'Voir l’offre',
     formules: { 'petit-dejeuner': 'Petit-déjeuner', 'demi-pension': 'Demi-pension', 'pension-complete': 'Pension complète', 'tout-compris': 'Tout compris' },
     empty: 'Aucun séjour pour le moment. La sélection est mise à jour chaque semaine.',
   },
@@ -345,7 +345,7 @@ export const fr = {
       getyourguide: { titre: 'Que faire', detail: 'Visites et activités' },
       kiwitaxi: { titre: 'Depuis l’aéroport', detail: 'Transfert jusqu’à ton hôtel' },
     },
-    via: (p: string) => `sur ${p} ↗`,
+    via: (p: string) => `Voir sur ${p} ↗`,
     mention: 'Liens partenaires : FlyBSL peut toucher une commission si tu réserves, sans aucun surcoût pour toi.',
   },
   durees: {

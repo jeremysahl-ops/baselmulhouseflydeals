@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { sejoursActifs, type Sejour } from '@/lib/sejours';
+import AirportVisual from '@/components/AirportVisual';
+import { codePhoto, sejoursActifs, type Sejour } from '@/lib/sejours';
 import { formatDay, formatPrice } from '@/lib/format';
 import { alternatesFor, getDict, isLang, localePath, type Lang } from '@/lib/i18n';
 import { langParam } from '@/lib/i18n/params';
@@ -20,27 +21,40 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 function Carte({ s, lang }: { s: Sejour; lang: Lang }) {
   const t = getDict(lang).sejours;
+  const code = codePhoto(s);
   return (
-    <li className="flex flex-col justify-between gap-4 rounded-lg border border-line bg-white p-5 shadow-sm">
-      <div>
-        <p className="eyebrow">{s.destination}</p>
-        <h3 className="mt-1 text-lg font-bold leading-snug text-ink">{s.titre}</h3>
-        <p className="mt-2 text-sm text-ink-soft">
-          {t.nights(s.nuits)} · {t.departure(formatDay(s.depart, lang))}
-          {s.formule && <> · {t.formules[s.formule]}</>}
-        </p>
-        <p className="mt-1 text-xs text-ink-muted">{t.by(s.voyagiste, s.source)}</p>
-      </div>
-      <div className="flex items-end justify-between gap-3">
-        <div>
-          <span className="flap text-2xl">{formatPrice(s.prix, lang)}</span>
-          <span className="ml-1 text-xs text-ink-muted">{t.perPerson}</span>
-          <p className="mt-1 text-[11px] text-ink-muted">{t.seen(formatDay(s.vuLe, lang))}</p>
+    <li>
+      <a href={s.url} target="_blank" rel="noopener nofollow" className="group flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-md ring-1 ring-line transition hover:shadow-xl">
+        <div className="relative aspect-[16/10] overflow-hidden bg-board">
+          {code ? (
+            <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-[1.05]">
+              <AirportVisual code={code} lang={lang} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" width={700} />
+            </div>
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-board via-[#1d3557] to-[#e4572e]" aria-hidden="true" />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-black/30" aria-hidden="true" />
+          <span className="absolute left-3 top-3 rounded-md bg-black/50 px-2 py-1 font-board text-[11px] uppercase tracking-wider text-white backdrop-blur">
+            {t.nights(s.nuits)}{s.formule ? ` · ${t.formules[s.formule]}` : ''}
+          </span>
+          <p className="display absolute bottom-3 left-4 right-4 text-3xl leading-none text-white drop-shadow">{s.destination}</p>
         </div>
-        <a href={s.url} target="_blank" rel="noopener nofollow" className="btn-primary !px-3 !py-2 text-sm">
-          {t.see(s.source)} ↗
-        </a>
-      </div>
+        <div className="flex flex-1 flex-col justify-between gap-4 p-4">
+          <div>
+            <h3 className="font-bold leading-snug text-ink">{s.titre}</h3>
+            <p className="mt-1 text-sm text-ink-soft">{t.departure(formatDay(s.depart, lang))}</p>
+            <p className="mt-1 text-xs text-ink-muted">{t.by(s.voyagiste, s.source)}</p>
+          </div>
+          <div className="flex items-end justify-between gap-3">
+            <div>
+              <span className="flap !bg-board text-2xl">{formatPrice(s.prix, lang)}</span>
+              <span className="ml-1 text-xs text-ink-muted">{t.perPerson}</span>
+              <p className="mt-1 text-[11px] text-ink-muted">{t.seen(formatDay(s.vuLe, lang))}</p>
+            </div>
+            <span className="rounded-md bg-flap px-3 py-2 text-sm font-bold text-ink transition group-hover:brightness-110">{t.see(s.source)} ↗</span>
+          </div>
+        </div>
+      </a>
     </li>
   );
 }
