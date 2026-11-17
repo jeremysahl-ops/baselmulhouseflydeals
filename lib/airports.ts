@@ -1,8 +1,9 @@
-// Destinations easyJet au départ de Bâle-Mulhouse (BSL), relevées dans le formulaire easyjet.com le 16/11/2026.
+// Destinations au départ de Bâle-Mulhouse (BSL) : easyJet (formulaire easyjet.com, 16/11/2026)
+// puis Wizz Air (formulaire wizzair.com, 17/11/2026 ; Wizz y appelle l'aéroport MLH).
 // Clé = code de l'aéroport. Noms : [français, allemand, anglais]. `guide` = clé de lib/destinations.ts quand un guide existe.
 import type { Lang } from '@/lib/i18n/config';
 
-type Country = 'MA' | 'FR' | 'ES' | 'TR' | 'GR' | 'IT' | 'DE' | 'GB' | 'HU' | 'CY' | 'DK' | 'PL' | 'TN' | 'HR' | 'PT' | 'EG' | 'MT' | 'CZ' | 'XK' | 'IS' | 'BA' | 'ME' | 'AT';
+type Country = 'MA' | 'FR' | 'ES' | 'TR' | 'GR' | 'IT' | 'DE' | 'GB' | 'HU' | 'CY' | 'DK' | 'PL' | 'TN' | 'HR' | 'PT' | 'EG' | 'MT' | 'CZ' | 'XK' | 'IS' | 'BA' | 'ME' | 'AT' | 'AL' | 'AM' | 'BG' | 'MK' | 'MD' | 'RO' | 'RS' | 'SK';
 
 const COUNTRIES: Record<Country, [string, string, string]> = {
   MA: ['Maroc', 'Marokko', 'Morocco'],
@@ -28,6 +29,14 @@ const COUNTRIES: Record<Country, [string, string, string]> = {
   BA: ['Bosnie-Herzégovine', 'Bosnien und Herzegowina', 'Bosnia and Herzegovina'],
   ME: ['Monténégro', 'Montenegro', 'Montenegro'],
   AT: ['Autriche', 'Österreich', 'Austria'],
+  AL: ['Albanie', 'Albanien', 'Albania'],
+  AM: ['Arménie', 'Armenien', 'Armenia'],
+  BG: ['Bulgarie', 'Bulgarien', 'Bulgaria'],
+  MK: ['Macédoine du Nord', 'Nordmazedonien', 'North Macedonia'],
+  MD: ['Moldavie', 'Moldau', 'Moldova'],
+  RO: ['Roumanie', 'Rumänien', 'Romania'],
+  RS: ['Serbie', 'Serbien', 'Serbia'],
+  SK: ['Slovaquie', 'Slowakei', 'Slovakia'],
 };
 
 interface Airport { names: [string, string, string]; country: Country; guide?: string }
@@ -112,6 +121,30 @@ export const AIRPORTS: Record<string, Airport> = {
   VCE: { names: ['Venise', 'Venedig', 'Venice'], country: 'IT', guide: 'Venise' },
   VIE: { names: ['Vienne', 'Wien', 'Vienna'], country: 'AT', guide: 'Vienne' },
   ZAD: { names: ['Zadar', 'Zadar', 'Zadar'], country: 'HR' },
+  // Wizz Air (17/11/2026)
+  TIA: { names: ['Tirana', 'Tirana', 'Tirana'], country: 'AL' },
+  EVN: { names: ['Erevan', 'Jerewan', 'Yerevan'], country: 'AM' },
+  BNX: { names: ['Banja Luka', 'Banja Luka', 'Banja Luka'], country: 'BA' },
+  TZL: { names: ['Tuzla', 'Tuzla', 'Tuzla'], country: 'BA' },
+  SOF: { names: ['Sofia', 'Sofia', 'Sofia'], country: 'BG', guide: 'Sofia' },
+  VAR: { names: ['Varna', 'Warna', 'Varna'], country: 'BG' },
+  OHD: { names: ['Ohrid', 'Ohrid', 'Ohrid'], country: 'MK' },
+  SKP: { names: ['Skopje', 'Skopje', 'Skopje'], country: 'MK' },
+  RMO: { names: ['Chișinău', 'Chișinău', 'Chișinău'], country: 'MD' },
+  TGD: { names: ['Podgorica', 'Podgorica', 'Podgorica'], country: 'ME' },
+  POZ: { names: ['Poznań', 'Posen', 'Poznań'], country: 'PL' },
+  WAW: { names: ['Varsovie Chopin', 'Warschau Chopin', 'Warsaw Chopin'], country: 'PL', guide: 'Varsovie' },
+  WMI: { names: ['Varsovie Modlin', 'Warschau Modlin', 'Warsaw Modlin'], country: 'PL' },
+  WRO: { names: ['Wrocław', 'Breslau', 'Wrocław'], country: 'PL' },
+  OTP: { names: ['Bucarest Otopeni', 'Bukarest Otopeni', 'Bucharest Otopeni'], country: 'RO', guide: 'Bucarest' },
+  BBU: { names: ['Bucarest Băneasa', 'Bukarest Băneasa', 'Bucharest Băneasa'], country: 'RO' },
+  CLJ: { names: ['Cluj-Napoca', 'Klausenburg', 'Cluj-Napoca'], country: 'RO' },
+  IAS: { names: ['Iași', 'Iași', 'Iași'], country: 'RO' },
+  TSR: { names: ['Timișoara', 'Temeswar', 'Timișoara'], country: 'RO' },
+  TGM: { names: ['Târgu Mureș', 'Neumarkt am Mieresch', 'Târgu Mureș'], country: 'RO' },
+  BEG: { names: ['Belgrade', 'Belgrad', 'Belgrade'], country: 'RS', guide: 'Belgrade' },
+  INI: { names: ['Niš', 'Niš', 'Niš'], country: 'RS' },
+  BTS: { names: ['Bratislava', 'Bratislava', 'Bratislava'], country: 'SK' },
 };
 
 const IDX: Record<Lang, 0 | 1 | 2> = { fr: 0, de: 1, en: 2 };
@@ -146,8 +179,15 @@ export function airportForGuide(destination: string): string | null {
   return Object.keys(AIRPORTS).find((c) => AIRPORTS[c].guide === destination) ?? null;
 }
 
-/** Recherche easyJet déjà remplie (Bâle-Mulhouse, destination, dates, 1 adulte). */
-export function lienEasyJet(c: { code: string; depart: string; retour: string }, lang: Lang): string {
+export type Compagnie = 'easyjet' | 'wizz';
+export const NOM_COMPAGNIE: Record<Compagnie, string> = { easyjet: 'easyJet', wizz: 'Wizz Air' };
+
+/** Recherche déjà remplie chez la compagnie (Bâle-Mulhouse, destination, dates, 1 adulte). */
+export function lienVol(c: { code: string; depart: string; retour: string; cie: Compagnie }, lang: Lang): string {
+  if (c.cie === 'wizz') {
+    const loc = { fr: 'fr-fr', de: 'de-de', en: 'en-gb' }[lang];
+    return `https://www.wizzair.com/${loc}/booking/select-flight/BSL/${c.code}/${c.depart}/${c.retour}/1/0/0/null`;
+  }
   const q = new URLSearchParams({ dep: 'BSL', dest: c.code, dd: c.depart, rd: c.retour, apax: '1', cpax: '0', ipax: '0', isOneWay: 'off' });
   return `https://www.easyjet.com/${lang}/buy/flights?${q}`;
 }

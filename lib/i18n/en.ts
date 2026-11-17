@@ -294,7 +294,7 @@ export const en: Dict = {
     colDates: 'Out · back',
     colPrice: 'Return',
     nights: (n) => `${n} night${n > 1 ? 's' : ''}`,
-    bookAria: (label, from, to, price) => `${label}, out ${from}, back ${to}, ${price} return: see on easyJet`,
+    bookAria: (label, from, to, price, cie) => `${label}, out ${from}, back ${to}, ${price} return: see on ${cie}`,
     seen: (date) => `seen ${date}`,
     empty: 'No prices checked here yet. Checks run every week: come back soon.',
     note:

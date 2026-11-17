@@ -2,7 +2,7 @@
 // Composant sans état, utilisable côté serveur comme dans la liste filtrable (ComboExplorer).
 import Link from 'next/link';
 import type { Combo } from '@/lib/prix';
-import { airportCountry, airportName, airportSlug, lienEasyJet } from '@/lib/airports';
+import { airportCountry, airportName, airportSlug, lienVol, NOM_COMPAGNIE } from '@/lib/airports';
 import { formatDay, formatPrice, formatStamp } from '@/lib/format';
 import { getDict, localePath, type Lang } from '@/lib/i18n';
 
@@ -68,15 +68,15 @@ export default function Board({
                     )}
                   </div>
                   <a
-                    href={lienEasyJet(c, lang)}
+                    href={lienVol(c, lang)}
                     target="_blank"
                     rel="noopener nofollow"
-                    aria-label={t.bookAria(label, from, to, price)}
+                    aria-label={t.bookAria(label, from, to, price, NOM_COMPAGNIE[c.cie])}
                     className="group flex items-center gap-2 justify-self-end"
                   >
                     <span className="flap text-lg sm:text-xl">{price}</span>
                     <span className="hidden text-[11px] uppercase tracking-wider text-board-dim group-hover:text-flap sm:inline" aria-hidden="true">
-                      easyJet ↗
+                      {NOM_COMPAGNIE[c.cie]} ↗
                     </span>
                   </a>
                 </div>

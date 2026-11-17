@@ -293,7 +293,7 @@ export const de: Dict = {
     colDates: 'Hin · zurück',
     colPrice: 'H/R',
     nights: (n) => (n > 1 ? `${n} Nächte` : `${n} Nacht`),
-    bookAria: (label, from, to, price) => `${label}, Hinflug ${from}, Rückflug ${to}, ${price} hin und zurück: bei easyJet ansehen`,
+    bookAria: (label, from, to, price, cie) => `${label}, Hinflug ${from}, Rückflug ${to}, ${price} hin und zurück: bei ${cie} ansehen`,
     seen: (date) => `gesehen am ${date}`,
     empty: 'Hier wurden noch keine Preise erfasst. Die Erfassung läuft jede Woche: Schauen Sie bald wieder vorbei.',
     note:

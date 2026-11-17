@@ -294,8 +294,8 @@ export const fr = {
     colDates: 'Aller · retour',
     colPrice: 'A/R',
     nights: (n: number) => `${n} nuit${n > 1 ? 's' : ''}`,
-    bookAria: (label: string, from: string, to: string, price: string) =>
-      `${label}, aller le ${from}, retour le ${to}, ${price} aller-retour : voir sur easyJet`,
+    bookAria: (label: string, from: string, to: string, price: string, cie: string) =>
+      `${label}, aller le ${from}, retour le ${to}, ${price} aller-retour : voir sur ${cie}`,
     seen: (date: string) => `vu le ${date}`,
     empty: 'Pas encore de prix relevé ici. Les relevés tournent chaque semaine : revenez bientôt.',
     note:

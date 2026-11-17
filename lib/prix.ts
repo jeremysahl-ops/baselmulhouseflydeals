@@ -1,14 +1,15 @@
 // Prix relevés au départ de Bâle-Mulhouse : lib/data/prix-easyjet.json (fabriqué par scripts/prix-site.mjs), intégré au site.
 // Le fichier ne contient que nos conclusions : prix courant et 3 meilleurs combos par mois et par durée.
 import donnees from '@/lib/data/prix-easyjet.json';
-import { AIRPORTS } from '@/lib/airports';
+import { AIRPORTS, type Compagnie } from '@/lib/airports';
 
 export const DUREES = ['2-4', '5-8', '10-15'] as const;
 export type Duree = (typeof DUREES)[number];
 
-/** Un combo aller + retour easyJet, prix pour une personne. */
+/** Un combo aller + retour chez une compagnie, prix pour une personne. */
 export interface Combo {
   code: string;
+  cie: Compagnie;
   mois: string; // AAAA-MM du mois où il est classé (marge de 5 jours autour du mois)
   duree: Duree;
   depart: string; // AAAA-MM-JJ
@@ -19,7 +20,7 @@ export interface Combo {
 }
 
 interface MoisPrix { semaine: number | null; durees: Record<Duree, { courant: number | null; combos: [string, number, number][] }> }
-interface VilleBrute { code: string; vuLe: string; mois: Record<string, MoisPrix> }
+interface VilleBrute { code: string; cie?: Compagnie; vuLe: string; mois: Record<string, MoisPrix> }
 
 export interface Ville {
   code: string;
@@ -30,6 +31,10 @@ export interface Ville {
 /** Un relevé de plus de 8 jours n'est plus affiché ; un départ doit être dans au moins 3 jours. */
 const FRAICHEUR_JOURS = 8;
 const DELAI_DEPART_JOURS = 3;
+
+function minNul(a: number | null, b: number | null): number | null {
+  return a == null ? b : b == null ? a : Math.min(a, b);
+}
 
 function ajouterJours(jour: string, n: number): string {
   return new Date(Date.parse(`${jour}T12:00:00Z`) + n * 86_400_000).toISOString().slice(0, 10);
@@ -52,30 +57,39 @@ export function getVilles(now = new Date()): Ville[] {
   const limiteFraicheur = now.getTime() - FRAICHEUR_JOURS * 86_400_000;
   const moisCourant = aujourdhui.slice(0, 7);
 
-  const villes = lire()
-    .filter((v) => AIRPORTS[v.code] && Date.parse(v.vuLe) >= limiteFraicheur)
-    .map((v) => ({
-      code: v.code,
-      vuLe: v.vuLe,
-      mois: Object.entries(v.mois)
-        .filter(([m]) => m >= moisCourant)
-        .sort(([a], [b]) => a.localeCompare(b))
-        .map(([m, p]) => ({
-          mois: m,
-          semaine: p.semaine,
-          durees: Object.fromEntries(
-            DUREES.map((d) => [
-              d,
-              {
-                courant: p.durees[d]?.courant ?? null,
-                combos: (p.durees[d]?.combos ?? [])
-                  .filter(([depart]) => depart >= limiteDepart)
-                  .map(([depart, nuits, prix]) => ({ code: v.code, mois: m, duree: d, depart, retour: ajouterJours(depart, nuits), nuits, prix, vuLe: v.vuLe })),
-              },
-            ]),
-          ) as Ville['mois'][number]['durees'],
-        })),
-    }));
+  // Une ville peut être desservie par plusieurs compagnies : on fusionne leurs relevés.
+  // Prix courant d'un mois = celui de la compagnie la moins chère ; combos = les 3 meilleurs, toutes compagnies.
+  const parCode = new Map<string, Ville>();
+  for (const v of lire()) {
+    if (!AIRPORTS[v.code] || Date.parse(v.vuLe) < limiteFraicheur) continue;
+    const cie: Compagnie = v.cie ?? 'easyjet';
+    let ville = parCode.get(v.code);
+    if (!ville) parCode.set(v.code, (ville = { code: v.code, vuLe: v.vuLe, mois: [] }));
+    else if (v.vuLe > ville.vuLe) ville.vuLe = v.vuLe;
+    for (const [m, p] of Object.entries(v.mois)) {
+      if (m < moisCourant) continue;
+      let mo = ville.mois.find((x) => x.mois === m);
+      if (!mo) {
+        mo = { mois: m, semaine: null, durees: Object.fromEntries(DUREES.map((d) => [d, { courant: null, combos: [] }])) as unknown as Ville['mois'][number]['durees'] };
+        ville.mois.push(mo);
+      }
+      mo.semaine = minNul(mo.semaine, p.semaine);
+      for (const d of DUREES) {
+        const bloc = mo.durees[d];
+        bloc.courant = minNul(bloc.courant, p.durees[d]?.courant ?? null);
+        bloc.combos = [
+          ...bloc.combos,
+          ...(p.durees[d]?.combos ?? [])
+            .filter(([depart]) => depart >= limiteDepart)
+            .map(([depart, nuits, prix]) => ({ code: v.code, cie, mois: m, duree: d, depart, retour: ajouterJours(depart, nuits), nuits, prix, vuLe: v.vuLe })),
+        ]
+          .sort((a, b) => a.prix - b.prix)
+          .slice(0, 3);
+      }
+    }
+  }
+  const villes = [...parCode.values()];
+  for (const v of villes) v.mois.sort((a, b) => a.mois.localeCompare(b.mois));
   cache = { cle, villes };
   return villes;
 }
@@ -94,7 +108,7 @@ export function tousLesCombos(): Combo[] {
     for (const m of v.mois)
       for (const d of DUREES)
         for (const c of m.durees[d].combos) {
-          const cle = `${c.code}|${c.depart}|${c.nuits}`;
+          const cle = `${c.code}|${c.cie}|${c.depart}|${c.nuits}`;
           const deja = vus.get(cle);
           if (!deja || (deja.mois !== c.depart.slice(0, 7) && c.mois === c.depart.slice(0, 7))) vus.set(cle, c);
         }

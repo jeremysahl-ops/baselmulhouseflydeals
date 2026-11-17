@@ -4,7 +4,7 @@ import AirportVisual from '@/components/AirportVisual';
 import { conseils } from '@/lib/conseils';
 import { fullItinerary } from '@/lib/itineraries';
 import { notFound } from 'next/navigation';
-import { AIRPORTS, airportCountry, airportFromSlug, airportName, airportSlug, lienEasyJet } from '@/lib/airports';
+import { AIRPORTS, airportCountry, airportFromSlug, airportName, airportSlug, lienVol, NOM_COMPAGNIE } from '@/lib/airports';
 import { DUREES, getVille, meilleurParVille } from '@/lib/prix';
 import { guidePath } from '@/lib/guides';
 import { formatDay, formatMonth, formatPrice, formatStamp } from '@/lib/format';
@@ -149,10 +149,10 @@ export default async function VillePage({ params }: Props) {
                             return (
                               <li key={`${c.depart}-${c.nuits}`}>
                                 <a
-                                  href={lienEasyJet(c, lang)}
+                                  href={lienVol(c, lang)}
                                   target="_blank"
                                   rel="noopener nofollow"
-                                  aria-label={dict.board.bookAria(label, from, to, price)}
+                                  aria-label={dict.board.bookAria(label, from, to, price, NOM_COMPAGNIE[c.cie])}
                                   className="flex items-center justify-between gap-3 rounded px-1 py-0.5 hover:bg-board-row"
                                 >
                                   <span className="text-[12px]">

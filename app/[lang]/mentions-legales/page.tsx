@@ -66,7 +66,7 @@ const COPY: Record<Lang, Copy> = {
         heading: 'Indépendance et marques',
         paragraphs: [
           `${SITE.name} n'est ni affilié, ni partenaire, ni sponsorisé, ni approuvé par l'EuroAirport Bâle-Mulhouse-Fribourg ou par l'une des compagnies aériennes citées.`,
-          "Les noms de compagnies aériennes (notamment easyJet), d'aéroports et les autres marques citées appartiennent à leurs titulaires respectifs. Ils ne sont mentionnés que pour indiquer chez qui un vol est proposé, sans aucune intention de créer une confusion ou de laisser croire à un partenariat.",
+          "Les noms de compagnies aériennes (notamment easyJet et Wizz Air), d'aéroports et les autres marques citées appartiennent à leurs titulaires respectifs. Ils ne sont mentionnés que pour indiquer chez qui un vol est proposé, sans aucune intention de créer une confusion ou de laisser croire à un partenariat.",
         ],
       },
       {
@@ -140,7 +140,7 @@ const COPY: Record<Lang, Copy> = {
         heading: 'Unabhängigkeit und Marken',
         paragraphs: [
           `${SITE.name} ist weder mit dem EuroAirport Basel-Mulhouse-Freiburg noch mit einer der genannten Fluggesellschaften verbunden, partnerschaftlich verbunden, von ihnen gesponsert oder genehmigt.`,
-          'Namen von Fluggesellschaften (insbesondere easyJet), Flughäfen und andere genannte Marken gehören ihren jeweiligen Inhabern. Sie werden nur genannt, um anzugeben, wo ein Flug angeboten wird, ohne die Absicht, Verwechslungen oder den Eindruck einer Partnerschaft zu erzeugen.',
+          'Namen von Fluggesellschaften (insbesondere easyJet und Wizz Air), Flughäfen und andere genannte Marken gehören ihren jeweiligen Inhabern. Sie werden nur genannt, um anzugeben, wo ein Flug angeboten wird, ohne die Absicht, Verwechslungen oder den Eindruck einer Partnerschaft zu erzeugen.',
         ],
       },
       {
@@ -214,7 +214,7 @@ const COPY: Record<Lang, Copy> = {
         heading: 'Independence and trademarks',
         paragraphs: [
           `${SITE.name} is not affiliated with, partnered with, sponsored or endorsed by EuroAirport Basel-Mulhouse-Freiburg or any of the airlines mentioned.`,
-          'Airline names (including easyJet), airport names and other trademarks mentioned belong to their respective owners. They are mentioned only to indicate where a flight is offered, with no intention of causing confusion or suggesting a partnership.',
+          'Airline names (including easyJet and Wizz Air), airport names and other trademarks mentioned belong to their respective owners. They are mentioned only to indicate where a flight is offered, with no intention of causing confusion or suggesting a partnership.',
         ],
       },
       {
