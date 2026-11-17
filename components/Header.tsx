@@ -25,7 +25,7 @@ export default function Header({ lang }: { lang: Lang }) {
       {LOCALES.map((l) => (
         <li key={l}>
           <Link
-            href={localePath(l, path)}
+            href={l === 'fr' ? `${localePath(l, path)}?l=fr` : localePath(l, path)}
             hrefLang={l}
             lang={l}
             title={LANG_NAME[l]}

@@ -87,7 +87,17 @@ export default function RouteMapClient({
     return out;
   }, [routes, mo, du]);
 
-  const valeurs = [...prixSel.values()];
+  // Bornes du curseur : tous les prix de la sélection (tous mois et durées retenus), pour que « Tous les mois »
+  // couvre bien le plus cher de chaque mois et pas seulement le moins cher de chaque ville.
+  const valeurs = useMemo(() => {
+    const out: number[] = [];
+    for (const r of routes)
+      for (const [m, parDuree] of Object.entries(r.prix)) {
+        if (mo && m !== mo) continue;
+        for (const [d, p] of Object.entries(parDuree)) if (!du || d === du) out.push(p);
+      }
+    return out;
+  }, [routes, mo, du]);
   const min = valeurs.length ? Math.min(...valeurs) : 0;
   const max = valeurs.length ? Math.max(...valeurs) : 0;
   const plafond = budget == null ? max : Math.min(Math.max(budget, min), max);

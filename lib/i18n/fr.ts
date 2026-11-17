@@ -154,7 +154,7 @@ export const fr = {
       },
       {
         title: 'Vous réservez auprès de la compagnie',
-        text: 'Un clic ouvre le site de la compagnie aux bonnes dates. Vous y vérifiez le prix du jour avant de payer : nous ne vendons rien.',
+        text: 'Un clic vous emmène sur le site de la compagnie, où vous recherchez votre vol. Vous y vérifiez le prix du jour avant de payer : nous ne vendons rien.',
       },
     ],
     newsletterHeading: 'Recevez les petits prix par e-mail',

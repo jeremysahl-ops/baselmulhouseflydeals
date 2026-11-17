@@ -10,7 +10,7 @@ const limite = new Date(Date.now() - 8 * 86_400_000).toISOString().slice(0, 10);
 
 if (existsSync('data-prix/journal.txt')) {
   const j = readFileSync('data-prix/journal.txt', 'utf8');
-  if (j.split('\n').some((l) => l.includes(today) && /BLOCAGE/i.test(l))) {
+  if (j.split('\n').some((l) => l.includes(today) && /BLOCAGE/i.test(l) && !/wizz/i.test(l))) {
     console.log('[]');
     process.exit(0);
   }

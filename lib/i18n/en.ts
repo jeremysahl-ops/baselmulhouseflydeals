@@ -154,7 +154,7 @@ export const en: Dict = {
       },
       {
         title: 'You book with the airline',
-        text: "One click opens the airline's website with the right dates. Check the current price there before paying: we don't sell anything.",
+        text: "One click takes you to the airline's website, where you search for your flight. Check the current price there before paying: we don't sell anything.",
       },
     ],
     newsletterHeading: 'Get low fares by email',

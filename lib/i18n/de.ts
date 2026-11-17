@@ -155,7 +155,7 @@ export const de: Dict = {
       },
       {
         title: 'Sie buchen bei der Fluggesellschaft',
-        text: 'Ein Klick öffnet die Website der Fluggesellschaft mit den richtigen Daten. Dort prüfen Sie den aktuellen Preis vor dem Bezahlen: Wir verkaufen nichts.',
+        text: 'Ein Klick führt Sie auf die Website der Fluggesellschaft, wo Sie Ihren Flug suchen. Dort prüfen Sie den aktuellen Preis vor dem Bezahlen: Wir verkaufen nichts.',
       },
     ],
     newsletterHeading: 'Günstige Preise per E-Mail',
