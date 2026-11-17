@@ -62,7 +62,8 @@ export default function RouteMapClient({
   t: MapTexts;
   lang: 'fr' | 'de' | 'en';
 }) {
-  const [mo, setMo] = useState<string>('');
+  // Par défaut : le premier mois relevé (le mois en cours), pour que le curseur montre les prix de ce mois-là.
+  const [mo, setMo] = useState<string>(mois[0]?.value ?? '');
   const [du, setDu] = useState<string>('');
   const [budget, setBudget] = useState<number | null>(null);
   const [focus, setFocus] = useState<string | null>(null);
