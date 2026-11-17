@@ -4,7 +4,7 @@ import { destinationPhoto } from '@/lib/format';
 import { getDict, type Lang } from '@/lib/i18n';
 
 /**
- * Visuel d'une destination easyJet : la photo contrôlée de son guide quand elle existe,
+ * Visuel d'une destination : la photo contrôlée de son guide, ou à défaut sa propre photo (lib/airports.ts),
  * sinon une étiquette façon panneau des départs (BSL → code). Jamais la photo d'une autre ville.
  */
 export default function AirportVisual({
@@ -21,7 +21,12 @@ export default function AirportVisual({
   priority?: boolean;
 }) {
   const guide = AIRPORTS[code]?.guide;
-  const photo = guide ? destinationPhoto(guide, width) : null;
+  const propre = AIRPORTS[code]?.photo;
+  const photo = guide
+    ? destinationPhoto(guide, width)
+    : propre
+      ? `https://images.unsplash.com/${propre}?auto=format&fit=crop&w=${width}&q=70`
+      : null;
   const label = airportName(code, lang);
 
   if (photo) {
