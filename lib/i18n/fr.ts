@@ -301,6 +301,22 @@ export const fr = {
     note:
       "Prix aller + retour pour 1 adulte, taxes comprises, tel qu'affiché par la compagnie le jour de notre relevé. Les bagages inclus dépendent de la compagnie. Le prix peut avoir changé : vérifiez-le avant de réserver.",
   },
+  carte: {
+    heading: 'Toutes les routes depuis Bâle-Mulhouse',
+    text: "Choisis un mois et une durée, puis baisse ton budget : les routes trop chères s'effacent de la carte.",
+    allMonths: 'Tous les mois',
+    allDurations: 'Toutes durées',
+    monthLabel: 'Mois de départ',
+    durationLabel: 'Durée du séjour',
+    budget: 'Budget max aller-retour {p}',
+    count: '{n} destinations à moins de {p} aller-retour',
+    countAll: '{n} destinations avec un prix relevé',
+    none: 'Aucun prix relevé pour cette sélection.',
+    from: 'dès {p}',
+    noPrice: 'pas de prix',
+    origin: 'Bâle-Mulhouse',
+    hint: 'Survole un point · clique pour voir les prix',
+  },
   durees: {
     '2-4': { label: 'Week-end', hint: '2 à 4 nuits' },
     '5-8': { label: 'Une semaine', hint: '5 à 8 nuits' },

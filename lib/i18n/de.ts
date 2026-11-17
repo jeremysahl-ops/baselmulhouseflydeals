@@ -299,6 +299,22 @@ export const de: Dict = {
     note:
       'Preis für Hin- und Rückflug, 1 Erwachsener, inklusive Steuern, wie von der Fluggesellschaft am Tag unserer Erfassung angezeigt. Das enthaltene Gepäck hängt von der Fluggesellschaft ab. Der Preis kann sich geändert haben: Prüfen Sie ihn vor der Buchung.',
   },
+  carte: {
+    heading: 'Alle Strecken ab Basel-Mulhouse',
+    text: 'Monat und Reisedauer wählen, dann das Budget senken: Zu teure Strecken verschwinden von der Karte.',
+    allMonths: 'Alle Monate',
+    allDurations: 'Alle Dauern',
+    monthLabel: 'Abflugmonat',
+    durationLabel: 'Reisedauer',
+    budget: 'Max. Budget hin und zurück {p}',
+    count: '{n} Reiseziele unter {p} hin und zurück',
+    countAll: '{n} Reiseziele mit erfasstem Preis',
+    none: 'Für diese Auswahl wurde kein Preis erfasst.',
+    from: 'ab {p}',
+    noPrice: 'kein Preis',
+    origin: 'Basel-Mulhouse',
+    hint: 'Punkt überfahren · klicken für die Preise',
+  },
   durees: {
     '2-4': { label: 'Wochenende', hint: '2 bis 4 Nächte' },
     '5-8': { label: 'Eine Woche', hint: '5 bis 8 Nächte' },

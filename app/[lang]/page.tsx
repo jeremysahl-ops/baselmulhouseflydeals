@@ -3,6 +3,7 @@ import Board from '@/components/Board';
 import DestinationTile from '@/components/DestinationTile';
 import MonthTile from '@/components/MonthTile';
 import PartnerCard from '@/components/PartnerCard';
+import RouteMap from '@/components/RouteMap';
 import HotelPickCard from '@/components/HotelPickCard';
 import { partnersForHome } from '@/lib/partners';
 import { activeHotelPicks } from '@/lib/hotel-picks';
@@ -92,6 +93,14 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         >
           {t.heroPhoto(airportName(HERO.code, lang))}
         </Link>
+      </section>
+
+      <section className="container-page pt-14" aria-labelledby="carte-routes">
+        <h2 id="carte-routes" className="display text-4xl text-ink">{dict.carte.heading}</h2>
+        <p className="mt-2 max-w-2xl text-ink-soft">{dict.carte.text}</p>
+        <div className="mt-6">
+          <RouteMap lang={lang} />
+        </div>
       </section>
 
       {mois.length > 0 && (

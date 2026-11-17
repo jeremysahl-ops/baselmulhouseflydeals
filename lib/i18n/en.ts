@@ -300,6 +300,22 @@ export const en: Dict = {
     note:
       'Return fare for 1 adult, taxes included, as shown by the airline on the day we checked. Included baggage depends on the airline. The price may have changed: check it before booking.',
   },
+  carte: {
+    heading: 'Every route from Basel-Mulhouse',
+    text: 'Pick a month and a trip length, then lower your budget: routes that cost too much fade from the map.',
+    allMonths: 'All months',
+    allDurations: 'Any length',
+    monthLabel: 'Departure month',
+    durationLabel: 'Trip length',
+    budget: 'Max return budget {p}',
+    count: '{n} destinations under {p} return',
+    countAll: '{n} destinations with a price',
+    none: 'No price found for this selection.',
+    from: 'from {p}',
+    noPrice: 'no price',
+    origin: 'Basel-Mulhouse',
+    hint: 'Hover a dot · click to see prices',
+  },
   durees: {
     '2-4': { label: 'Weekend', hint: '2 to 4 nights' },
     '5-8': { label: 'One week', hint: '5 to 8 nights' },
