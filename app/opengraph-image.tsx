@@ -28,7 +28,7 @@ export default function OpengraphImage() {
         </div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 32, fontWeight: 700 }}>
           <div style={{ display: 'flex', fontSize: 44 }}>FlyBSL</div>
-          <div style={{ display: 'flex', padding: '12px 24px', borderRadius: 12, background: '#e4572e' }}>baselmulhouseflydeals.com</div>
+          <div style={{ display: 'flex', padding: '12px 24px', borderRadius: 12, background: '#e4572e' }}>flybsl.com</div>
         </div>
       </div>
     ),
