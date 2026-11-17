@@ -33,6 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...SECTIONS.flatMap((s) => page(`/${s.slug}`, 'daily', 0.7)),
     ...page('/destinations', 'weekly', 0.7),
     ...allDestinations().flatMap((d) => page(guidePath(d), 'weekly', 0.7)),
+    ...page('/sejours', 'weekly', 0.6),
     ...page('/comment-ca-marche', 'monthly', 0.5),
     ...page('/partenaires', 'monthly', 0.4),
     ...(await getAllDealIds()).flatMap((id) => page(`/deal/${id}`, 'weekly', 0.6)),

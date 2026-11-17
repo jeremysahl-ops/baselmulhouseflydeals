@@ -17,6 +17,7 @@ export default function Header({ lang }: { lang: Lang }) {
     { href: '/mois', label: t.nav.byMonth },
     { href: '/destinations', label: t.nav.byDestination },
     { href: '/prix', label: t.nav.allPrices },
+    { href: '/sejours', label: t.nav.sejours },
     { href: '/comment-ca-marche', label: t.nav.method },
   ];
 
@@ -46,7 +47,7 @@ export default function Header({ lang }: { lang: Lang }) {
       <div className="container-page flex h-16 items-center justify-between gap-4">
         <Logo lang={lang} />
 
-        <nav className="hidden items-center gap-0.5 lg:flex" aria-label={t.nav.main}>
+        <nav className="hidden items-center gap-0.5 xl:flex" aria-label={t.nav.main}>
           {nav.map(({ href, label }) => {
             const active = path === href || path.startsWith(href + '/');
             return (
@@ -69,7 +70,7 @@ export default function Header({ lang }: { lang: Lang }) {
           <button
             type="button"
             onClick={() => setOpen(!open)}
-            className="rounded-md p-2 text-ink-soft hover:bg-surface lg:hidden"
+            className="rounded-md p-2 text-ink-soft hover:bg-surface xl:hidden"
             aria-expanded={open}
             aria-controls="menu-mobile"
             aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
@@ -82,7 +83,7 @@ export default function Header({ lang }: { lang: Lang }) {
       </div>
 
       {open && (
-        <nav id="menu-mobile" className="border-t border-line bg-white lg:hidden" aria-label={t.nav.mobile}>
+        <nav id="menu-mobile" className="border-t border-line bg-white xl:hidden" aria-label={t.nav.mobile}>
           <div className="container-page flex flex-col py-3">
             {nav.map(({ href, label }) => (
               <Link
