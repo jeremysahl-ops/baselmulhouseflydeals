@@ -36,6 +36,17 @@ function minNul(a: number | null, b: number | null): number | null {
   return a == null ? b : b == null ? a : Math.min(a, b);
 }
 
+/**
+ * Règle des 5 jours : un combo compte pour un mois si le départ est entre le 5e jour avant le 1er et le dernier
+ * jour du mois, et le retour entre le 1er et le 5e jour après la fin du mois (un week-end fin février ne compte
+ * donc pas pour mars). Les relevés récents l'appliquent déjà ; ce filtre corrige les plus anciens.
+ */
+function dansLeMois(mois: string, depart: string, retour: string): boolean {
+  const debut = `${mois}-01`;
+  const fin = new Date(Date.UTC(Number(mois.slice(0, 4)), Number(mois.slice(5, 7)), 0)).toISOString().slice(0, 10);
+  return depart >= ajouterJours(debut, -5) && depart <= fin && retour >= debut && retour <= ajouterJours(fin, 5);
+}
+
 function ajouterJours(jour: string, n: number): string {
   return new Date(Date.parse(`${jour}T12:00:00Z`) + n * 86_400_000).toISOString().slice(0, 10);
 }
@@ -80,7 +91,7 @@ export function getVilles(now = new Date()): Ville[] {
         bloc.combos = [
           ...bloc.combos,
           ...(p.durees[d]?.combos ?? [])
-            .filter(([depart]) => depart >= limiteDepart)
+            .filter(([depart, nuits]) => depart >= limiteDepart && dansLeMois(m, depart, ajouterJours(depart, nuits)))
             .map(([depart, nuits, prix]) => ({ code: v.code, cie, mois: m, duree: d, depart, retour: ajouterJours(depart, nuits), nuits, prix, vuLe: v.vuLe })),
         ]
           .sort((a, b) => a.prix - b.prix)
