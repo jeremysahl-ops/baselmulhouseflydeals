@@ -24,8 +24,9 @@ export default function Header({ lang }: { lang: Lang }) {
     <ul className="flex items-center gap-0.5 text-xs font-semibold" aria-label={t.nav.language}>
       {LOCALES.map((l) => (
         <li key={l}>
-          <Link
-            href={l === 'fr' ? `${localePath(l, path)}?l=fr` : localePath(l, path)}
+          {/* Lien classique (pas de navigation interne) : la page est rechargée et le choix retenu par ?l=… */}
+          <a
+            href={`${localePath(l, path)}?l=${l}`}
             hrefLang={l}
             lang={l}
             title={LANG_NAME[l]}
@@ -35,7 +36,7 @@ export default function Header({ lang }: { lang: Lang }) {
           >
             <Flag lang={l} />
             {l}
-          </Link>
+          </a>
         </li>
       ))}
     </ul>

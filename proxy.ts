@@ -7,7 +7,7 @@ import { NextResponse, type NextRequest } from 'next/server';
  *   - /fr/…     → redirigé vers /… pour ne pas avoir deux adresses pour la même page.
  * Langue automatique (17/11/2026) : à la première visite d'une page française, on choisit la langue selon le pays
  * (pays francophone → français, Allemagne/Autriche/Liechtenstein → allemand, Suisse → langue du navigateur,
- * reste du monde → anglais). Le choix est retenu dans le cookie `lang` ; les drapeaux le changent (?l=fr pour le français).
+ * reste du monde → anglais). Le choix est retenu dans le cookie `lang` ; les drapeaux le changent (?l=fr|de|en).
  * Les robots des moteurs de recherche ne sont jamais redirigés.
  */
 const FRANCOPHONES = new Set(['FR', 'BE', 'LU', 'MC', 'RE', 'GP', 'MQ', 'GF', 'YT', 'NC', 'PF', 'PM', 'BL', 'MF', 'WF', 'SN', 'CI', 'ML', 'BF', 'NE', 'TG', 'BJ', 'GN', 'CM', 'GA', 'CG', 'CD', 'MG', 'TD', 'CF', 'DJ', 'KM', 'BI', 'RW', 'HT', 'MA', 'TN', 'DZ', 'MU', 'SC', 'VU']);
@@ -34,12 +34,15 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(url, 308);
   }
 
-  // Le drapeau français : on retient le choix puis on revient à l'adresse propre.
-  if (searchParams.get('l') === 'fr') {
+  // Un drapeau (?l=fr|de|en) : on retient ce choix puis on revient à l'adresse propre de la page dans cette langue.
+  const demande = searchParams.get('l');
+  if (demande === 'fr' || demande === 'de' || demande === 'en') {
     const url = request.nextUrl.clone();
     url.searchParams.delete('l');
+    const sansPrefixe = pathname.replace(/^\/(de|en)(?=\/|$)/, '') || '/';
+    url.pathname = demande === 'fr' ? sansPrefixe : `/${demande}${sansPrefixe === '/' ? '' : sansPrefixe}`;
     const res = NextResponse.redirect(url, 307);
-    res.cookies.set('lang', 'fr', { maxAge: UN_AN, path: '/' });
+    res.cookies.set('lang', demande, { maxAge: UN_AN, path: '/' });
     return res;
   }
 
