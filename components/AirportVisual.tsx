@@ -24,22 +24,30 @@ export default function AirportVisual({
   const propre = AIRPORTS[code]?.photo;
   const photo = guide
     ? destinationPhoto(guide, width)
-    : propre
-      ? `https://images.unsplash.com/${propre}?auto=format&fit=crop&w=${width}&q=70`
-      : null;
+    : propre?.startsWith('https://')
+      ? propre
+      : propre
+        ? `https://images.unsplash.com/${propre}?auto=format&fit=crop&w=${width}&q=70`
+        : null;
+  const credit = guide ? null : AIRPORTS[code]?.credit;
   const label = airportName(code, lang);
 
   if (photo) {
     return (
-      <Image
-        src={photo}
-        alt={getDict(lang).card.photoAlt(label)}
-        fill
-        sizes={sizes}
-        priority={priority}
-        className="object-cover"
-        unoptimized
-      />
+      <>
+        <Image
+          src={photo}
+          alt={getDict(lang).card.photoAlt(label)}
+          fill
+          sizes={sizes}
+          priority={priority}
+          className="object-cover"
+          unoptimized
+        />
+        {credit && (
+          <span className="absolute bottom-1 right-1 z-10 rounded bg-black/45 px-1 text-[9px] leading-tight text-white/80">{credit}</span>
+        )}
+      </>
     );
   }
   return (

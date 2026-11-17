@@ -40,7 +40,7 @@ const COUNTRIES: Record<Country, [string, string, string]> = {
 };
 
 /** `photo` : identifiant Unsplash d'une photo de la ville (pour les villes sans guide), regardée sur planche avant d'être retenue. */
-interface Airport { names: [string, string, string]; country: Country; guide?: string; photo?: string }
+interface Airport { names: [string, string, string]; country: Country; guide?: string; photo?: string; credit?: string }
 
 export const AIRPORTS: Record<string, Airport> = {
   AGA: { names: ['Agadir', 'Agadir', 'Agadir'], country: 'MA', guide: 'Agadir' },
@@ -126,7 +126,8 @@ export const AIRPORTS: Record<string, Airport> = {
   TIA: { names: ['Tirana', 'Tirana', 'Tirana'], country: 'AL', photo: 'photo-1632353913765-9b56b7b4bd55' },
   EVN: { names: ['Erevan', 'Jerewan', 'Yerevan'], country: 'AM', photo: 'photo-1600758208050-a22f17dc5bb9' },
   BNX: { names: ['Banja Luka', 'Banja Luka', 'Banja Luka'], country: 'BA', photo: 'photo-1717507885635-97387c6aa70d' },
-  TZL: { names: ['Tuzla', 'Tuzla', 'Tuzla'], country: 'BA' },
+  // Photo Wikimedia Commons « Panonsko jezero.JPG » (lacs Pannoniques de Tuzla), licence CC BY-SA 3.0 : crédit obligatoire.
+  TZL: { names: ['Tuzla', 'Tuzla', 'Tuzla'], country: 'BA', photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Panonsko_jezero.JPG/960px-Panonsko_jezero.JPG', credit: 'Photo : Edinwiki, CC BY-SA 3.0, Wikimedia Commons' },
   SOF: { names: ['Sofia', 'Sofia', 'Sofia'], country: 'BG', guide: 'Sofia' },
   VAR: { names: ['Varna', 'Warna', 'Varna'], country: 'BG', photo: 'photo-1649932543745-44b164f84d08' },
   OHD: { names: ['Ohrid', 'Ohrid', 'Ohrid'], country: 'MK', photo: 'photo-1653389167152-7dbd6d165631' },
