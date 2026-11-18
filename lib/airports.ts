@@ -1,5 +1,5 @@
 // Destinations au départ de Bâle-Mulhouse (BSL) : easyJet (formulaire easyjet.com, 16/11/2026)
-// puis Wizz Air (formulaire wizzair.com, 17/11/2026 ; Wizz y appelle l'aéroport MLH).
+// puis Wizz Air (formulaire wizzair.com, 17/11/2026 ; Wizz y appelle l'aéroport MLH), puis Pegasus (flypgs.com, 18/11/2026).
 // Clé = code de l'aéroport. Noms : [français, allemand, anglais]. `guide` = clé de lib/destinations.ts quand un guide existe.
 import type { Lang } from '@/lib/i18n/config';
 
@@ -143,6 +143,8 @@ export const AIRPORTS: Record<string, Airport> = {
   BEG: { names: ['Belgrade', 'Belgrad', 'Belgrade'], country: 'RS', guide: 'Belgrade' },
   INI: { names: ['Niš', 'Niš', 'Niš'], country: 'RS', photo: 'photo-1652126252418-eccbbc8ea5e7' },
   BTS: { names: ['Bratislava', 'Bratislava', 'Bratislava'], country: 'SK', photo: 'photo-1716731312696-788b9c3b37ac' },
+  // Pegasus (18/11/2026) : Istanbul Sabiha Gökçen
+  SAW: { names: ['Istanbul', 'Istanbul', 'Istanbul'], country: 'TR', guide: 'Istanbul' },
 };
 
 const IDX: Record<Lang, 0 | 1 | 2> = { fr: 0, de: 1, en: 2 };
@@ -177,14 +179,18 @@ export function airportForGuide(destination: string): string | null {
   return Object.keys(AIRPORTS).find((c) => AIRPORTS[c].guide === destination) ?? null;
 }
 
-export type Compagnie = 'easyjet' | 'wizz';
-export const NOM_COMPAGNIE: Record<Compagnie, string> = { easyjet: 'easyJet', wizz: 'Wizz Air' };
+export type Compagnie = 'easyjet' | 'wizz' | 'pegasus';
+export const NOM_COMPAGNIE: Record<Compagnie, string> = { easyjet: 'easyJet', wizz: 'Wizz Air', pegasus: 'Pegasus' };
 
 /** Recherche déjà remplie chez la compagnie (Bâle-Mulhouse, destination, dates, 1 adulte). */
 export function lienVol(c: { code: string; depart: string; retour: string; cie: Compagnie }, lang: Lang): string {
   if (c.cie === 'wizz') {
     const loc = { fr: 'fr-fr', de: 'de-de', en: 'en-gb' }[lang];
     return `https://www.wizzair.com/${loc}/booking/select-flight/BSL/${c.code}/${c.depart}/${c.retour}/1/0/0/null`;
+  }
+  if (c.cie === 'pegasus') {
+    const q = new URLSearchParams({ language: lang, adultCount: '1', departurePort: 'BSL', arrivalPort: c.code, currency: 'EUR', dateOption: '1', departureDate: c.depart, returnDate: c.retour });
+    return `https://web.flypgs.com/booking?${q}`;
   }
   const q = new URLSearchParams({ dep: 'BSL', dest: c.code, dd: c.depart, rd: c.retour, apax: '1', cpax: '0', ipax: '0', isOneWay: 'off' });
   return `https://www.easyjet.com/${lang}/buy/flights?${q}`;

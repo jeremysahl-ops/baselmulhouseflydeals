@@ -1,5 +1,5 @@
 // Prépare les prix pour le site : lit le dernier relevé de chaque ville dans data-prix/<CODE>/<date>.json (easyJet)
-// et data-prix/wizz/<CODE>/<date>.json (Wizz Air)
+// data-prix/wizz/<CODE>/<date>.json (Wizz Air) et data-prix/pegasus/<CODE>/<date>.json (Pegasus)
 // et écrit lib/data/prix-easyjet.json avec SEULEMENT nos conclusions (prix courant et 3 meilleurs combos
 // par mois et par durée). La grille complète des compagnies n'est jamais recopiée (règle : ne pas publier les tableaux bruts).
 // Usage : node scripts/prix-site.mjs
@@ -11,7 +11,7 @@ const OUT = 'lib/data/prix-easyjet.json';
 const DUREES = ['2-4', '5-8', '10-15'];
 
 const villes = [];
-for (const [cie, dossier] of [['easyjet', SRC], ['wizz', join(SRC, 'wizz')]]) {
+for (const [cie, dossier] of [['easyjet', SRC], ['wizz', join(SRC, 'wizz')], ['pegasus', join(SRC, 'pegasus')]]) {
   if (!existsSync(dossier)) continue;
   for (const code of readdirSync(dossier, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name)) {
     if (!/^[A-Z]{3}$/.test(code)) continue;
@@ -35,4 +35,4 @@ for (const [cie, dossier] of [['easyjet', SRC], ['wizz', join(SRC, 'wizz')]]) {
 
 if (!existsSync('lib/data')) mkdirSync('lib/data', { recursive: true });
 writeFileSync(OUT, JSON.stringify({ genereLe: new Date().toISOString(), villes }));
-console.log(`${villes.length} relevés écrits dans ${OUT} : ${villes.map((v) => (v.cie === 'wizz' ? v.code + '(Wizz)' : v.code)).join(', ')}`);
+console.log(`${villes.length} relevés écrits dans ${OUT} : ${villes.map((v) => (v.cie === 'easyjet' ? v.code : v.code + '(' + v.cie + ')')).join(', ')}`);
