@@ -14,10 +14,10 @@ export default function Header({ lang }: { lang: Lang }) {
   const path = stripLocale(usePathname() ?? '/');
 
   const nav = [
+    { href: '/destinations', label: t.nav.byDestination },
     { href: '/mois', label: t.nav.byMonth },
     { href: '/prix', label: t.nav.allPrices },
     { href: '/sejours', label: t.nav.sejours },
-    { href: '/destinations', label: t.nav.byDestination },
     { href: '/vacances', label: t.nav.vacances },
   ];
 
