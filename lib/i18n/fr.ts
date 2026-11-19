@@ -417,6 +417,11 @@ export const fr = {
     typeVacances: 'Vacances scolaires',
     dates: (a: string, b: string) => `Du ${a} au ${b}`,
     empty: "Aucun combo relevé qui tombe pile sur ces dates pour l'instant. Les prix sont mis à jour deux fois par semaine.",
+    clic: 'Cliquez sur un jour coloré pour voir les meilleurs vols de la période, juste en dessous.',
+    ferie: 'jour férié',
+    choix: 'Ce jour fait partie de plusieurs périodes :',
+    prochesTitre: 'À 2 jours près',
+    prochesTexte: 'Ces vols partent ou reviennent jusqu’à 2 jours avant ou après le pont : vérifiez que les dates vous conviennent.',
     note: "Dates vérifiées sur les sources officielles : ministère de l'Éducation nationale (zone B, académie de Strasbourg), canton de Bâle-Ville et calendrier scolaire du Bade-Wurtemberg. Les jours fériés propres à l'Alsace-Moselle (Vendredi saint, 26 décembre) sont pris en compte. Vérifiez le calendrier de votre école ou de votre employeur avant de réserver.",
   },
   ville: {

@@ -411,6 +411,11 @@ export const de: Dict = {
     typeVacances: 'Schulferien',
     dates: (a: string, b: string) => `Vom ${a} bis ${b}`,
     empty: 'Noch keine Kombi gefunden, die genau auf diese Daten passt. Die Preise werden zweimal pro Woche aktualisiert.',
+    clic: 'Klicken Sie auf einen farbigen Tag, um darunter die besten Flüge des Zeitraums zu sehen.',
+    ferie: 'Feiertag',
+    choix: 'Dieser Tag gehört zu mehreren Zeiträumen:',
+    prochesTitre: 'Auf 2 Tage genau',
+    prochesTexte: 'Diese Flüge starten oder landen bis zu 2 Tage vor oder nach der Brücke: prüfen Sie, ob die Daten passen.',
     note: 'Daten aus amtlichen Quellen geprüft: französisches Bildungsministerium (Zone B, Akademie Straßburg), Kanton Basel-Stadt und Ferienverordnung Baden-Württemberg. Die elsässischen Feiertage (Karfreitag, 26. Dezember) sind berücksichtigt. Prüfen Sie vor der Buchung den Kalender Ihrer Schule oder Ihres Arbeitgebers.',
   },
   ville: {

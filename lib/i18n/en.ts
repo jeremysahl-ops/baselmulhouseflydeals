@@ -412,6 +412,11 @@ export const en: Dict = {
     typeVacances: 'School holidays',
     dates: (a: string, b: string) => `From ${a} to ${b}`,
     empty: 'No combo found that fits these exact dates yet. Prices are updated twice a week.',
+    clic: 'Click a coloured day to see the best flights for that period just below.',
+    ferie: 'public holiday',
+    choix: 'This day belongs to several periods:',
+    prochesTitre: 'Within 2 days',
+    prochesTexte: 'These flights leave or return up to 2 days before or after the long weekend: check that the dates suit you.',
     note: 'Dates checked against official sources: French Ministry of Education (zone B, Strasbourg), the canton of Basel-Stadt and the Baden-Württemberg school calendar. The Alsace-Moselle public holidays (Good Friday, 26 December) are included. Check your school or employer calendar before booking.',
   },
   ville: {

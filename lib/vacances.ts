@@ -39,6 +39,25 @@ export const PERIODES: Periode[] = [
   { id: 'toussaint', type: 'vacances', debut: '2027-10-23', fin: '2027-11-07', pays: ['FR'], noms: { fr: 'Vacances de la Toussaint (Alsace)', de: 'Herbstferien (Elsass)', en: 'All Saints holidays (Alsace)' } },
 ];
 
+/** Jours fériés (Alsace-Moselle, Bâle-Ville, Bade-Wurtemberg), décembre 2026 → octobre 2027. */
+export const FERIES: { date: string; pays: Pays[]; noms: Record<Lang, string> }[] = [
+  { date: '2026-12-25', pays: ['FR', 'CH', 'DE'], noms: { fr: 'Noël', de: 'Weihnachten', en: 'Christmas Day' } },
+  { date: '2026-12-26', pays: ['FR', 'CH', 'DE'], noms: { fr: 'Saint-Étienne', de: 'Stephanstag', en: "St Stephen's Day" } },
+  { date: '2027-01-01', pays: ['FR', 'CH', 'DE'], noms: { fr: 'Jour de l’an', de: 'Neujahr', en: "New Year's Day" } },
+  { date: '2027-01-06', pays: ['DE'], noms: { fr: 'Épiphanie', de: 'Heilige Drei Könige', en: 'Epiphany' } },
+  { date: '2027-03-26', pays: ['FR', 'CH', 'DE'], noms: { fr: 'Vendredi saint', de: 'Karfreitag', en: 'Good Friday' } },
+  { date: '2027-03-29', pays: ['FR', 'CH', 'DE'], noms: { fr: 'Lundi de Pâques', de: 'Ostermontag', en: 'Easter Monday' } },
+  { date: '2027-05-01', pays: ['FR', 'CH', 'DE'], noms: { fr: 'Fête du travail', de: 'Tag der Arbeit', en: 'Labour Day' } },
+  { date: '2027-05-06', pays: ['FR', 'CH', 'DE'], noms: { fr: 'Ascension', de: 'Auffahrt / Christi Himmelfahrt', en: 'Ascension Day' } },
+  { date: '2027-05-08', pays: ['FR'], noms: { fr: 'Victoire 1945', de: 'Tag des Sieges 1945', en: 'Victory in Europe Day' } },
+  { date: '2027-05-17', pays: ['FR', 'CH', 'DE'], noms: { fr: 'Lundi de Pentecôte', de: 'Pfingstmontag', en: 'Whit Monday' } },
+  { date: '2027-05-27', pays: ['DE'], noms: { fr: 'Fête-Dieu', de: 'Fronleichnam', en: 'Corpus Christi' } },
+  { date: '2027-07-14', pays: ['FR'], noms: { fr: 'Fête nationale', de: 'Französischer Nationalfeiertag', en: 'Bastille Day' } },
+  { date: '2027-08-01', pays: ['CH'], noms: { fr: 'Fête nationale suisse', de: 'Bundesfeier', en: 'Swiss National Day' } },
+  { date: '2027-08-15', pays: ['FR'], noms: { fr: 'Assomption', de: 'Mariä Himmelfahrt', en: 'Assumption Day' } },
+  { date: '2027-10-03', pays: ['DE'], noms: { fr: 'Fête de l’Unité allemande', de: 'Tag der Deutschen Einheit', en: 'German Unity Day' } },
+];
+
 const jour = (iso: string) => Date.parse(iso + 'T12:00:00Z') / 864e5;
 
 /**
@@ -50,4 +69,11 @@ export function convient(p: Periode, depart: string, retour: string): boolean {
   const d = jour(depart), r = jour(retour), a = jour(p.debut), b = jour(p.fin);
   if (d < a - 1 || r > b + 1) return false;
   return p.type === 'pont' ? d <= a && r >= b : d <= b;
+}
+
+/** Pour un pont : combo « à 2 jours près » (départ de 2 jours avant à 1 jour après le début, retour de 1 jour avant à 2 jours après la fin), hors combos qui conviennent déjà. */
+export function proche(p: Periode, depart: string, retour: string): boolean {
+  if (p.type !== 'pont' || convient(p, depart, retour)) return false;
+  const d = jour(depart), r = jour(retour), a = jour(p.debut), b = jour(p.fin);
+  return d >= a - 2 && d <= a + 1 && r >= b - 1 && r <= b + 2 && r > d;
 }
