@@ -1,5 +1,5 @@
 // Prépare les prix pour le site : lit le dernier relevé de chaque ville dans data-prix/<CODE>/<date>.json (easyJet)
-// data-prix/wizz/<CODE>/<date>.json (Wizz Air) data-prix/pegasus/<CODE>/<date>.json (Pegasus) et data-prix/ryanair/<CODE>/<date>.json (Ryanair)
+// data-prix/wizz/<CODE>/<date>.json (Wizz Air) data-prix/pegasus/<CODE>/<date>.json (Pegasus) data-prix/ryanair/<CODE>/<date>.json (Ryanair) et data-prix/flydubai/<CODE>/<date>.json (flydubai)
 // et écrit lib/data/prix-easyjet.json avec SEULEMENT nos conclusions (prix courant et 3 meilleurs combos
 // par mois et par durée). La grille complète des compagnies n'est jamais recopiée (règle : ne pas publier les tableaux bruts).
 // Usage : node scripts/prix-site.mjs
@@ -11,7 +11,7 @@ const OUT = 'lib/data/prix-easyjet.json';
 const DUREES = ['2-4', '5-8', '10-15'];
 
 const villes = [];
-for (const [cie, dossier] of [['easyjet', SRC], ['wizz', join(SRC, 'wizz')], ['pegasus', join(SRC, 'pegasus')], ['ryanair', join(SRC, 'ryanair')]]) {
+for (const [cie, dossier] of [['easyjet', SRC], ['wizz', join(SRC, 'wizz')], ['pegasus', join(SRC, 'pegasus')], ['ryanair', join(SRC, 'ryanair')], ['flydubai', join(SRC, 'flydubai')]]) {
   if (!existsSync(dossier)) continue;
   for (const code of readdirSync(dossier, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name)) {
     if (!/^[A-Z]{3}$/.test(code)) continue;

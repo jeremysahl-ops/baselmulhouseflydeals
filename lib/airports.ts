@@ -1,9 +1,9 @@
 // Destinations au départ de Bâle-Mulhouse (BSL) : easyJet (formulaire easyjet.com, 16/11/2026)
-// puis Wizz Air (formulaire wizzair.com, 17/11/2026 ; Wizz y appelle l'aéroport MLH), puis Pegasus (flypgs.com, 18/11/2026) et Ryanair (ryanair.com, 18/11/2026).
+// puis Wizz Air (formulaire wizzair.com, 17/11/2026 ; Wizz y appelle l'aéroport MLH), puis Pegasus (flypgs.com, 18/11/2026) et Ryanair (ryanair.com, 18/11/2026), puis flydubai (flydubai.com, 19/11/2026).
 // Clé = code de l'aéroport. Noms : [français, allemand, anglais]. `guide` = clé de lib/destinations.ts quand un guide existe.
 import type { Lang } from '@/lib/i18n/config';
 
-type Country = 'MA' | 'FR' | 'ES' | 'TR' | 'GR' | 'IT' | 'DE' | 'GB' | 'HU' | 'CY' | 'DK' | 'PL' | 'TN' | 'HR' | 'PT' | 'EG' | 'MT' | 'CZ' | 'XK' | 'IS' | 'BA' | 'ME' | 'AT' | 'AL' | 'AM' | 'BG' | 'MK' | 'MD' | 'RO' | 'RS' | 'SK' | 'IE';
+type Country = 'MA' | 'FR' | 'ES' | 'TR' | 'GR' | 'IT' | 'DE' | 'GB' | 'HU' | 'CY' | 'DK' | 'PL' | 'TN' | 'HR' | 'PT' | 'EG' | 'MT' | 'CZ' | 'XK' | 'IS' | 'BA' | 'ME' | 'AT' | 'AL' | 'AM' | 'BG' | 'MK' | 'MD' | 'RO' | 'RS' | 'SK' | 'IE' | 'AE';
 
 const COUNTRIES: Record<Country, [string, string, string]> = {
   MA: ['Maroc', 'Marokko', 'Morocco'],
@@ -21,6 +21,7 @@ const COUNTRIES: Record<Country, [string, string, string]> = {
   TN: ['Tunisie', 'Tunesien', 'Tunisia'],
   HR: ['Croatie', 'Kroatien', 'Croatia'],
   IE: ['Irlande', 'Irland', 'Ireland'],
+  AE: ['Émirats arabes unis', 'Vereinigte Arabische Emirate', 'United Arab Emirates'],
   PT: ['Portugal', 'Portugal', 'Portugal'],
   EG: ['Égypte', 'Ägypten', 'Egypt'],
   MT: ['Malte', 'Malta', 'Malta'],
@@ -150,6 +151,8 @@ export const AIRPORTS: Record<string, Airport> = {
   DUB: { names: ['Dublin', 'Dublin', 'Dublin'], country: 'IE', guide: 'Dublin' },
   STN: { names: ['Londres Stansted', 'London Stansted', 'London Stansted'], country: 'GB', guide: 'Londres' },
   ZAG: { names: ['Zagreb', 'Zagreb', 'Zagreb'], country: 'HR', guide: 'Zagreb' },
+  // flydubai (19/11/2026) : vols à partir de juillet 2027
+  DXB: { names: ['Dubaï', 'Dubai', 'Dubai'], country: 'AE' },
 };
 
 const IDX: Record<Lang, 0 | 1 | 2> = { fr: 0, de: 1, en: 2 };
@@ -184,8 +187,8 @@ export function airportForGuide(destination: string): string | null {
   return Object.keys(AIRPORTS).find((c) => AIRPORTS[c].guide === destination) ?? null;
 }
 
-export type Compagnie = 'easyjet' | 'wizz' | 'pegasus' | 'ryanair';
-export const NOM_COMPAGNIE: Record<Compagnie, string> = { easyjet: 'easyJet', wizz: 'Wizz Air', pegasus: 'Pegasus', ryanair: 'Ryanair' };
+export type Compagnie = 'easyjet' | 'wizz' | 'pegasus' | 'ryanair' | 'flydubai';
+export const NOM_COMPAGNIE: Record<Compagnie, string> = { easyjet: 'easyJet', wizz: 'Wizz Air', pegasus: 'Pegasus', ryanair: 'Ryanair', flydubai: 'flydubai' };
 
 /** Recherche déjà remplie chez la compagnie (Bâle-Mulhouse, destination, dates, 1 adulte). */
 export function lienVol(c: { code: string; depart: string; retour: string; cie: Compagnie }, lang: Lang): string {
@@ -197,6 +200,10 @@ export function lienVol(c: { code: string; depart: string; retour: string; cie: 
     const q = new URLSearchParams({ adults: '1', teens: '0', children: '0', infants: '0', dateOut: c.depart, dateIn: c.retour, isConnectedFlight: 'false', discount: '0', isReturn: 'true', originIata: 'BSL', destinationIata: c.code });
     const loc = { fr: 'fr/fr', de: 'de/de', en: 'gb/en' }[lang];
     return `https://www.ryanair.com/${loc}/trip/flights/select?${q}`;
+  }
+  if (c.cie === 'flydubai') {
+    const d = (s: string) => s.replace(/-/g, '');
+    return `https://m.flydubai.com/en/results/rt/a1c0i0/BSL_${c.code}/${d(c.depart)}_${d(c.retour)}?cabinClass=Economy&isOriginMetro=false&isDestMetro=false&pm=cash`;
   }
   if (c.cie === 'pegasus') {
     const q = new URLSearchParams({ language: lang, adultCount: '1', departurePort: 'BSL', arrivalPort: c.code, currency: 'EUR', dateOption: '1', departureDate: c.depart, returnDate: c.retour });
