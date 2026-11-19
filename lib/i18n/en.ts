@@ -26,6 +26,7 @@ export const en: Dict = {
     byDestination: 'By destination',
     allPrices: 'All prices',
     method: 'Our method',
+    vacances: 'Long weekends and holidays',
     sejours: 'Holidays',
     alerts: 'Get alerts',
     openMenu: 'Open menu',
@@ -396,6 +397,23 @@ export const en: Dict = {
     allHeading: 'Every combo this month',
     otherMonths: 'Other months',
   },
+  vacances: {
+    metaTitle: (city: string) => `Long weekends, public and school holidays: the best flights from ${city}`,
+    metaDescription: (city: string) =>
+      `For every long weekend and school holiday in Alsace, Basel and Baden-Württemberg, the best return flight combos from ${city}.`,
+    crumb: 'Long weekends and holidays',
+    eyebrow: 'Three countries, three calendars',
+    h1: 'Long weekends and holidays',
+    lead: (city: string) =>
+      `Three calendars meet around the EuroAirport: Alsace (school zone B), Basel and Baden-Württemberg. For every long weekend and school holiday, here are the best combos found from ${city}, leaving at the earliest the day before and returning at the latest the day after.`,
+    pays: { FR: 'FR · Alsace (zone B)', CH: 'CH · Basel-Stadt', DE: 'DE · Baden-Württemberg' },
+    sommaire: 'All periods',
+    typePont: 'Long weekend',
+    typeVacances: 'School holidays',
+    dates: (a: string, b: string) => `From ${a} to ${b}`,
+    empty: 'No combo found that fits these exact dates yet. Prices are updated twice a week.',
+    note: 'Dates checked against official sources: French Ministry of Education (zone B, Strasbourg), the canton of Basel-Stadt and the Baden-Württemberg school calendar. The Alsace-Moselle public holidays (Good Friday, 26 December) are included. Check your school or employer calendar before booking.',
+  },
   ville: {
     metaTitle: (label, city) => `${label} from ${city}: flight prices month by month`,
     metaDescription: (label, city) =>
@@ -416,6 +434,14 @@ export const en: Dict = {
     fromLabel: 'Return from',
     seePrices: 'See prices',
     allDestinations: 'All destinations',
+    whenHeading: 'When to go?',
+    whenLead: 'For each of the next 12 months: the usual price we found for a one-week return trip, and the average local climate.',
+    whenNoPrice: 'no flight found',
+    whenMax: (t: number) => `${t}° in the afternoon`,
+    whenRain: (n: number) => ['mostly dry', 'a few showers', 'fairly rainy', 'very rainy'][n],
+    whenCheap: 'among the cheapest months for this destination',
+    whenDear: 'among the most expensive months for this destination',
+    whenClimate: 'Climate: 2015–2024 averages we calculated from NASA data (POWER), on a grid of about 50 km: average daily high; rain based on the monthly total (under 20 mm: mostly dry; over 110 mm: very rainy). Indicative values, slightly softened by the sea on the coast.',
   },
   notFound: {
     eyebrow: 'Error 404',

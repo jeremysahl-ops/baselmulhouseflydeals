@@ -27,6 +27,7 @@ export const de: Dict = {
     byDestination: 'Nach Reiseziel',
     allPrices: 'Alle Preise',
     method: 'Unsere Methode',
+    vacances: 'Brücken und Ferien',
     sejours: 'Pauschalreisen',
     alerts: 'Preisalarm erhalten',
     openMenu: 'Menü öffnen',
@@ -395,6 +396,23 @@ export const de: Dict = {
     allHeading: 'Alle Kombis des Monats',
     otherMonths: 'Andere Monate',
   },
+  vacances: {
+    metaTitle: (city: string) => `Brückentage, Feiertage und Schulferien: die besten Flüge ab ${city}`,
+    metaDescription: (city: string) =>
+      `Für jeden Brückentag und alle Schulferien im Elsass, in Basel und in Baden-Württemberg: die besten Hin- und Rückflug-Kombis ab ${city}.`,
+    crumb: 'Brücken und Ferien',
+    eyebrow: 'Drei Länder, drei Kalender',
+    h1: 'Brücken und Ferien',
+    lead: (city: string) =>
+      `Rund um den EuroAirport gelten drei Kalender: das Elsass (Ferienzone B), Basel und Baden-Württemberg. Für jede Brücke und alle Ferien zeigen wir die besten Kombis ab ${city}, die frühestens am Vortag abfliegen und spätestens am Tag danach zurückkommen.`,
+    pays: { FR: 'FR · Elsass (Zone B)', CH: 'CH · Basel-Stadt', DE: 'DE · Baden-Württemberg' },
+    sommaire: 'Alle Zeiträume',
+    typePont: 'Brücke oder langes Wochenende',
+    typeVacances: 'Schulferien',
+    dates: (a: string, b: string) => `Vom ${a} bis ${b}`,
+    empty: 'Noch keine Kombi gefunden, die genau auf diese Daten passt. Die Preise werden zweimal pro Woche aktualisiert.',
+    note: 'Daten aus amtlichen Quellen geprüft: französisches Bildungsministerium (Zone B, Akademie Straßburg), Kanton Basel-Stadt und Ferienverordnung Baden-Württemberg. Die elsässischen Feiertage (Karfreitag, 26. Dezember) sind berücksichtigt. Prüfen Sie vor der Buchung den Kalender Ihrer Schule oder Ihres Arbeitgebers.',
+  },
   ville: {
     metaTitle: (label, city) => `${label} ab ${city}: Flugpreise Monat für Monat`,
     metaDescription: (label, city) =>
@@ -415,6 +433,14 @@ export const de: Dict = {
     fromLabel: 'Hin und zurück ab',
     seePrices: 'Preise ansehen',
     allDestinations: 'Alle Reiseziele',
+    whenHeading: 'Wann reisen?',
+    whenLead: 'Für jeden der nächsten 12 Monate: der von uns ermittelte übliche Preis für eine Woche hin und zurück und das durchschnittliche Klima vor Ort.',
+    whenNoPrice: 'kein Flug erfasst',
+    whenMax: (t: number) => `${t}° am Nachmittag`,
+    whenRain: (n: number) => ['eher trocken', 'einzelne Schauer', 'recht regnerisch', 'sehr regnerisch'][n],
+    whenCheap: 'unter den günstigsten Monaten für dieses Ziel',
+    whenDear: 'unter den teuersten Monaten für dieses Ziel',
+    whenClimate: 'Klima: Mittelwerte 2015–2024, von uns aus NASA-Daten (POWER) berechnet, Raster von etwa 50 km: durchschnittliche Tageshöchsttemperatur; Regen nach Monatssumme (unter 20 mm: eher trocken; über 110 mm: sehr regnerisch). Richtwerte, an der Küste etwas gemildert.',
   },
   notFound: {
     eyebrow: 'Fehler 404',

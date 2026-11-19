@@ -29,6 +29,7 @@ export const fr = {
     allPrices: 'Tous les prix',
     method: 'Notre méthode',
     sejours: 'Séjours',
+    vacances: 'Ponts et vacances',
     alerts: 'Recevoir les alertes',
     openMenu: 'Ouvrir le menu',
     closeMenu: 'Fermer le menu',
@@ -401,6 +402,23 @@ export const fr = {
     allHeading: 'Tous les combos du mois',
     otherMonths: 'Autres mois',
   },
+  vacances: {
+    metaTitle: (city: string) => `Ponts, jours fériés et vacances scolaires : les meilleurs vols depuis ${city}`,
+    metaDescription: (city: string) =>
+      `Pour chaque pont et chaque période de vacances en Alsace, à Bâle et dans le Bade-Wurtemberg, les meilleurs combos aller-retour au départ de ${city}.`,
+    crumb: 'Ponts et vacances',
+    eyebrow: 'Trois pays, trois calendriers',
+    h1: 'Ponts et vacances',
+    lead: (city: string) =>
+      `L'EuroAirport est entouré de trois calendriers : l'Alsace (vacances de la zone B), Bâle et le Bade-Wurtemberg. Pour chaque pont et chaque période de vacances, voici les meilleurs combos relevés au départ de ${city}, qui partent au plus tôt la veille et rentrent au plus tard le lendemain.`,
+    pays: { FR: 'FR · Alsace (zone B)', CH: 'CH · Bâle-Ville', DE: 'DE · Bade-Wurtemberg' },
+    sommaire: 'Toutes les périodes',
+    typePont: 'Pont ou week-end prolongé',
+    typeVacances: 'Vacances scolaires',
+    dates: (a: string, b: string) => `Du ${a} au ${b}`,
+    empty: "Aucun combo relevé qui tombe pile sur ces dates pour l'instant. Les prix sont mis à jour deux fois par semaine.",
+    note: "Dates vérifiées sur les sources officielles : ministère de l'Éducation nationale (zone B, académie de Strasbourg), canton de Bâle-Ville et calendrier scolaire du Bade-Wurtemberg. Les jours fériés propres à l'Alsace-Moselle (Vendredi saint, 26 décembre) sont pris en compte. Vérifiez le calendrier de votre école ou de votre employeur avant de réserver.",
+  },
   ville: {
     metaTitle: (label: string, city: string) => `${label} depuis ${city} : les prix des vols mois par mois`,
     metaDescription: (label: string, city: string) =>
@@ -422,6 +440,14 @@ export const fr = {
     fromLabel: 'Aller-retour dès',
     seePrices: 'Voir les prix',
     allDestinations: 'Toutes les destinations',
+    whenHeading: 'Quand partir ?',
+    whenLead: "Pour chacun des 12 prochains mois : le prix courant d'une semaine aller-retour que nous avons relevé, et le climat moyen sur place.",
+    whenNoPrice: 'pas de vol relevé',
+    whenMax: (t: number) => `${t}° l'après-midi`,
+    whenRain: (n: number) => ['plutôt sec', 'quelques averses', 'assez pluvieux', 'très pluvieux'][n],
+    whenCheap: 'parmi les mois les moins chers pour cette destination',
+    whenDear: 'parmi les mois les plus chers pour cette destination',
+    whenClimate: "Climat : moyennes 2015-2024 calculées par nos soins à partir des données de la NASA (POWER), sur une grille d'environ 50 km : température maximale moyenne de la journée ; pluie selon le cumul du mois (moins de 20 mm : plutôt sec ; plus de 110 mm : très pluvieux). Valeurs indicatives, un peu adoucies au bord de la mer.",
   },
   notFound: {
     eyebrow: 'Erreur 404',

@@ -15,6 +15,7 @@ export default function Header({ lang }: { lang: Lang }) {
 
   const nav = [
     { href: '/mois', label: t.nav.byMonth },
+    { href: '/vacances', label: t.nav.vacances },
     { href: '/destinations', label: t.nav.byDestination },
     { href: '/prix', label: t.nav.allPrices },
     { href: '/sejours', label: t.nav.sejours },
