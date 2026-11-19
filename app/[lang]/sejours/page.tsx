@@ -5,6 +5,7 @@ import { codePhoto, sejoursActifs, type Sejour } from '@/lib/sejours';
 import { formatDay, formatPrice } from '@/lib/format';
 import { alternatesFor, getDict, isLang, localePath, type Lang } from '@/lib/i18n';
 import { langParam } from '@/lib/i18n/params';
+import DateReleve from '@/components/DateReleve';
 
 export const revalidate = 3600;
 
@@ -49,7 +50,7 @@ function Carte({ s, lang }: { s: Sejour; lang: Lang }) {
             <div>
               <span className="flap !bg-board text-2xl">{formatPrice(s.prix, lang)}</span>
               <span className="ml-1 text-xs text-ink-muted">{t.perPerson}</span>
-              <p className="mt-1 text-[11px] text-ink-muted">{t.seen(formatDay(s.vuLe, lang))}</p>
+              <p className="mt-1 text-[11px] text-ink-muted"><DateReleve texte={t.seen(formatDay(s.vuLe, lang))} date={formatDay(s.vuLe, lang)} /></p>
             </div>
             <span className="rounded-md bg-flap px-3 py-2 text-sm font-bold text-ink transition group-hover:brightness-110">{t.see(s.source)} ↗</span>
           </div>

@@ -13,6 +13,7 @@ import { combosDuMois, dernierReleve, meilleurParVille, moisDisponibles } from '
 import { formatMonth, formatPrice, formatStamp } from '@/lib/format';
 import { getDict, localePath } from '@/lib/i18n';
 import { langParam } from '@/lib/i18n/params';
+import DateReleve from '@/components/DateReleve';
 
 export const revalidate = 3600;
 
@@ -73,7 +74,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
                 {t.ctaMonths}
               </Link>
             </div>
-            {updated && <p className="eyebrow mt-8 !text-white/70">{t.lastUpdate(formatStamp(updated, lang))}</p>}
+            {updated && <p className="eyebrow mt-8 !text-white/70"><DateReleve texte={t.lastUpdate(formatStamp(updated, lang))} date={formatStamp(updated, lang)} sombre /></p>}
           </div>
 
           <div>

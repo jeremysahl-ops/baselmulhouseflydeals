@@ -5,6 +5,7 @@ import type { Combo } from '@/lib/prix';
 import { airportCountry, airportName, airportSlug, lienVol, NOM_COMPAGNIE } from '@/lib/airports';
 import { formatDay, formatPrice, formatStamp } from '@/lib/format';
 import { getDict, localePath, type Lang } from '@/lib/i18n';
+import DateReleve from '@/components/DateReleve';
 
 
 export default function Board({
@@ -63,7 +64,7 @@ export default function Board({
                       <span className="block text-[11px] text-board-dim">
                         {showDestination && t.nights(c.nuits)}
                         {showDestination && showSeen && ' · '}
-                        {showSeen && t.seen(formatStamp(c.vuLe, lang))}
+                        {showSeen && <DateReleve texte={t.seen(formatStamp(c.vuLe, lang))} date={formatStamp(c.vuLe, lang)} sombre />}
                       </span>
                     )}
                   </div>

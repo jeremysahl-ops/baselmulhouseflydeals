@@ -14,6 +14,7 @@ import { guidePath } from '@/lib/guides';
 import { formatDay, formatMonth, formatPrice, formatStamp } from '@/lib/format';
 import { LOCALES, alternatesFor, getDict, isLang, localePath } from '@/lib/i18n';
 import { langParam } from '@/lib/i18n/params';
+import DateReleve from '@/components/DateReleve';
 
 export const revalidate = 3600;
 
@@ -124,7 +125,7 @@ export default async function VillePage({ params }: Props) {
 
       <section id="prix" className="mt-12 scroll-mt-24" aria-labelledby="prix-titre">
         <h2 id="prix-titre" className="display text-4xl text-ink">{t.pricesHeading}</h2>
-        {ville && <p className="mb-6 mt-2 text-ink-soft">{t.lead(dict.place.city, formatStamp(ville.vuLe, lang))}</p>}
+        {ville && <p className="mb-6 mt-2 text-ink-soft"><DateReleve texte={t.lead(dict.place.city, formatStamp(ville.vuLe, lang))} date={formatStamp(ville.vuLe, lang)} /></p>}
       </section>
 
       {!ville || ville.mois.length === 0 ? (

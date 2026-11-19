@@ -18,6 +18,7 @@ import HotelPickCard from '@/components/HotelPickCard';
 import { SITE, getSection } from '@/lib/site';
 import { LOCALES, alternatesFor, getDict, isLang, localePath } from '@/lib/i18n';
 import { langParam } from '@/lib/i18n/params';
+import DateReleve from '@/components/DateReleve';
 
 export const revalidate = 600;
 
@@ -114,7 +115,7 @@ export default async function DealPage({ params }: Props) {
               <Row label={t.flightType}>{t.flightTypeValue}</Row>
               {airline && <Row label={t.airline}>{airline}</Row>}
               <Row label={t.airport}>{dict.place.airport}</Row>
-              <Row label={t.seenOn}>{seenOn}</Row>
+              <Row label={t.seenOn}><DateReleve texte={seenOn} date={seenOn} /></Row>
             </dl>
           </section>
 
