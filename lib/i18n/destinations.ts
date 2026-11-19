@@ -78,6 +78,16 @@ const NAMES: Record<string, Names> = {
   'Malte': { de: ['Malta', 'Malta'], en: ['Malta', 'Malta'] },
   'Larnaca': { de: ['Larnaka', 'Zypern'], en: ['Larnaca', 'Cyprus'] },
   'Reykjavik': { de: ['Reykjavík', 'Island'], en: ['Reykjavik', 'Iceland'] },
+  'Bari': { de: ['Bari', 'Italien'], en: ['Bari', 'Italy'] },
+  'Brindisi': { de: ['Brindisi', 'Italien'], en: ['Brindisi', 'Italy'] },
+  'Cagliari': { de: ['Cagliari', 'Italien'], en: ['Cagliari', 'Italy'] },
+  'Catane': { de: ['Catania', 'Italien'], en: ['Catania', 'Italy'] },
+  'Lamezia Terme': { de: ['Lamezia Terme', 'Italien'], en: ['Lamezia Terme', 'Italy'] },
+  'Olbia': { de: ['Olbia', 'Italien'], en: ['Olbia', 'Italy'] },
+  'Palerme': { de: ['Palermo', 'Italien'], en: ['Palermo', 'Italy'] },
+  'Pantelleria': { de: ['Pantelleria', 'Italien'], en: ['Pantelleria', 'Italy'] },
+  'Rimini': { de: ['Rimini', 'Italien'], en: ['Rimini', 'Italy'] },
+  'Bristol': { de: ['Bristol', 'Vereinigtes Königreich'], en: ['Bristol', 'United Kingdom'] },
 };
 
 /** Nom de la ville dans la langue demandée (à défaut : le nom français, puis la clé). */
