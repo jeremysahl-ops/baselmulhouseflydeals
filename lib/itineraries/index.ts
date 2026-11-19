@@ -9,6 +9,7 @@ import { PART2 } from './part2';
 import { PART3 } from './part3';
 import { PART4 } from './part4';
 import { PART5 } from './part5';
+import { PART6 } from './part6';
 import { DE_ITINERARIES } from './de';
 import { EN_ITINERARIES } from './en';
 import type { RawItineraries } from './types';
@@ -19,7 +20,7 @@ export interface DayPlan {
   text: string;
 }
 
-export const ITINERARIES: RawItineraries = { ...PART1, ...PART2, ...PART3, ...PART4, ...PART5 };
+export const ITINERARIES: RawItineraries = { ...PART1, ...PART2, ...PART3, ...PART4, ...PART5, ...PART6 };
 
 const BY_LANG: Record<Lang, RawItineraries> = { fr: ITINERARIES, de: DE_ITINERARIES, en: EN_ITINERARIES };
 

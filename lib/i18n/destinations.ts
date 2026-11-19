@@ -68,6 +68,16 @@ const NAMES: Record<string, Names> = {
   'Montpellier': { de: ['Montpellier', 'Frankreich'], en: ['Montpellier', 'France'] },
   'Nantes': { de: ['Nantes', 'Frankreich'], en: ['Nantes', 'France'] },
   'Toulouse': { de: ['Toulouse', 'Frankreich'], en: ['Toulouse', 'France'] },
+  'Bilbao': { de: ['Bilbao', 'Spanien'], en: ['Bilbao', 'Spain'] },
+  'Saint-Jacques-de-Compostelle': { de: ['Santiago de Compostela', 'Spanien'], en: ['Santiago de Compostela', 'Spain'] },
+  'Seville': { de: ['Sevilla', 'Spanien'], en: ['Seville', 'Spain'] },
+  'Valence': { de: ['Valencia', 'Spanien'], en: ['Valencia', 'Spain'] },
+  'Minorque': { de: ['Menorca', 'Spanien'], en: ['Menorca', 'Spain'] },
+  'La Palma': { de: ['La Palma', 'Spanien'], en: ['La Palma', 'Spain'] },
+  'Madere': { de: ['Madeira', 'Portugal'], en: ['Madeira', 'Portugal'] },
+  'Malte': { de: ['Malta', 'Malta'], en: ['Malta', 'Malta'] },
+  'Larnaca': { de: ['Larnaka', 'Zypern'], en: ['Larnaca', 'Cyprus'] },
+  'Reykjavik': { de: ['Reykjavík', 'Island'], en: ['Reykjavik', 'Iceland'] },
 };
 
 /** Nom de la ville dans la langue demandée (à défaut : le nom français, puis la clé). */
