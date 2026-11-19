@@ -51,12 +51,21 @@ export default function QuandPartir({ code, ville, lang }: { code: string; ville
               <p className={`mt-1 font-board text-lg font-bold ${r === 'cheap' ? 'text-saving' : r === 'dear' ? 'text-[#a3341f]' : 'text-ink'}`}>
                 {v != null ? formatPrice(v, lang) : <span className="text-sm font-normal text-ink-muted">{t.whenNoPrice}</span>}
               </p>
-              {c && (
-                <p className="mt-1 text-[12px] leading-snug text-ink-soft">
-                  {t.whenMax(Math.round(c[0]))}
-                  <span className="block text-ink-muted">{t.whenRain(c[2] < 20 ? 0 : c[2] < 60 ? 1 : c[2] < 110 ? 2 : 3)}</span>
-                </p>
-              )}
+              {c && (() => {
+                const pluie = c[2] < 20 ? 0 : c[2] < 60 ? 1 : c[2] < 110 ? 2 : 3;
+                return (
+                  <div className="mt-1 space-y-0.5 text-[12px] leading-snug">
+                    <p className="flex items-center gap-1 text-ink-soft">
+                      <Thermometre chaud={c[0]} />
+                      {t.whenMax(Math.round(c[0]))}
+                    </p>
+                    <p className="flex items-center gap-1 text-ink-muted">
+                      <Meteo pluie={pluie} />
+                      {t.whenRain(pluie)}
+                    </p>
+                  </div>
+                );
+              })()}
             </li>
           );
         })}
@@ -67,5 +76,46 @@ export default function QuandPartir({ code, ville, lang }: { code: string; ville
       </p>
       {clim && <p className="mt-1 text-xs text-ink-muted">{t.whenClimate}</p>}
     </section>
+  );
+}
+
+/** Petit thermomètre, rouge quand il fait chaud (25° et plus), orange entre 15 et 25°, bleu en dessous. */
+function Thermometre({ chaud }: { chaud: number }) {
+  const couleur = chaud >= 25 ? '#d9452b' : chaud >= 15 ? '#e08a1e' : '#2f6fd1';
+  const niveau = chaud >= 25 ? 4 : chaud >= 15 ? 7 : 10;
+  return (
+    <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none" stroke={couleur} strokeWidth={1.8} strokeLinecap="round" aria-hidden="true">
+      <path d="M10 13.5V5a2 2 0 0 1 4 0v8.5a4 4 0 1 1-4 0z" />
+      <path d={`M12 ${niveau}v7`} strokeWidth={2.4} />
+      <circle cx="12" cy="17" r="1.6" fill={couleur} />
+    </svg>
+  );
+}
+
+/** Soleil (sec), soleil et nuage (averses), nuage et goutte (pluvieux), deux gouttes (très pluvieux). */
+function Meteo({ pluie }: { pluie: number }) {
+  const soleil = '#e0a400', nuage = '#7c8798', goutte = '#2f6fd1';
+  return (
+    <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {pluie === 0 && (
+        <g stroke={soleil}>
+          <circle cx="12" cy="12" r="4" fill={soleil} />
+          <path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4" />
+        </g>
+      )}
+      {pluie === 1 && (
+        <>
+          <g stroke={soleil}><circle cx="9" cy="8" r="3" fill={soleil} /><path d="M9 2.5v1.2M3.5 8h1.2M5 4l.9.9M13 4l-.9.9" /></g>
+          <path d="M8 19h9a3.5 3.5 0 0 0 0-7 5 5 0 0 0-9.4 1.6A2.8 2.8 0 0 0 8 19z" stroke={nuage} fill="#ffffff" />
+        </>
+      )}
+      {pluie >= 2 && (
+        <>
+          <path d="M7 14h10a3.5 3.5 0 0 0 0-7 5 5 0 0 0-9.4 1.6A2.8 2.8 0 0 0 7 14z" stroke={nuage} />
+          <path d="M10 17l-1 3" stroke={goutte} />
+          {pluie === 3 && <path d="M14 17l-1 3" stroke={goutte} />}
+        </>
+      )}
+    </svg>
   );
 }
