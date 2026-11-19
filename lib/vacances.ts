@@ -17,6 +17,9 @@ export interface Periode {
   noms: Record<Lang, string>;
 }
 
+/** Couleur de chaque pays sur le calendrier et les étiquettes. */
+export const COULEUR_PAYS: Record<Pays, string> = { FR: '#2f5bd3', CH: '#d23b3b', DE: '#c9971c' };
+
 export const PERIODES: Periode[] = [
   { id: 'noel-we', type: 'pont', debut: '2026-12-25', fin: '2026-12-27', pays: ['FR', 'CH', 'DE'], noms: { fr: 'Week-end de Noël', de: 'Weihnachtswochenende', en: 'Christmas weekend' } },
   { id: 'noel-fr', type: 'vacances', debut: '2026-12-19', fin: '2027-01-03', pays: ['FR', 'CH'], noms: { fr: 'Vacances de Noël (Alsace, Bâle)', de: 'Weihnachtsferien (Elsass, Basel)', en: 'Christmas holidays (Alsace, Basel)' } },

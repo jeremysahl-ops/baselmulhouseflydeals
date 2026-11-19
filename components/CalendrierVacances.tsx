@@ -1,26 +1,19 @@
 'use client';
 
 // Calendrier des ponts et vacances des trois pays : 11 mois de grilles, une barre de couleur par pays en vacances
-// ou en pont, jours fériés en gras. Un clic sur un jour coloré affiche les meilleurs combos de la période.
+// ou en pont, jours fériés en gras. Un clic sur un jour coloré fait descendre à la période dans la liste (id = période).
 import { useMemo, useState } from 'react';
-import Board from '@/components/Board';
-import type { Combo } from '@/lib/prix';
-import type { Pays, Periode } from '@/lib/vacances';
-import { formatDay } from '@/lib/format';
+import { COULEUR_PAYS, type Pays, type Periode } from '@/lib/vacances';
 import { getDict, type Lang } from '@/lib/i18n';
 
-export interface PeriodeAvecCombos extends Periode { combos: Combo[]; proches: Combo[] }
 interface Ferie { date: string; pays: Pays[]; noms: Record<Lang, string> }
-
-export const COULEUR_PAYS: Record<Pays, string> = { FR: '#2f5bd3', CH: '#d23b3b', DE: '#c9971c' };
 const iso = (d: Date) => d.toISOString().slice(0, 10);
 
 export default function CalendrierVacances({ periodes, feries, mois, lang }: {
-  periodes: PeriodeAvecCombos[]; feries: Ferie[]; mois: string[]; lang: Lang;
+  periodes: Periode[]; feries: Ferie[]; mois: string[]; lang: Lang;
 }) {
   const t = getDict(lang).vacances;
-  const [choisie, setChoisie] = useState<string>(periodes[0]?.id ?? '');
-  const [jourClique, setJourClique] = useState<string | null>(null);
+  const [choisie, setChoisie] = useState<string>('');
   const ferieDe = useMemo(() => new Map(feries.map((f) => [f.date, f])), [feries]);
   const periodesDuJour = (d: string) => periodes.filter((p) => d >= p.debut && d <= p.fin);
   const sel = periodes.find((p) => p.id === choisie);
@@ -33,11 +26,15 @@ export default function CalendrierVacances({ periodes, feries, mois, lang }: {
   const choisirJour = (d: string) => {
     const liste = periodesDuJour(d);
     if (!liste.length) return;
-    setJourClique(liste.length > 1 ? d : null);
-    // Par défaut la période la plus courte (un pont plutôt que des vacances qui l'englobent).
+    // La période la plus courte (un pont plutôt que des vacances qui l'englobent).
     const courte = [...liste].sort((a, b) => (Date.parse(a.fin) - Date.parse(a.debut)) - (Date.parse(b.fin) - Date.parse(b.debut)))[0];
     setChoisie(courte.id);
-    requestAnimationFrame(() => document.getElementById('periode-choisie')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    const cible = document.getElementById(courte.id);
+    if (!cible) return;
+    cible.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    history.replaceState(null, '', `#${courte.id}`);
+    cible.classList.add('ring-2', 'ring-flap');
+    setTimeout(() => cible.classList.remove('ring-2', 'ring-flap'), 2500);
   };
 
   return (
@@ -93,37 +90,6 @@ export default function CalendrierVacances({ periodes, feries, mois, lang }: {
         })}
       </div>
 
-      {sel && (
-        <section id="periode-choisie" className="mt-10 scroll-mt-24" aria-live="polite">
-          {jourClique && periodesDuJour(jourClique).length > 1 && (
-            <div className="mb-4 flex flex-wrap items-center gap-2 text-sm">
-              <span className="text-ink-muted">{t.choix}</span>
-              {periodesDuJour(jourClique).map((p) => (
-                <button key={p.id} type="button" onClick={() => setChoisie(p.id)}
-                  className={`rounded-md border px-3 py-1 ${p.id === choisie ? 'border-ink bg-ink text-white' : 'border-line bg-white text-ink hover:border-ink'}`}>
-                  {p.noms[lang]}
-                </button>
-              ))}
-            </div>
-          )}
-          <p className="flex flex-wrap items-center gap-2 text-xs">
-            <span className="eyebrow">{sel.type === 'pont' ? t.typePont : t.typeVacances}</span>
-            {sel.pays.map((x) => (
-              <span key={x} className="rounded px-2 py-0.5 font-semibold text-white" style={{ backgroundColor: COULEUR_PAYS[x] }}>{x}</span>
-            ))}
-          </p>
-          <h2 className="display mt-1 text-3xl text-ink">{sel.noms[lang]}</h2>
-          <p className="mb-4 mt-1 text-sm text-ink-soft">{t.dates(formatDay(sel.debut, lang), formatDay(sel.fin, lang))}</p>
-          <Board combos={sel.combos} lang={lang} title={sel.noms[lang]} empty={t.empty} />
-          {sel.proches.length > 0 && (
-            <div className="mt-6">
-              <h3 className="mb-1 text-lg font-semibold text-ink">{t.prochesTitre}</h3>
-              <p className="mb-3 text-sm text-ink-soft">{t.prochesTexte}</p>
-              <Board combos={sel.proches} lang={lang} title={t.prochesTitre} />
-            </div>
-          )}
-        </section>
-      )}
     </div>
   );
 }
