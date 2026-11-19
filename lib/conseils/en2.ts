@@ -237,4 +237,58 @@ export const CONSEILS_EN2: Conseils = {
     "Metro, tram, taxis and abras across the Creek; everything is air-conditioned.",
     "flydubai flights from Basel only start in July 2027; dress modestly at religious sites and during Ramadan.",
   ],
+  PRN: [
+    "May to September; winter is cold and sometimes snowy.",
+    "Taxis from the airport, about fifteen kilometres from the centre.",
+    "The centre is walkable; cheap buses and taxis to Prizren and Peja.",
+    "Kosovo uses the euro; the cafés and macchiatos are excellent.",
+  ],
+  SJJ: [
+    "May to October; December to February for snow on the Olympic mountains.",
+    "Buses and taxis link the airport with the centre in about twenty minutes.",
+    "A tram runs along the valley, and the old town is walkable.",
+    "The convertible mark (KM) is the local currency; dress modestly in mosques.",
+  ],
+  TIV: [
+    "May to October; June and September to avoid the cruise-ship crowds.",
+    "The airport is next to Tivat and about twenty minutes from Kotor: taxi or rental car.",
+    "Coastal buses and water taxis in the bay; a car for Lovćen.",
+    "Montenegro uses the euro; Kotor's walls are steep, so start early.",
+  ],
+  TIA: [
+    "April to June and September to October; summer is hot.",
+    "Buses and taxis link the airport with the centre in half an hour.",
+    "The centre is walkable; minibuses (furgons) to nearby towns.",
+    "The lek is the local currency; Albania is very affordable.",
+  ],
+  BNX: [
+    "May to September; the Vrbas is ideal for rafting in spring and summer.",
+    "The airport is about thirty kilometres away: taxi or rental car.",
+    "The centre is walkable; a car for Jajce and the monasteries.",
+    "The convertible mark (KM) is the local currency; try Banja Luka's ćevapi.",
+  ],
+  TZL: [
+    "May to September for the salt lakes.",
+    "The airport is about ten kilometres away: taxi or bus.",
+    "The centre is walkable; bus or car for day trips.",
+    "The convertible mark (KM) is the local currency; the town sees few tourists and is welcoming.",
+  ],
+  OHD: [
+    "June to September for the lake; spring and autumn for a quiet town.",
+    "The airport is about ten kilometres away: taxi.",
+    "The old town is walkable; boats and buses along the lake.",
+    "The denar is the local currency; the lake stays cool even in summer.",
+  ],
+  SKP: [
+    "April to October; summer is hot.",
+    "Buses and taxis link the airport with the centre in half an hour.",
+    "The centre and bazaar are walkable; cheap taxis to Matka.",
+    "The denar is the local currency; have a Turkish coffee in the old bazaar.",
+  ],
+  TGD: [
+    "May to October; summer is hot in Podgorica, cooler in the mountains.",
+    "Taxis from the airport, about ten kilometres away.",
+    "A car is the easiest way to reach Ostrog, Skadar and the coast.",
+    "Montenegro uses the euro; cover up to visit Ostrog.",
+  ],
 };

@@ -95,4 +95,13 @@ export const DESTINATIONS: Record<string, DestinationInfo> = {
   'Enfidha-Hammamet': { label: 'Enfidha-Hammamet', country: 'Tunisie', iata: 'NBE', photo: 'photo-1722788137347-0df88c467b86' },
   'Tanger': { label: 'Tanger', country: 'Maroc', iata: 'TNG', photo: 'photo-1582919534700-acf2374f10d3' },
   'Dubai': { label: 'Dubaï', country: 'Émirats arabes unis', iata: 'DXB', photo: null },
+  'Pristina': { label: 'Pristina', country: 'Kosovo', iata: 'PRN', photo: 'photo-1653684617625-c6d017d05b80' },
+  'Sarajevo': { label: 'Sarajevo', country: 'Bosnie-Herzégovine', iata: 'SJJ', photo: 'photo-1570831709673-03320e9d734f' },
+  'Tivat': { label: 'Tivat', country: 'Monténégro', iata: 'TIV', photo: 'photo-1614122027743-50a9e6e8002f' },
+  'Tirana': { label: 'Tirana', country: 'Albanie', iata: 'TIA', photo: 'photo-1632353913765-9b56b7b4bd55' },
+  'Banja Luka': { label: 'Banja Luka', country: 'Bosnie-Herzégovine', iata: 'BNX', photo: 'photo-1717507885635-97387c6aa70d' },
+  'Tuzla': { label: 'Tuzla', country: 'Bosnie-Herzégovine', iata: 'TZL', photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Panonsko_jezero.JPG/960px-Panonsko_jezero.JPG' },
+  'Ohrid': { label: 'Ohrid', country: 'Macédoine du Nord', iata: 'OHD', photo: 'photo-1653389167152-7dbd6d165631' },
+  'Skopje': { label: 'Skopje', country: 'Macédoine du Nord', iata: 'SKP', photo: 'photo-1642291373671-29794831ebce' },
+  'Podgorica': { label: 'Podgorica', country: 'Monténégro', iata: 'TGD', photo: 'photo-1641899936619-b3cc3cfe2cbd' },
 };

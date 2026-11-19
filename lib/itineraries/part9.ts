@@ -1,0 +1,75 @@
+import type { RawItineraries } from './types';
+
+// Lot du 19/11/2026 — Balkans. Chaque journée : [titre, programme].
+export const PART9: RawItineraries = {
+  'Pristina': [
+    ["Le centre de Pristina", "Boulevard Mère-Teresa, monument Newborn, bibliothèque nationale à l'architecture étonnante et cathédrale."],
+    ["Le vieux bazar", "Mosquée impériale, tour de l'horloge, musée ethnographique dans une maison ottomane."],
+    ["Gračanica et Gadime", "Monastère serbe de Gračanica (UNESCO) et grotte de marbre de Gadime."],
+    ["Prizren", "La plus jolie ville du Kosovo : pont ottoman, mosquée Sinan Pacha et forteresse, à 1 h 30."],
+    ["Peja et la gorge de Rugova", "Patriarcat de Peć (UNESCO), puis routes et randonnées dans la gorge de Rugova."],
+    ["Mirusha", "Cascades et lacs de Mirusha, en pleine nature."],
+  ],
+  'Sarajevo': [
+    ["Baščaršija", "Vieux bazar ottoman, fontaine Sebilj, mosquée Gazi Husrev-beg et café bosniaque."],
+    ["L'histoire du XXe siècle", "Pont Latin où fut assassiné François-Ferdinand, tunnel de l'espoir et musée de la guerre."],
+    ["Les hauteurs", "Téléphérique du mont Trebević, piste de bobsleigh olympique abandonnée et vue sur la ville."],
+    ["Mostar", "Le Vieux Pont et ses plongeurs, vieille ville ottomane, à environ deux heures."],
+    ["Les sources de la Bosna", "Parc Vrelo Bosne et ses calèches, à la sortie de la ville."],
+    ["Konjic et Jablanica", "Bunker de Tito à Konjic, puis le pont de la Neretva à Jablanica."],
+  ],
+  'Tivat': [
+    ["Kotor", "Vieille ville fortifiée (UNESCO), montée aux remparts jusqu'à la forteresse Saint-Jean."],
+    ["Perast et Notre-Dame-du-Rocher", "Village baroque et bateau vers l'îlot de Notre-Dame-du-Rocher."],
+    ["Porto Montenegro", "Marina de Tivat, promenade sur le front de mer et plages de la baie."],
+    ["Budva", "Vieille ville sur la mer et plages, puis l'îlot de Sveti Stefan vu depuis la côte."],
+    ["Le parc du Lovćen", "Route en lacets au-dessus de Kotor, mausolée de Njegoš et vue sur la baie."],
+    ["La péninsule de Luštica", "Criques, Grotte Bleue en bateau et village de Rose."],
+  ],
+  'Tirana': [
+    ["La place Skanderbeg", "Grande place, mosquée Et'hem Bey, musée national et tour de l'horloge."],
+    ["Bunk'Art et Blloku", "Musées installés dans des bunkers, puis l'ancien quartier interdit de Blloku et ses cafés."],
+    ["Le mont Dajti", "Téléphérique jusqu'au mont Dajti pour la vue et une promenade en forêt."],
+    ["Krujë", "Château de Skanderbeg et vieux bazar, à moins d'une heure."],
+    ["Berat", "La « ville aux mille fenêtres » (UNESCO), à environ deux heures."],
+    ["Durrës", "Amphithéâtre romain et plage sur l'Adriatique, à moins d'une heure."],
+  ],
+  'Banja Luka': [
+    ["Le centre", "Forteresse Kastel au bord du Vrbas, cathédrale du Christ-Sauveur et rue Gospodska."],
+    ["La mosquée Ferhadija", "Mosquée du XVIe siècle reconstruite pierre par pierre, et le parc Mladen Stojanović."],
+    ["Le Vrbas", "Rafting ou kayak sur la rivière, ou baignade à la plage urbaine."],
+    ["Jajce", "Cascade au cœur de la ville, forteresse et moulins à eau, à 1 h 30."],
+    ["Le monastère de Krupa", "Monastère orthodoxe et cascades de Krupa na Vrbasu."],
+  ],
+  'Tuzla': [
+    ["Les lacs salés", "Lacs de Pannonica, plages au cœur de la ville, uniques en Europe."],
+    ["Le centre", "Place du Sel, vieille ville et mosquées ottomanes."],
+    ["Srebrenik", "Forteresse médiévale perchée sur un rocher."],
+    ["Le lac de Modrac", "Grand lac de baignade et de détente."],
+    ["Sarajevo", "Excursion d'une journée vers la capitale, à environ deux heures."],
+  ],
+  'Ohrid': [
+    ["La vieille ville", "Saint-Jean de Kaneo au-dessus du lac, théâtre antique et forteresse de Samuel."],
+    ["Plaošnik et les églises", "Église Saint-Clément et Saint-Panteleimon, icônes byzantines."],
+    ["Le monastère de Saint-Naum", "Bateau jusqu'au monastère près des sources du lac."],
+    ["La baie des Os", "Village lacustre reconstitué sur pilotis et musée sur l'eau."],
+    ["Le parc de Galičica", "Route de montagne entre les lacs d'Ohrid et de Prespa."],
+    ["Struga", "Petite ville à la sortie du Drin noir, avec ses quais et ses plages."],
+  ],
+  'Skopje': [
+    ["Le centre", "Place de Macédoine, statues monumentales, pont de Pierre et maison mémoriale de Mère Teresa."],
+    ["Le vieux bazar", "L'un des plus grands bazars des Balkans, caravansérails et mosquées."],
+    ["La forteresse Kale", "Remparts au-dessus de la ville et vue sur le Vardar."],
+    ["Le canyon de Matka", "Lac, monastères et grottes en kayak, à une demi-heure."],
+    ["Le mont Vodno", "Téléphérique jusqu'à la croix du Millénaire."],
+    ["Stobi", "Site archéologique romain et région viticole de Tikveš."],
+  ],
+  'Podgorica': [
+    ["Le centre", "Pont du Millénaire, vieille ville ottomane de Stara Varoš et cathédrale de la Résurrection."],
+    ["Le lac de Skadar", "Parc national : bateau entre les nénuphars, villages de Virpazar et vins locaux."],
+    ["Le monastère d'Ostrog", "Monastère blanc encastré dans la falaise, grand lieu de pèlerinage."],
+    ["Cetinje", "Ancienne capitale royale, monastère et musées."],
+    ["Le canyon de la Morača", "Route spectaculaire dans les gorges et monastère de la Morača."],
+    ["La côte", "Budva ou Kotor, à environ une heure et demie."],
+  ],
+};

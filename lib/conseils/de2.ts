@@ -237,4 +237,58 @@ export const CONSEILS_DE2: Conseils = {
     "Metro, Tram, Taxis und Abras über den Creek; alles ist klimatisiert.",
     "Die flydubai-Flüge ab Basel beginnen erst im Juli 2027; in religiösen Stätten und im Ramadan angemessene Kleidung.",
   ],
+  PRN: [
+    "Mai bis September; der Winter ist kalt und manchmal verschneit.",
+    "Taxis vom Flughafen, etwa fünfzehn Kilometer vom Zentrum.",
+    "Das Zentrum zu Fuß; günstige Busse und Taxis nach Prizren und Peja.",
+    "Der Kosovo zahlt mit Euro; Cafés und Macchiatos sind ausgezeichnet.",
+  ],
+  SJJ: [
+    "Mai bis Oktober; Dezember bis Februar für Schnee auf den olympischen Bergen.",
+    "Busse und Taxis verbinden den Flughafen in rund zwanzig Minuten mit dem Zentrum.",
+    "Die Tram fährt durchs Tal, die Altstadt erkundet man zu Fuß.",
+    "Landeswährung ist die Konvertible Mark (KM); in Moscheen angemessene Kleidung.",
+  ],
+  TIV: [
+    "Mai bis Oktober; Juni und September, um den Kreuzfahrtmassen zu entgehen.",
+    "Der Flughafen liegt nah an Tivat und rund zwanzig Minuten von Kotor: Taxi oder Mietwagen.",
+    "Küstenbusse und Wassertaxis in der Bucht; ein Auto für den Lovćen.",
+    "Montenegro zahlt mit Euro; die Mauern von Kotor sind steil, früh losgehen.",
+  ],
+  TIA: [
+    "April bis Juni und September bis Oktober; der Sommer ist heiß.",
+    "Busse und Taxis verbinden den Flughafen in einer halben Stunde mit dem Zentrum.",
+    "Das Zentrum zu Fuß; Minibusse (Furgons) in die Nachbarstädte.",
+    "Landeswährung ist der Lek; Albanien ist sehr günstig.",
+  ],
+  BNX: [
+    "Mai bis September; der Vrbas ist im Frühling und Sommer ideal zum Rafting.",
+    "Der Flughafen liegt etwa dreißig Kilometer entfernt: Taxi oder Mietwagen.",
+    "Das Zentrum zu Fuß; ein Auto für Jajce und die Klöster.",
+    "Landeswährung ist die Konvertible Mark (KM); probieren Sie die Ćevapi von Banja Luka.",
+  ],
+  TZL: [
+    "Mai bis September für die Salzseen.",
+    "Der Flughafen liegt etwa zehn Kilometer entfernt: Taxi oder Bus.",
+    "Das Zentrum zu Fuß; Bus und Auto für Ausflüge.",
+    "Landeswährung ist die Konvertible Mark (KM); die Stadt ist wenig touristisch und gastfreundlich.",
+  ],
+  OHD: [
+    "Juni bis September für den See; Frühling und Herbst für eine ruhige Stadt.",
+    "Der Flughafen liegt etwa zehn Kilometer entfernt: Taxi.",
+    "Die Altstadt zu Fuß; Boote und Busse entlang des Sees.",
+    "Landeswährung ist der Denar; das Seewasser bleibt auch im Sommer frisch.",
+  ],
+  SKP: [
+    "April bis Oktober; der Sommer ist heiß.",
+    "Busse und Taxis verbinden den Flughafen in einer halben Stunde mit dem Zentrum.",
+    "Zentrum und Basar zu Fuß; günstige Taxis nach Matka.",
+    "Landeswährung ist der Denar; trinken Sie einen türkischen Kaffee im alten Basar.",
+  ],
+  TGD: [
+    "Mai bis Oktober; in Podgorica ist der Sommer heiß, in den Bergen kühler.",
+    "Taxis vom Flughafen, etwa zehn Kilometer entfernt.",
+    "Für Ostrog, Skadar und die Küste ist ein Auto am einfachsten.",
+    "Montenegro zahlt mit Euro; für Ostrog bedeckende Kleidung.",
+  ],
 };

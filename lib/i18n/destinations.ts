@@ -97,6 +97,15 @@ const NAMES: Record<string, Names> = {
   'Enfidha-Hammamet': { de: ['Enfidha-Hammamet', 'Tunesien'], en: ['Enfidha-Hammamet', 'Tunisia'] },
   'Tanger': { de: ['Tanger', 'Marokko'], en: ['Tangier', 'Morocco'] },
   'Dubai': { de: ['Dubai', 'Vereinigte Arabische Emirate'], en: ['Dubai', 'United Arab Emirates'] },
+  'Pristina': { de: ['Pristina', 'Kosovo'], en: ['Pristina', 'Kosovo'] },
+  'Sarajevo': { de: ['Sarajevo', 'Bosnien und Herzegowina'], en: ['Sarajevo', 'Bosnia and Herzegovina'] },
+  'Tivat': { de: ['Tivat', 'Montenegro'], en: ['Tivat', 'Montenegro'] },
+  'Tirana': { de: ['Tirana', 'Albanien'], en: ['Tirana', 'Albania'] },
+  'Banja Luka': { de: ['Banja Luka', 'Bosnien und Herzegowina'], en: ['Banja Luka', 'Bosnia and Herzegovina'] },
+  'Tuzla': { de: ['Tuzla', 'Bosnien und Herzegowina'], en: ['Tuzla', 'Bosnia and Herzegovina'] },
+  'Ohrid': { de: ['Ohrid', 'Nordmazedonien'], en: ['Ohrid', 'North Macedonia'] },
+  'Skopje': { de: ['Skopje', 'Nordmazedonien'], en: ['Skopje', 'North Macedonia'] },
+  'Podgorica': { de: ['Podgorica', 'Montenegro'], en: ['Podgorica', 'Montenegro'] },
 };
 
 /** Nom de la ville dans la langue demandée (à défaut : le nom français, puis la clé). */

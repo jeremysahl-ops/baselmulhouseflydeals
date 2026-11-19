@@ -237,4 +237,58 @@ export const CONSEILS_FR2: Conseils = {
     "Métro, tram, taxis et abras pour la Creek ; tout est climatisé.",
     "Les vols flydubai depuis Bâle ne commencent qu'en juillet 2027 ; tenue correcte dans les lieux religieux et pendant le ramadan.",
   ],
+  PRN: [
+    "De mai à septembre ; l'hiver est froid et parfois enneigé.",
+    "Taxis depuis l'aéroport, à une quinzaine de kilomètres du centre.",
+    "Le centre se fait à pied ; bus et taxis bon marché pour Prizren et Peja.",
+    "Le Kosovo utilise l'euro ; les cafés et les macchiatos y sont excellents.",
+  ],
+  SJJ: [
+    "De mai à octobre ; décembre-février pour la neige sur les montagnes olympiques.",
+    "Bus et taxis relient l'aéroport au centre, à une vingtaine de minutes.",
+    "Tram le long de la vallée, et la vieille ville se fait à pied.",
+    "Le mark convertible (KM) est la monnaie locale ; tenue correcte dans les mosquées.",
+  ],
+  TIV: [
+    "De mai à octobre ; juin et septembre pour éviter la foule des bateaux de croisière.",
+    "L'aéroport est tout proche de Tivat et à une vingtaine de minutes de Kotor : taxi ou location de voiture.",
+    "Bus côtiers et bateaux-taxis dans la baie ; une voiture pour le Lovćen.",
+    "Le Monténégro utilise l'euro ; les remparts de Kotor sont raides, partez tôt.",
+  ],
+  TIA: [
+    "D'avril à juin et de septembre à octobre ; l'été est chaud.",
+    "Bus et taxis relient l'aéroport au centre en une demi-heure.",
+    "Le centre se fait à pied ; minibus (furgons) pour les villes voisines.",
+    "Le lek est la monnaie locale ; l'Albanie reste très abordable.",
+  ],
+  BNX: [
+    "De mai à septembre ; le Vrbas est idéal pour le rafting au printemps et en été.",
+    "L'aéroport est à une trentaine de kilomètres : taxi ou location de voiture.",
+    "Le centre se fait à pied ; voiture pour Jajce et les monastères.",
+    "Le mark convertible (KM) est la monnaie locale ; goûtez les ćevapi de Banja Luka.",
+  ],
+  TZL: [
+    "De mai à septembre pour les lacs salés.",
+    "L'aéroport est à une dizaine de kilomètres : taxi ou bus.",
+    "Le centre se fait à pied ; bus et voiture pour les excursions.",
+    "Le mark convertible (KM) est la monnaie locale ; la ville est peu touristique et accueillante.",
+  ],
+  OHD: [
+    "De juin à septembre pour le lac ; le printemps et l'automne pour la ville au calme.",
+    "L'aéroport est à une dizaine de kilomètres : taxi.",
+    "La vieille ville se fait à pied ; bateaux et bus le long du lac.",
+    "Le denar est la monnaie locale ; l'eau du lac reste fraîche même en été.",
+  ],
+  SKP: [
+    "D'avril à octobre ; l'été est chaud.",
+    "Bus et taxis relient l'aéroport au centre en une demi-heure.",
+    "Le centre et le bazar se font à pied ; taxis bon marché pour Matka.",
+    "Le denar est la monnaie locale ; prenez un café turc dans le vieux bazar.",
+  ],
+  TGD: [
+    "De mai à octobre ; l'été est chaud à Podgorica, plus frais en montagne.",
+    "Taxis depuis l'aéroport, à une dizaine de kilomètres.",
+    "Une voiture est le plus simple pour Ostrog, Skadar et la côte.",
+    "Le Monténégro utilise l'euro ; tenue couvrante pour visiter Ostrog.",
+  ],
 };
