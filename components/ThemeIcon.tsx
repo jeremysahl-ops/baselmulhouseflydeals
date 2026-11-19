@@ -100,10 +100,10 @@ const NOMS: Record<Theme, [string, string, string]> = {
   excursion: ['Escapade', 'Ausflug', 'Day trip'],
 };
 
-export default function ThemeIcon({ theme, lang }: { theme: Theme; lang: 'fr' | 'de' | 'en' }) {
+export default function ThemeIcon({ theme, lang, format = 'bandeau' }: { theme: Theme; lang: 'fr' | 'de' | 'en'; format?: 'bandeau' | 'photo' }) {
   const [fond, trait] = COULEURS[theme];
   return (
-    <div className="flex h-24 items-center gap-4 rounded-lg px-5 md:h-32 md:flex-col md:justify-center md:gap-2" style={{ backgroundColor: fond }}>
+    <div className={format === 'photo' ? 'flex aspect-[4/3] flex-col items-center justify-center gap-2 rounded-lg' : 'flex h-24 items-center gap-4 rounded-lg px-5 md:h-32 md:flex-col md:justify-center md:gap-2'} style={{ backgroundColor: fond }}>
       <svg viewBox="0 0 24 24" className="h-11 w-11 shrink-0 md:h-12 md:w-12" fill="none" stroke={trait} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         {TRAITS[theme]}
       </svg>
