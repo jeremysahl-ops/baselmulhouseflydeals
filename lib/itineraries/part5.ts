@@ -1,0 +1,86 @@
+import type { RawItineraries } from './types';
+
+// Lot du 19/11/2026 — France et Corse. Chaque journée : [titre, programme]. Les premières journées sont les
+// incontournables, les suivantes des excursions : un court séjour n'affiche que le début de la liste.
+export const PART5: RawItineraries = {
+  'Ajaccio': [
+    ["La vieille ville et Napoléon", "Ruelles de la vieille ville, cathédrale où fut baptisé Napoléon, maison Bonaparte, puis marché du matin place Foch et baignade à la plage Saint-François."],
+    ["Les îles Sanguinaires", "Route de la Parata le long de la côte, petite marche jusqu'à la tour génoise et coucher de soleil sur l'archipel des Sanguinaires ; en saison, excursion en bateau autour des îles."],
+    ["Musée Fesch et Lazaret", "Collection de peintures italiennes du palais Fesch, citadelle vue de l'extérieur, puis après-midi sur les plages de la route des Sanguinaires."],
+    ["Le golfe de Porto et les calanques de Piana", "Grande journée en voiture ou en bateau : roches rouges des calanques de Piana, village de Porto et réserve de Scandola (classée à l'UNESCO) vue depuis la mer."],
+    ["Les villages de montagne", "Route vers l'intérieur : forêt et cascades, villages de pierre comme Bocognano ou Vizzavona, déjeuner de charcuterie et de fromages corses."],
+    ["La plage de Capo di Feno ou Porticcio", "Journée farniente : sable blanc et nature sauvage à Capo di Feno, ou plages familiales de Porticcio de l'autre côté du golfe."],
+  ],
+  'Bastia': [
+    ["Terra Vecchia et le Vieux-Port", "Place Saint-Nicolas, ruelles de Terra Vecchia, église Saint-Jean-Baptiste dominant le Vieux-Port, puis apéritif sur les quais au coucher du soleil."],
+    ["La citadelle", "Montée à la citadelle (Terra Nova), palais des Gouverneurs et musée de Bastia, puis descente par le jardin Romieu jusqu'au port."],
+    ["Le Cap Corse côté est", "Route du Cap : marines d'Erbalunga et de Sisco, tours génoises, et pause à Macinaggio, point de départ du sentier des douaniers."],
+    ["Le Cap Corse côté ouest", "Boucle par Centuri et son petit port de pêche, la plage de galets noirs de Nonza et la route en balcon au-dessus de la mer."],
+    ["Saint-Florent et le désert des Agriates", "Village de Saint-Florent, vignobles de Patrimonio, puis bateau jusqu'aux plages sauvages du Lotu ou de Saleccia."],
+    ["L'étang de Biguglia et la Castagniccia", "Matinée nature au bord de l'étang de Biguglia, puis villages perchés au milieu des châtaigneraies de la Castagniccia."],
+  ],
+  'Calvi': [
+    ["La citadelle et la marina", "Tour des remparts de la citadelle génoise, cathédrale Saint-Jean-Baptiste, puis descente vers la marina et ses terrasses."],
+    ["La grande plage et la pinède", "Journée sur la longue plage de sable bordée de pins, baignade et sports nautiques ; coucher de soleil depuis la citadelle."],
+    ["La réserve de Scandola", "Excursion en bateau vers la réserve naturelle de Scandola (UNESCO) et le village de Girolata, accessible seulement par la mer ou à pied."],
+    ["Les villages de Balagne", "Route des villages perchés : Calenzana, Lumio, Sant'Antonino et Pigna, ses artisans et ses ateliers de musique."],
+    ["L'Île-Rousse", "Petite ville animée à une demi-heure : marché couvert, place Paoli, presqu'île de la Pietra et son phare."],
+    ["La vallée du Fango", "Randonnée facile et baignade dans les piscines naturelles de la vallée du Fango, au sud de Calvi."],
+  ],
+  'Figari': [
+    ["Bonifacio", "La ville haute perchée sur ses falaises, l'escalier du roi d'Aragon, le cimetière marin et la vue sur la Sardaigne ; balade en bateau sous les falaises."],
+    ["Les plages de Santa Giulia et Palombaggia", "Sable blanc, eau turquoise et pins parasols : les deux plages les plus célèbres de l'extrême sud."],
+    ["Les îles Lavezzi", "Excursion en bateau depuis Bonifacio ou Porto-Vecchio : réserve naturelle, rochers de granit et baignade dans des criques limpides."],
+    ["Porto-Vecchio", "Vieille ville et ses remparts, marais salants, puis soirée sur le port et dans les ruelles animées."],
+    ["Le massif de Bavella", "Route de montagne jusqu'au col de Bavella et ses aiguilles de granit, petite randonnée et baignade dans les vasques de la rivière."],
+    ["Sartène et les sites préhistoriques", "La ville de granit de Sartène, puis les menhirs et dolmens de Cauria, entre maquis et vignes."],
+  ],
+  'Biarritz': [
+    ["La Grande Plage et le Rocher de la Vierge", "Promenade du front de mer, phare, passerelle du Rocher de la Vierge et port des Pêcheurs, puis coucher de soleil sur la Côte des Basques."],
+    ["Surf et marché des Halles", "Matinée au marché des Halles, initiation au surf sur la Côte des Basques, et Cité de l'Océan l'après-midi."],
+    ["Bayonne", "À 15 minutes : cathédrale, Petit Bayonne au bord de la Nive, Musée basque et chocolatiers de la rue du Port-Neuf."],
+    ["Saint-Jean-de-Luz", "Port de pêche, maisons basques, église où s'est marié Louis XIV et plage abritée dans la baie."],
+    ["La Rhune et Sare", "Petit train à crémaillère jusqu'au sommet de la Rhune pour la vue sur l'océan et les Pyrénées, puis le village de Sare."],
+    ["Saint-Sébastien", "Excursion en Espagne à moins d'une heure : la plage de la Concha et la tournée des pintxos dans la vieille ville."],
+  ],
+  'Bordeaux': [
+    ["Le centre et les quais", "Place de la Bourse et son Miroir d'eau, quartier Saint-Pierre, Grosse Cloche, puis balade sur les quais de la Garonne."],
+    ["La Cité du Vin et les Chartrons", "Visite de la Cité du Vin et dégustation, puis brocanteurs, cafés et marché des Chartrons."],
+    ["Saint-Émilion", "Village médiéval classé à l'UNESCO, église monolithe creusée dans la roche et visite d'un château viticole."],
+    ["Le bassin d'Arcachon et la dune du Pilat", "Montée sur la plus haute dune d'Europe, puis port d'Arcachon, huîtres et ville d'Hiver."],
+    ["Le Médoc", "Route des grands châteaux (Margaux, Pauillac, Saint-Julien) avec dégustation sur réservation."],
+    ["Darwin et la rive droite", "Ancienne caserne devenue lieu alternatif, jardin botanique et vue sur la ville depuis la rive droite."],
+  ],
+  'Lille': [
+    ["Le Vieux-Lille", "Grand-Place et Vieille Bourse, rues pavées du Vieux-Lille, cathédrale de la Treille et gaufre chez un pâtissier historique."],
+    ["Le palais des Beaux-Arts", "L'un des plus grands musées de France, puis citadelle de Vauban et bois de Boulogne."],
+    ["Roubaix", "La Piscine, musée d'art installé dans une piscine Art déco, puis la villa Cavrois, chef-d'œuvre moderniste."],
+    ["Le LaM et Wazemmes", "Musée d'art moderne de Villeneuve-d'Ascq, puis marché de Wazemmes (dimanche matin) et estaminets pour le déjeuner."],
+    ["Bruges ou Gand", "Excursion en Belgique : canaux et beffroi de Bruges, ou la ville étudiante et médiévale de Gand."],
+    ["Le Louvre-Lens", "Galerie du Temps du Louvre-Lens, puis les terrils et le bassin minier classé à l'UNESCO."],
+  ],
+  'Montpellier': [
+    ["L'Écusson et la Comédie", "Place de la Comédie, ruelles de l'Écusson, promenade du Peyrou et arc de triomphe, jardin des Plantes."],
+    ["Le musée Fabre et Antigone", "Le musée Fabre (peinture européenne), puis le quartier néoclassique d'Antigone jusqu'au Lez."],
+    ["Les plages", "Tram puis bus vers Palavas-les-Flots ou les plages sauvages de Villeneuve-lès-Maguelone et la cathédrale de Maguelone."],
+    ["Saint-Guilhem-le-Désert", "Village médiéval classé, abbaye de Gellone, pont du Diable et baignade dans l'Hérault."],
+    ["Sète", "Canaux, criée, mont Saint-Clair, tielles et coquillages au bord de l'étang de Thau."],
+    ["Nîmes et le pont du Gard", "Arènes et Maison carrée de Nîmes, puis le pont du Gard, aqueduc romain classé à l'UNESCO."],
+  ],
+  'Nantes': [
+    ["Le château et Bouffay", "Château des ducs de Bretagne et son musée, cathédrale, quartier médiéval du Bouffay et passage Pommeraye."],
+    ["Les Machines de l'île", "Le Grand Éléphant et le Carrousel des mondes marins sur l'île de Nantes, puis les quais et les Nefs."],
+    ["Le Voyage à Nantes", "Suivre la ligne verte peinte au sol, jardin des Plantes, et le quartier Feydeau de l'ancienne île."],
+    ["Trentemoult et la Loire", "Navibus jusqu'au village coloré de Trentemoult, puis l'estuaire et ses œuvres d'art jusqu'à Saint-Nazaire."],
+    ["Le vignoble du muscadet ou Clisson", "Dégustation dans le vignoble, puis Clisson et son allure italienne."],
+    ["La côte : Pornic ou La Baule", "Port et criques de Pornic, ou la grande plage de La Baule, à environ une heure."],
+  ],
+  'Toulouse': [
+    ["Le Capitole et Saint-Sernin", "Place du Capitole, basilique Saint-Sernin, couvent des Jacobins et ruelles de briques roses."],
+    ["Les quais de la Garonne", "Prairie des Filtres, Pont-Neuf, Hôtel-Dieu, et la Daurade au coucher du soleil."],
+    ["L'aéronautique", "Cité de l'espace, ou musée Aeroscopia et visite des chaînes d'Airbus (sur réservation)."],
+    ["Le canal du Midi", "Balade à pied ou à vélo le long du canal (UNESCO), marché Victor-Hugo pour le déjeuner."],
+    ["Albi", "Cathédrale Sainte-Cécile, palais de la Berbie et musée Toulouse-Lautrec, à une heure."],
+    ["Carcassonne", "La cité médiévale et ses remparts, à environ une heure en train."],
+  ],
+};

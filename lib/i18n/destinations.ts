@@ -58,6 +58,16 @@ const NAMES: Record<string, Names> = {
   'Venise': { de: ['Venedig', 'Italien'], en: ['Venice', 'Italy'] },
   'Vienne': { de: ['Wien', 'Österreich'], en: ['Vienna', 'Austria'] },
   'Zagreb': { de: ['Zagreb', 'Kroatien'], en: ['Zagreb', 'Croatia'] },
+  'Ajaccio': { de: ['Ajaccio', 'Frankreich'], en: ['Ajaccio', 'France'] },
+  'Bastia': { de: ['Bastia', 'Frankreich'], en: ['Bastia', 'France'] },
+  'Calvi': { de: ['Calvi', 'Frankreich'], en: ['Calvi', 'France'] },
+  'Figari': { de: ['Figari', 'Frankreich'], en: ['Figari', 'France'] },
+  'Biarritz': { de: ['Biarritz', 'Frankreich'], en: ['Biarritz', 'France'] },
+  'Bordeaux': { de: ['Bordeaux', 'Frankreich'], en: ['Bordeaux', 'France'] },
+  'Lille': { de: ['Lille', 'Frankreich'], en: ['Lille', 'France'] },
+  'Montpellier': { de: ['Montpellier', 'Frankreich'], en: ['Montpellier', 'France'] },
+  'Nantes': { de: ['Nantes', 'Frankreich'], en: ['Nantes', 'France'] },
+  'Toulouse': { de: ['Toulouse', 'Frankreich'], en: ['Toulouse', 'France'] },
 };
 
 /** Nom de la ville dans la langue demandée (à défaut : le nom français, puis la clé). */
