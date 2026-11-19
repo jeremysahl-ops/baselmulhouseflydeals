@@ -5,10 +5,13 @@ export default function DateReleve({ texte, date, sombre = false }: { texte: str
   const i = date ? texte.indexOf(date) : -1;
   const style = `font-bold ${sombre ? 'text-[#ff6b5e]' : 'text-[#c62828]'}`;
   if (i < 0) return <span className={style}>{texte}</span>;
+  // Toute la mention est en rouge (« Relevé du 17 novembre », « vu le … », « Dernier relevé : … ») :
+  // elle commence au début de la phrase qui contient la date.
+  const debut = texte.lastIndexOf('. ', i) + 1 && texte.lastIndexOf('. ', i) + 2;
   return (
     <>
-      {texte.slice(0, i)}
-      <strong className={style}>{date}</strong>
+      {texte.slice(0, debut)}
+      <strong className={style}>{texte.slice(debut, i + date.length)}</strong>
       {texte.slice(i + date.length)}
     </>
   );
