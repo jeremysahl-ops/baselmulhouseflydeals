@@ -104,4 +104,13 @@ export const DESTINATIONS: Record<string, DestinationInfo> = {
   'Ohrid': { label: 'Ohrid', country: 'Macédoine du Nord', iata: 'OHD', photo: 'photo-1653389167152-7dbd6d165631' },
   'Skopje': { label: 'Skopje', country: 'Macédoine du Nord', iata: 'SKP', photo: 'photo-1642291373671-29794831ebce' },
   'Podgorica': { label: 'Podgorica', country: 'Monténégro', iata: 'TGD', photo: 'photo-1641899936619-b3cc3cfe2cbd' },
+  'Erevan': { label: 'Erevan', country: 'Arménie', iata: 'EVN', photo: 'photo-1600758208050-a22f17dc5bb9' },
+  'Varna': { label: 'Varna', country: 'Bulgarie', iata: 'VAR', photo: 'photo-1649932543745-44b164f84d08' },
+  'Chisinau': { label: 'Chișinău', country: 'Moldavie', iata: 'RMO', photo: 'photo-1634105189055-fb60c68220ca' },
+  'Poznan': { label: 'Poznań', country: 'Pologne', iata: 'POZ', photo: 'photo-1712333423902-4c19b21ead6c' },
+  'Wrocław': { label: 'Wrocław', country: 'Pologne', iata: 'WRO', photo: 'photo-1619985726413-812a90b9429f' },
+  'Cluj-Napoca': { label: 'Cluj-Napoca', country: 'Roumanie', iata: 'CLJ', photo: 'photo-1622568987455-b53305e14b39' },
+  'Targu Mures': { label: 'Târgu Mureș', country: 'Roumanie', iata: 'TGM', photo: 'photo-1558203696-14dd22499dca' },
+  'Nis': { label: 'Niš', country: 'Serbie', iata: 'INI', photo: 'photo-1652126252418-eccbbc8ea5e7' },
+  'Bratislava': { label: 'Bratislava', country: 'Slovaquie', iata: 'BTS', photo: 'photo-1716731312696-788b9c3b37ac' },
 };

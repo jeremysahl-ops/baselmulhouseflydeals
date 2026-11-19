@@ -8,6 +8,7 @@ import { DE_PART6 } from './part6';
 import { DE_PART7 } from './part7';
 import { DE_PART8 } from './part8';
 import { DE_PART9 } from './part9';
+import { DE_PART10 } from './part10';
 
 // Programmes en allemand. Une destination absente retombe sur le français.
-export const DE_ITINERARIES: RawItineraries = { ...DE_PART1, ...DE_PART2, ...DE_PART3, ...DE_PART4, ...DE_PART5, ...DE_PART6, ...DE_PART7, ...DE_PART8, ...DE_PART9 };
+export const DE_ITINERARIES: RawItineraries = { ...DE_PART1, ...DE_PART2, ...DE_PART3, ...DE_PART4, ...DE_PART5, ...DE_PART6, ...DE_PART7, ...DE_PART8, ...DE_PART9, ...DE_PART10 };

@@ -1,0 +1,77 @@
+import type { RawItineraries } from '../types';
+
+// Osteuropa und Kaukasus (deutsche Fassung von ../part10.ts).
+export const DE_PART10: RawItineraries = {
+  'Erevan': [
+    ["Das Zentrum von Jerewan", "Platz der Republik mit Brunnen, die Kaskade mit Blick auf den Ararat, Oper und Cafés."],
+    ["Geschichte und Gedenken", "Das Matenadaran mit alten Handschriften und die Völkermord-Gedenkstätte Zizernakaberd."],
+    ["Garni und Geghard", "Griechisch-römischer Tempel von Garni, Schlucht der Steinsinfonie und Höhlenkloster Geghard (UNESCO)."],
+    ["Etschmiadsin", "Mutterkathedrale der Armenischen Kirche und Ruinen von Swartnoz (UNESCO)."],
+    ["Der Sewansee", "Kloster Sewanawank am Seeufer, eine Autostunde entfernt."],
+    ["Chor Wirap", "Kloster am Fuß des Ararat, dann Weinkeller in der Region Areni."],
+  ],
+  'Varna': [
+    ["Das Zentrum", "Mariä-Entschlafens-Kathedrale, römische Thermen und das Archäologische Museum mit dem Gold von Warna, dem ältesten der Welt."],
+    ["Der Meeresgarten", "Großer Park an der Küste, Strände und Uferpromenade."],
+    ["Kloster Aladscha", "In den Fels gehauenes Kloster mitten im Wald."],
+    ["Baltschik", "Palast der Königin Maria und botanischer Garten am Meer."],
+    ["Kap Kaliakra", "Rote Klippen und Festung am Schwarzen Meer, manchmal mit Delfinen."],
+    ["Nessebar", "Altstadt auf einer Halbinsel (UNESCO) mit byzantinischen Kirchen, etwa zwei Stunden entfernt."],
+  ],
+  'Chisinau': [
+    ["Das Zentrum", "Christi-Geburt-Kathedrale, Triumphbogen, Park Ștefan cel Mare und Zentralmarkt."],
+    ["Die Keller von Mileștii Mici", "Der nach Flaschenzahl größte Weinkeller der Welt, Besichtigung mit dem Auto durch die Gänge."],
+    ["Cricova", "Ein weiterer riesiger Keller im Kalkstein, mit Verkostung."],
+    ["Orheiul Vechi", "Höhlenkloster über dem Tal der Răut, eine der berühmtesten Landschaften des Landes."],
+    ["Purcari oder Castel Mimi", "Renommierte Weingüter, Mittagessen inmitten der Reben."],
+    ["Kloster Căpriana", "Orthodoxes Kloster in den Wäldern des Codri."],
+  ],
+  'Poznan': [
+    ["Der Alte Markt", "Bunte Häuser und Renaissance-Rathaus, mittags die mechanischen Ziegenböcke."],
+    ["Ostrów Tumski", "Die Dominsel, Wiege Polens, und das Besucherzentrum Brama Poznania."],
+    ["Martinshörnchen", "Das lebendige Museum des Posener Hörnchens, dann das Kaiserschloss."],
+    ["Der Malta-See", "Spaziergänge, Sommerrodelbahn und künstliche Skipiste am See."],
+    ["Kórnik und Rogalin", "Schloss Kórnik und Palast Rogalin im Süden der Stadt."],
+    ["Gniezno", "Polens erste Hauptstadt und ihr Dom, weniger als eine Stunde entfernt."],
+  ],
+  'Wrocław': [
+    ["Der Marktplatz", "Gotisches Rathaus, bunte Häuser und die Jagd nach den kleinen Bronzezwergen."],
+    ["Ostrów Tumski", "Die Dominsel, der Laternenanzünder in der Dämmerung und Brücken über die Oder."],
+    ["Das Panorama von Racławice", "Riesiges Panoramagemälde, dann das Nationalmuseum."],
+    ["Die Jahrhunderthalle", "Bau (UNESCO), japanischer Garten und multimedialer Brunnen."],
+    ["Die Friedenskirchen", "Holzkirchen von Świdnica und Jawor (UNESCO)."],
+    ["Schloss Fürstenstein", "Großes niederschlesisches Schloss Książ mit unterirdischen Gängen."],
+  ],
+  'Cluj-Napoca': [
+    ["Die Altstadt", "Unirii-Platz, Michaelskirche und die Statue von Matthias Corvinus."],
+    ["Gärten und Zitadelle", "Botanischer Garten, dann der Hügel Cetățuia für die Aussicht."],
+    ["Das Salzbergwerk Turda", "Riesige unterirdische Halle mit Riesenrad und See, eine halbe Stunde entfernt."],
+    ["Die Turda-Schlucht", "Wanderung durch den Kalksteincanyon."],
+    ["Das Apuseni-Gebirge", "Höhlen, Wasserfälle und Bergdörfer."],
+    ["Sighișoara", "Mittelalterliche Burg (UNESCO) und Geburtshaus von Vlad dem Pfähler."],
+  ],
+  'Targu Mures': [
+    ["Das Zentrum", "Kulturpalast mit Spiegelsaal, Rosenplatz und orthodoxe Kathedrale."],
+    ["Die Zitadelle", "Restaurierte mittelalterliche Festung im Herzen der Stadt."],
+    ["Sighișoara", "Mittelalterliche Burg (UNESCO), eine Stunde entfernt."],
+    ["Sächsische Kirchenburgen", "Birthälm und die sächsischen Dörfer Siebenbürgens (UNESCO)."],
+    ["Sovata", "Bärensee, ein warmer Salzsee, und Kurort."],
+    ["Brașov", "Altstadt und Schwarze Kirche, Schloss Bran ganz in der Nähe."],
+  ],
+  'Nis': [
+    ["Die Festung", "Osmanische Festung an der Nišava mit Park und Cafés."],
+    ["Der Schädelturm", "Denkmal für die serbischen Aufständischen von 1809."],
+    ["Mediana", "Ruinen der römischen Villa Konstantins des Großen, der in Naissus geboren wurde."],
+    ["Das Lager Crveni Krst", "Gedenkstätte des Zweiten Weltkriegs."],
+    ["Die Sićevo-Schlucht", "Canyon und Klöster entlang der Nišava."],
+    ["Sokobanja", "Kurort und die Festung Sokograd."],
+  ],
+  'Bratislava': [
+    ["Die Altstadt", "Michaelertor, Martinsdom, Bronzestatuen und Hauptplatz."],
+    ["Die Burg", "Die Burg Bratislava auf dem Hügel mit Blick auf die Donau und die SNP-Brücke."],
+    ["Die Donau", "Der UFO-Turm für die Aussicht, Spaziergang und Bootsfahrt auf dem Fluss."],
+    ["Devín", "Burgruine am Zusammenfluss von Donau und March."],
+    ["Wien", "Eine Stunde mit dem Zug oder Schiff."],
+    ["Die Kleinen Karpaten", "Burg Červený Kameň und Weinberge rund um Modra."],
+  ],
+};

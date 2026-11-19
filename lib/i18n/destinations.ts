@@ -106,6 +106,15 @@ const NAMES: Record<string, Names> = {
   'Ohrid': { de: ['Ohrid', 'Nordmazedonien'], en: ['Ohrid', 'North Macedonia'] },
   'Skopje': { de: ['Skopje', 'Nordmazedonien'], en: ['Skopje', 'North Macedonia'] },
   'Podgorica': { de: ['Podgorica', 'Montenegro'], en: ['Podgorica', 'Montenegro'] },
+  'Erevan': { de: ['Jerewan', 'Armenien'], en: ['Yerevan', 'Armenia'] },
+  'Varna': { de: ['Warna', 'Bulgarien'], en: ['Varna', 'Bulgaria'] },
+  'Chisinau': { de: ['Chișinău', 'Moldau'], en: ['Chișinău', 'Moldova'] },
+  'Poznan': { de: ['Posen', 'Polen'], en: ['Poznań', 'Poland'] },
+  'Wrocław': { de: ['Breslau', 'Polen'], en: ['Wrocław', 'Poland'] },
+  'Cluj-Napoca': { de: ['Klausenburg', 'Rumänien'], en: ['Cluj-Napoca', 'Romania'] },
+  'Targu Mures': { de: ['Neumarkt am Mieresch', 'Rumänien'], en: ['Târgu Mureș', 'Romania'] },
+  'Nis': { de: ['Niš', 'Serbien'], en: ['Niš', 'Serbia'] },
+  'Bratislava': { de: ['Bratislava', 'Slowakei'], en: ['Bratislava', 'Slovakia'] },
 };
 
 /** Nom de la ville dans la langue demandée (à défaut : le nom français, puis la clé). */

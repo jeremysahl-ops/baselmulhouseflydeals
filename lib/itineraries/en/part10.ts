@@ -1,0 +1,77 @@
+import type { RawItineraries } from '../types';
+
+// Eastern Europe and the Caucasus (English version of ../part10.ts).
+export const EN_PART10: RawItineraries = {
+  'Erevan': [
+    ["Central Yerevan", "Republic Square and its fountains, the Cascade with its view of Ararat, the opera and cafés."],
+    ["History and memory", "The Matenadaran and its ancient manuscripts, and the Tsitsernakaberd genocide memorial."],
+    ["Garni and Geghard", "The Greco-Roman temple of Garni, the Symphony of Stones gorge and the cave monastery of Geghard (UNESCO)."],
+    ["Etchmiadzin", "The mother cathedral of the Armenian Church and the ruins of Zvartnots (UNESCO)."],
+    ["Lake Sevan", "Sevanavank monastery on the lakeshore, an hour's drive away."],
+    ["Khor Virap", "A monastery at the foot of Mount Ararat, then wine cellars in the Areni region."],
+  ],
+  'Varna': [
+    ["The centre", "The Dormition cathedral, the Roman baths and the archaeological museum with the Varna gold, the oldest in the world."],
+    ["The Sea Garden", "A large park along the coast, beaches and the seafront."],
+    ["Aladzha monastery", "A monastery carved into the cliff in the middle of the forest."],
+    ["Balchik", "Queen Marie's palace and botanical garden by the sea."],
+    ["Cape Kaliakra", "Red cliffs and a fortress on the Black Sea, with dolphins sometimes in sight."],
+    ["Nessebar", "An old town on a peninsula (UNESCO) with Byzantine churches, about two hours away."],
+  ],
+  'Chisinau': [
+    ["The centre", "The Nativity cathedral, the triumphal arch, Ștefan cel Mare park and the central market."],
+    ["Mileștii Mici cellars", "The world's largest wine cellar by number of bottles, toured by car through the tunnels."],
+    ["Cricova", "Another giant cellar carved into the limestone, with a tasting."],
+    ["Orheiul Vechi", "A cave monastery above the Răut valley, one of the country's most famous landscapes."],
+    ["Purcari or Castel Mimi", "Renowned wine estates, with lunch among the vines."],
+    ["Căpriana monastery", "An Orthodox monastery in the Codri forests."],
+  ],
+  'Poznan': [
+    ["The Old Market Square", "Colourful houses and the Renaissance town hall, with the mechanical goats at noon."],
+    ["Ostrów Tumski", "Cathedral Island, the cradle of Poland, and the Brama Poznania visitor centre."],
+    ["St Martin's croissants", "The living museum of the Poznań croissant, then the Imperial Castle."],
+    ["Lake Malta", "Walks, a summer toboggan run and an artificial ski slope by the lake."],
+    ["Kórnik and Rogalin", "Kórnik castle and Rogalin palace, south of the city."],
+    ["Gniezno", "Poland's first capital and its cathedral, under an hour away."],
+  ],
+  'Wrocław': [
+    ["Market Square", "The Gothic town hall, colourful houses and a hunt for the little bronze dwarfs."],
+    ["Ostrów Tumski", "Cathedral Island, the lamplighter at dusk and bridges over the Oder."],
+    ["The Racławice Panorama", "A huge panoramic painting, then the National Museum."],
+    ["Centennial Hall", "A UNESCO-listed building, the Japanese garden and the multimedia fountain."],
+    ["The Churches of Peace", "The wooden churches of Świdnica and Jawor (UNESCO)."],
+    ["Książ castle", "Lower Silesia's grand castle and its underground tunnels."],
+  ],
+  'Cluj-Napoca': [
+    ["The old town", "Union Square, St Michael's church and the statue of Matthias Corvinus."],
+    ["Gardens and citadel", "The botanical garden, then Cetățuia hill for the view."],
+    ["Turda salt mine", "A vast underground hall with a Ferris wheel and a lake, half an hour away."],
+    ["Turda gorge", "A hike through the limestone canyon."],
+    ["The Apuseni mountains", "Caves, waterfalls and mountain villages."],
+    ["Sighișoara", "A medieval citadel (UNESCO) and the birthplace of Vlad the Impaler."],
+  ],
+  'Targu Mures': [
+    ["The centre", "The Palace of Culture and its hall of mirrors, Rose Square and the Orthodox cathedral."],
+    ["The citadel", "A restored medieval fortress in the heart of town."],
+    ["Sighișoara", "A medieval citadel (UNESCO), an hour away."],
+    ["Saxon fortified churches", "Biertan and the Saxon villages of Transylvania (UNESCO)."],
+    ["Sovata", "Bear Lake, a warm salt lake, and a spa resort."],
+    ["Brașov", "The old town and the Black Church, with Bran castle close by."],
+  ],
+  'Nis': [
+    ["The fortress", "An Ottoman fortress on the Nišava, with a park and cafés."],
+    ["The Skull Tower", "A monument to the Serbian insurgents of 1809."],
+    ["Mediana", "Ruins of the Roman villa of Constantine the Great, who was born in Naissus."],
+    ["Crveni Krst camp", "A Second World War memorial."],
+    ["Sićevo gorge", "A canyon and monasteries along the Nišava."],
+    ["Sokobanja", "A spa town and the fortress of Sokograd."],
+  ],
+  'Bratislava': [
+    ["The old town", "St Michael's Gate, St Martin's cathedral, bronze statues and the main square."],
+    ["The castle", "Bratislava castle on its hill, with views of the Danube and the SNP bridge."],
+    ["The Danube", "The UFO tower for the view, a riverside walk and a boat trip."],
+    ["Devín", "Castle ruins at the confluence of the Danube and the Morava."],
+    ["Vienna", "An hour away by train or boat."],
+    ["The Little Carpathians", "Červený Kameň castle and the vineyards around Modra."],
+  ],
+};
