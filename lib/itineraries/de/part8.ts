@@ -1,0 +1,77 @@
+import type { RawItineraries } from '../types';
+
+// Griechenland, Kroatien, Tunesien, Marokko und Dubai (deutsche Fassung von ../part8.ts).
+export const DE_PART8: RawItineraries = {
+  'Corfou': [
+    ["Die Altstadt", "Venezianische Gassen (UNESCO), der Liston mit seinen Arkaden, die Esplanade Spianada und die alte Festung."],
+    ["Achilleion und Kanoni", "Der Palast der Kaiserin Sisi, dann der Blick auf das Kloster Vlacherna und die Insel Pontikonissi."],
+    ["Paleokastritsa", "Türkisfarbene Buchten, Meeresgrotten per Boot und das Kloster auf dem Felsen, Sonnenuntergang in Angelokastro."],
+    ["Der Norden der Insel", "Canal d'Amour in Sidari, Klippen am Kap Drastis und Dörfer an der Nordostküste gegenüber Albanien."],
+    ["Strände im Westen", "Glyfada, Myrtiotissa oder Agios Gordios: goldener Sand und Sonnenuntergang über dem Ionischen Meer."],
+    ["Paxos und Antipaxos", "Bootsausflug: Hafen von Gaios, blaue Grotten und das klare Wasser von Antipaxos."],
+  ],
+  'La Canee': [
+    ["Der venezianische Hafen", "Leuchtturm, Janitscharen-Moschee und Gassen des venezianischen und türkischen Viertels, Abendessen am Hafen."],
+    ["Markt und Altstadt", "Markthalle, Ledergasse, Schifffahrtsmuseum und die Bastion Firkas."],
+    ["Balos und Gramvoussa", "Per Boot oder Piste zur Lagune von Balos und zur Festung Gramvoussa."],
+    ["Die Samaria-Schlucht", "Lange Wanderung (etwa 16 km) durch die Schlucht bis zum Meer, zurück per Boot und Bus."],
+    ["Elafonissi", "Strand mit rosa Schimmer und flacher Lagune im äußersten Südwesten der Insel."],
+    ["Rethymno", "Venezianische Altstadt, Festung und Strand, eine Autostunde entfernt."],
+  ],
+  'Kos': [
+    ["Kos-Stadt", "Johanniterburg, Platane des Hippokrates, antike Agora und Hafen."],
+    ["Das Asklepieion", "Antikes Heiligtum der Medizin auf einem Hügel über der Stadt."],
+    ["Strände im Süden", "Paradise Beach, Kefalos und das Inselchen Agios Nikolaos."],
+    ["Bergdörfer", "Zia mit seinem Sonnenuntergang, Pyli mit seiner byzantinischen Burg."],
+    ["Nisyros", "Ausflug zur Vulkaninsel und zu ihrem begehbaren Krater."],
+    ["Bodrum", "Fähre in die Türkei: Kastell St. Peter und Marina (Reisepass oder Ausweis nach den aktuellen Regeln)."],
+  ],
+  'Thessalonique': [
+    ["Die Uferpromenade", "Weißer Turm, Promenade Nea Paralia, die Alexander-Statue und die Schirme von Zongolopoulos."],
+    ["Das byzantinische Thessaloniki", "Rotunde, Galeriusbogen, Kirchen Hagia Sophia und Hagios Dimitrios (UNESCO)."],
+    ["Ano Poli", "Die osmanische Oberstadt, ihre Mauern und der Blick vom Heptapyrgion."],
+    ["Märkte und Museen", "Märkte Modiano und Kapani, das Archäologische Museum, Bougatsa zum Frühstück."],
+    ["Vergina", "Die makedonischen Königsgräber, darunter das Grab Philipps II., Vater Alexanders des Großen."],
+    ["Chalkidiki", "Sandstrände und Pinienwälder auf Kassandra oder Sithonia."],
+  ],
+  'Pula': [
+    ["Amphitheater und Altstadt", "Bemerkenswert erhaltene römische Arena, Augustustempel, Forum und Sergierbogen."],
+    ["Kap Kamenjak", "Naturschutzgebiet im Süden der Halbinsel: wilde Buchten, Klippen und Sprünge ins Wasser."],
+    ["Rovinj", "Bunte Stadt auf ihrer Halbinsel, Kirche der heiligen Euphemia und Künstlergassen."],
+    ["Die Brijuni-Inseln", "Nationalpark per Boot: Safari, römische Ruinen und Titos Residenz."],
+    ["Motovun und Inneristrien", "Bergdörfer, Trüffel, Olivenöl und istrische Weine."],
+    ["Poreč", "Die Euphrasius-Basilika mit byzantinischen Mosaiken (UNESCO)."],
+  ],
+  'Zadar': [
+    ["Die Altstadt", "Römisches Forum, Kirche St. Donatus, Kathedrale und venezianische Mauern."],
+    ["Meeresorgel und Gruß an die Sonne", "Eine von den Wellen gespielte Orgel und eine Lichtinstallation bei Sonnenuntergang."],
+    ["Die Plitvicer Seen", "Wasserfälle und türkisfarbene Seen im Nationalpark, etwa zwei Stunden entfernt."],
+    ["Die Kornaten", "Bootsausflug in den Archipel mit seinen kahlen Inseln."],
+    ["Krka-Nationalpark", "Die Wasserfälle Skradinski buk und das Kloster auf der Insel Visovac."],
+    ["Nin und Paklenica", "Die kleinste Kathedrale der Welt und Sandstrände in Nin oder die Schluchten von Paklenica."],
+  ],
+  'Enfidha-Hammamet': [
+    ["Hammamet", "Medina und Mauern am Meer, dann der Strand."],
+    ["Sousse", "Medina (UNESCO), Ribat und Große Moschee, eine halbe Stunde entfernt."],
+    ["Kairouan", "Die heilige Stadt, ihre Große Moschee und die Aghlabiden-Becken."],
+    ["El Jem", "Eines der größten römischen Amphitheater der Welt, sehr gut erhalten."],
+    ["Tunis und Sidi Bou Saïd", "Medina von Tunis, Bardo-Museum, dann das weiß-blaue Dorf Sidi Bou Saïd."],
+    ["Monastir", "Ribat am Meer und das Bourguiba-Mausoleum."],
+  ],
+  'Tanger': [
+    ["Medina und Kasbah", "Die Kasbah mit Blick auf die Meerenge, Grand Socco, Petit Socco und die Gassen der Medina."],
+    ["Kap Spartel und Herkulesgrotten", "Leuchtturm, wo Atlantik und Mittelmeer aufeinandertreffen, dann die Herkulesgrotten."],
+    ["Die moderne Stadt", "Café Hafa über der Meerenge, Boulevard Pasteur, Kino Rif und Terrassen."],
+    ["Asilah", "Weißes Städtchen mit bemalten Wänden, Mauern und Strand, eine Stunde entfernt."],
+    ["Chefchaouen", "Die blaue Stadt am Fuß des Rif, etwa zweieinhalb Stunden entfernt."],
+    ["Tétouan", "Medina (UNESCO) und spanisch-maurische Architektur."],
+  ],
+  'Dubai': [
+    ["Das alte Dubai", "Viertel Al Fahidi, mit der Abra über den Creek, Gold- und Gewürzsouks."],
+    ["Downtown", "Burj Khalifa mit Aussichtsplattform, Dubai Mall und abends die Wasserspiele."],
+    ["Strand und Marina", "Jumeirah Beach, Dubai Marina, Palm Jumeirah und Blick auf den Burj Al Arab."],
+    ["Die Wüste", "Safari in den Dünen, Sonnenuntergang und Abendessen unter den Sternen."],
+    ["Abu Dhabi", "Scheich-Zayid-Moschee und Louvre Abu Dhabi, etwa 1,5 Stunden entfernt."],
+    ["Museum der Zukunft und Expo City", "Moderne Architektur, der Dubai Frame und die neuen Viertel."],
+  ],
+};

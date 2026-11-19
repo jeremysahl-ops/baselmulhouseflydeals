@@ -86,4 +86,13 @@ export const DESTINATIONS: Record<string, DestinationInfo> = {
   'Pantelleria': { label: 'Pantelleria', country: 'Italie', iata: 'PNL', photo: 'photo-1728147832951-110297cd420c' },
   'Rimini': { label: 'Rimini', country: 'Italie', iata: 'RMI', photo: 'photo-1753705723488-a3cb24f1735f' },
   'Bristol': { label: 'Bristol', country: 'Royaume-Uni', iata: 'BRS', photo: 'photo-1784471396874-489f6e058374' },
+  'Corfou': { label: 'Corfou', country: 'Grèce', iata: 'CFU', photo: 'photo-1500198894528-3819de6ad916' },
+  'La Canee': { label: 'La Canée', country: 'Grèce', iata: 'CHQ', photo: 'photo-1705268889068-a8f81d125022' },
+  'Kos': { label: 'Kos', country: 'Grèce', iata: 'KGS', photo: 'photo-1565257383254-511420865740' },
+  'Thessalonique': { label: 'Thessalonique', country: 'Grèce', iata: 'SKG', photo: 'photo-1613538384222-cd71e8488d7a' },
+  'Pula': { label: 'Pula', country: 'Croatie', iata: 'PUY', photo: 'photo-1681500669814-ca219efa0514' },
+  'Zadar': { label: 'Zadar', country: 'Croatie', iata: 'ZAD', photo: 'photo-1661178434473-6daf1940d913' },
+  'Enfidha-Hammamet': { label: 'Enfidha-Hammamet', country: 'Tunisie', iata: 'NBE', photo: 'photo-1722788137347-0df88c467b86' },
+  'Tanger': { label: 'Tanger', country: 'Maroc', iata: 'TNG', photo: 'photo-1582919534700-acf2374f10d3' },
+  'Dubai': { label: 'Dubaï', country: 'Émirats arabes unis', iata: 'DXB', photo: null },
 };

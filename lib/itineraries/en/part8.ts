@@ -1,0 +1,77 @@
+import type { RawItineraries } from '../types';
+
+// Greece, Croatia, Tunisia, Morocco and Dubai (English version of ../part8.ts).
+export const EN_PART8: RawItineraries = {
+  'Corfou': [
+    ["The old town", "Venetian lanes (UNESCO), the arcaded Liston, the Spianada esplanade and the old fortress."],
+    ["Achilleion and Kanoni", "Empress Sisi's palace, then the view over Vlacherna monastery and Pontikonissi islet."],
+    ["Paleokastritsa", "Turquoise coves, sea caves by boat and the clifftop monastery, then sunset at Angelokastro."],
+    ["The north of the island", "Canal d'Amour at Sidari, the cliffs of Cape Drastis and north-east coast villages facing Albania."],
+    ["West coast beaches", "Glyfada, Myrtiotissa or Agios Gordios: golden sand and sunset over the Ionian Sea."],
+    ["Paxos and Antipaxos", "Boat trip: Gaios harbour, blue caves and the clear waters of Antipaxos."],
+  ],
+  'La Canee': [
+    ["The Venetian harbour", "The lighthouse, the Janissaries mosque and the lanes of the Venetian and Turkish quarters, with dinner on the harbour."],
+    ["Market and old town", "The covered market, leather street, the maritime museum and the Firkas bastion."],
+    ["Balos and Gramvousa", "By boat or dirt road to Balos lagoon and the Gramvousa fortress."],
+    ["Samaria Gorge", "A long hike (about 16 km) through the gorge to the sea, back by boat then bus."],
+    ["Elafonissi", "A beach with pink tints and a shallow lagoon at the island's far south-west."],
+    ["Rethymno", "Venetian old town, fortress and beach, an hour's drive away."],
+  ],
+  'Kos': [
+    ["Kos town", "The Castle of the Knights, Hippocrates' plane tree, the ancient agora and the harbour."],
+    ["The Asklepion", "An ancient sanctuary of medicine on a hill above the town."],
+    ["Southern beaches", "Paradise Beach, Kefalos and the islet of Agios Nikolaos."],
+    ["Mountain villages", "Zia and its sunset, Pyli and its Byzantine castle."],
+    ["Nisyros", "A trip to the volcanic island and its crater, which you can walk into."],
+    ["Bodrum", "Ferry to Turkey: St Peter's castle and the marina (passport or ID card depending on current rules)."],
+  ],
+  'Thessalonique': [
+    ["The waterfront", "The White Tower, the Nea Paralia promenade, the Alexander statue and Zongolopoulos's Umbrellas."],
+    ["Byzantine Thessaloniki", "The Rotunda, the Arch of Galerius, and the churches of Hagia Sophia and Hagios Dimitrios (UNESCO)."],
+    ["Ano Poli", "The Ottoman upper town, its walls and the view from the Heptapyrgion."],
+    ["Markets and museums", "Modiano and Kapani markets, the Archaeological Museum, and bougatsa for breakfast."],
+    ["Vergina", "The royal tombs of Macedonia, including that of Philip II, father of Alexander the Great."],
+    ["Halkidiki", "Sandy beaches and pine forests on the Kassandra or Sithonia peninsulas."],
+  ],
+  'Pula': [
+    ["The amphitheatre and old town", "A remarkably preserved Roman arena, the Temple of Augustus, the forum and the Arch of the Sergii."],
+    ["Cape Kamenjak", "Nature reserve at the tip of the peninsula: wild coves, cliffs and diving spots."],
+    ["Rovinj", "A colourful town on its peninsula, St Euphemia's church and artists' lanes."],
+    ["The Brijuni islands", "National park by boat: safari park, Roman remains and Tito's residence."],
+    ["Motovun and inland Istria", "Hilltop villages, truffles, olive oil and Istrian wines."],
+    ["Poreč", "The Euphrasian Basilica and its Byzantine mosaics (UNESCO)."],
+  ],
+  'Zadar': [
+    ["The old town", "The Roman forum, St Donatus church, the cathedral and the Venetian walls."],
+    ["Sea Organ and Greeting to the Sun", "An organ played by the waves and a light installation at sunset."],
+    ["Plitvice Lakes", "Waterfalls and turquoise lakes in the national park, about two hours away."],
+    ["The Kornati", "Boat trip through the archipelago and its bare islands."],
+    ["Krka national park", "Skradinski buk waterfalls and the monastery on Visovac island."],
+    ["Nin and Paklenica", "The world's smallest cathedral and the sandy beaches of Nin, or the canyons of Paklenica."],
+  ],
+  'Enfidha-Hammamet': [
+    ["Hammamet", "The medina and its seaside walls, then the beach."],
+    ["Sousse", "The medina (UNESCO), the ribat and the Great Mosque, half an hour away."],
+    ["Kairouan", "The holy city, its Great Mosque and the Aghlabid basins."],
+    ["El Jem", "One of the largest Roman amphitheatres in the world, very well preserved."],
+    ["Tunis and Sidi Bou Saïd", "The medina of Tunis, the Bardo museum, then the blue-and-white village of Sidi Bou Saïd."],
+    ["Monastir", "The seaside ribat and the Bourguiba mausoleum."],
+  ],
+  'Tanger': [
+    ["The medina and kasbah", "The kasbah and its view over the strait, the Grand Socco, the Petit Socco and the medina lanes."],
+    ["Cape Spartel and the Caves of Hercules", "The lighthouse where the Atlantic meets the Mediterranean, then the Caves of Hercules."],
+    ["The modern city", "Café Hafa above the strait, Boulevard Pasteur, the Rif cinema and café terraces."],
+    ["Asilah", "A small white town with painted walls, ramparts and a beach, an hour away."],
+    ["Chefchaouen", "The blue town at the foot of the Rif, about two and a half hours away."],
+    ["Tétouan", "The medina (UNESCO) and Hispano-Moorish architecture."],
+  ],
+  'Dubai': [
+    ["Old Dubai", "The Al Fahidi district, an abra ride across the Creek, and the gold and spice souks."],
+    ["Downtown", "The Burj Khalifa and its observation deck, Dubai Mall and the fountain show in the evening."],
+    ["Beach and Marina", "Jumeirah Beach, Dubai Marina, Palm Jumeirah and the view of the Burj Al Arab."],
+    ["The desert", "A dune safari, sunset and dinner under the stars."],
+    ["Abu Dhabi", "Sheikh Zayed Grand Mosque and the Louvre Abu Dhabi, about 1.5 hours away."],
+    ["Museum of the Future and Expo City", "Modern architecture, the Dubai Frame and the new districts."],
+  ],
+};

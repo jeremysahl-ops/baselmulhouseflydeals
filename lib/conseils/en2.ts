@@ -183,4 +183,58 @@ export const CONSEILS_EN2: Conseils = {
     "Buses, bikes and harbour ferries; direct trains to Bath.",
     "Traffic drives on the left and the weather changes fast: pack a waterproof layer.",
   ],
+  CFU: [
+    "May to October; June and September to avoid the crowds.",
+    "The airport is right next to the old town: bus or taxi in a few minutes.",
+    "Buses to the main villages and beaches; a car or scooter to explore the island.",
+    "The island's roads are narrow and winding: drive carefully.",
+  ],
+  CHQ: [
+    "May to October; Samaria Gorge is only open in season.",
+    "Buses and taxis link the airport with central Chania, about twenty kilometres away.",
+    "KTEL buses to villages and beaches; a car for Balos and Elafonissi.",
+    "For Samaria, start early with good shoes and plenty of water.",
+  ],
+  KGS: [
+    "May to October; July and August are hot and windy.",
+    "The airport is in the middle of the island: bus or taxi to Kos town.",
+    "Local buses and lots of bikes: the island is flat with good cycle paths.",
+    "The meltemi, a strong summer wind, makes some north-coast beaches rough: head south on those days.",
+  ],
+  SKG: [
+    "All year; spring and autumn are the most pleasant.",
+    "A bus links the airport with the centre in about forty minutes; the metro is new.",
+    "The centre is walkable along the waterfront; buses up to Ano Poli.",
+    "It is Greece's food capital: don't miss the bougatsa and the meze.",
+  ],
+  PUY: [
+    "May to September; July for the film festival in the arena.",
+    "Buses and taxis link the airport with central Pula, a few kilometres away.",
+    "Local buses; a car is handy for inland Istria and Kamenjak.",
+    "Croatia uses the euro; beaches are mostly pebbles or rocks.",
+  ],
+  ZAD: [
+    "May to October; June and September for the sea without the crowds.",
+    "A bus links the airport with the old town and the bus station.",
+    "The old town is walkable; boats and tours for the islands and parks.",
+    "Book Plitvice and Krka tickets online in summer.",
+  ],
+  NBE: [
+    "April to June and September to October; summer is very hot.",
+    "Enfidha airport is about 45 minutes from Hammamet and Sousse: transfer or taxi.",
+    "Louages (shared taxis), coastal trains and taxis; an organised tour for El Jem and Kairouan.",
+    "Bring dinars in cash; bargaining is the norm in the souks.",
+  ],
+  TNG: [
+    "April to June and September to October; summer is lively and windy.",
+    "Taxis from Ibn Battouta airport, about fifteen kilometres from the centre.",
+    "Petits taxis in town; trains (including the high-speed line) and buses to Asilah, Rabat or Chefchaouen.",
+    "Covering clothes are appreciated in the medina; bring dirhams in cash.",
+  ],
+  DXB: [
+    "November to March; summer often tops 40 °C.",
+    "The red metro line runs straight from the airport to the centre.",
+    "Metro, tram, taxis and abras across the Creek; everything is air-conditioned.",
+    "flydubai flights from Basel only start in July 2027; dress modestly at religious sites and during Ramadan.",
+  ],
 };

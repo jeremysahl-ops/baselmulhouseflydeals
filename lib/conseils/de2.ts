@@ -183,4 +183,58 @@ export const CONSEILS_DE2: Conseils = {
     "Busse, Fahrräder und Hafenfähren; direkte Züge nach Bath.",
     "Linksverkehr, und das Wetter wechselt schnell: eine Regenschicht einpacken.",
   ],
+  CFU: [
+    "Mai bis Oktober; Juni und September, um dem Andrang zu entgehen.",
+    "Der Flughafen liegt nah an der Altstadt: Bus oder Taxi in wenigen Minuten.",
+    "Busse zu den wichtigsten Dörfern und Stränden; Auto oder Roller, um die Insel zu erkunden.",
+    "Die Straßen der Insel sind schmal und kurvig: vorsichtig fahren.",
+  ],
+  CHQ: [
+    "Mai bis Oktober; die Samaria-Schlucht ist nur in der Saison geöffnet.",
+    "Busse und Taxis verbinden den Flughafen mit dem rund zwanzig Kilometer entfernten Chania.",
+    "KTEL-Busse in Dörfer und an Strände; ein Auto für Balos und Elafonissi.",
+    "Für Samaria früh losgehen, mit guten Schuhen und viel Wasser.",
+  ],
+  KGS: [
+    "Mai bis Oktober; Juli und August sind heiß und windig.",
+    "Der Flughafen liegt in der Inselmitte: Bus oder Taxi nach Kos-Stadt.",
+    "Lokale Busse und viele Fahrräder: die Insel ist flach und hat gute Radwege.",
+    "Der Meltemi, ein starker Sommerwind, macht manche Nordstrände unruhig: dann lieber in den Süden.",
+  ],
+  SKG: [
+    "Ganzjährig; Frühling und Herbst sind am angenehmsten.",
+    "Ein Bus verbindet den Flughafen in rund vierzig Minuten mit dem Zentrum; die Metro ist neu.",
+    "Das Zentrum zu Fuß entlang der Uferpromenade; Busse nach Ano Poli.",
+    "Die kulinarische Hauptstadt Griechenlands: Bougatsa und Meze nicht verpassen.",
+  ],
+  PUY: [
+    "Mai bis September; im Juli das Filmfestival in der Arena.",
+    "Busse und Taxis verbinden den Flughafen mit dem wenige Kilometer entfernten Zentrum.",
+    "Lokale Busse; ein Auto ist praktisch für Inneristrien und Kamenjak.",
+    "Kroatien zahlt mit Euro; die Strände sind meist Kiesel oder Fels.",
+  ],
+  ZAD: [
+    "Mai bis Oktober; Juni und September für das Meer ohne Andrang.",
+    "Ein Bus verbindet den Flughafen mit Altstadt und Busbahnhof.",
+    "Die Altstadt zu Fuß; Boote und Ausflüge zu den Inseln und Parks.",
+    "Für Plitvice und Krka im Sommer Tickets online reservieren.",
+  ],
+  NBE: [
+    "April bis Juni und September bis Oktober; der Sommer ist sehr heiß.",
+    "Der Flughafen Enfidha liegt etwa 45 Minuten von Hammamet und Sousse: Transfer oder Taxi.",
+    "Louages (Sammeltaxis), Küstenzüge und Taxis; für El Jem und Kairouan ein organisierter Ausflug.",
+    "Dinar in bar mitnehmen; in den Souks wird gehandelt.",
+  ],
+  TNG: [
+    "April bis Juni und September bis Oktober; der Sommer ist belebt und windig.",
+    "Taxis vom Flughafen Ibn Battouta, etwa fünfzehn Kilometer vom Zentrum.",
+    "Petits Taxis in der Stadt; Züge (auch der Hochgeschwindigkeitszug) und Busse nach Asilah, Rabat oder Chefchaouen.",
+    "In der Medina ist bedeckende Kleidung gern gesehen; Dirham in bar mitnehmen.",
+  ],
+  DXB: [
+    "November bis März; im Sommer oft über 40 °C.",
+    "Die rote Metrolinie verbindet den Flughafen direkt mit dem Zentrum.",
+    "Metro, Tram, Taxis und Abras über den Creek; alles ist klimatisiert.",
+    "Die flydubai-Flüge ab Basel beginnen erst im Juli 2027; in religiösen Stätten und im Ramadan angemessene Kleidung.",
+  ],
 };

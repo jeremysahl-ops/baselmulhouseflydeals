@@ -1,0 +1,77 @@
+import type { RawItineraries } from './types';
+
+// Lot du 19/11/2026 — Grèce, Croatie, Tunisie, Maroc et Dubaï. Chaque journée : [titre, programme].
+export const PART8: RawItineraries = {
+  'Corfou': [
+    ["La vieille ville", "Ruelles vénitiennes classées à l'UNESCO, Liston et ses arcades, esplanade du Spianada et vieille forteresse."],
+    ["Achilleion et Kanoni", "Palais de l'impératrice Sissi, puis la vue sur le monastère de Vlacherna et l'îlot de Pontikonissi."],
+    ["Paleokastritsa", "Criques turquoise, grottes marines en bateau et monastère perché, puis coucher de soleil à Angelokastro."],
+    ["Le nord de l'île", "Canal d'Amour à Sidari, falaises de Cap Drastis et villages de la côte nord-est face à l'Albanie."],
+    ["Les plages de l'ouest", "Glyfada, Myrtiotissa ou Agios Gordios, sable doré et coucher de soleil sur la mer Ionienne."],
+    ["Paxos et Antipaxos", "Excursion en bateau : port de Gaios, grottes bleues et eaux transparentes d'Antipaxos."],
+  ],
+  'La Canee': [
+    ["Le port vénitien", "Phare, mosquée des Janissaires et ruelles des quartiers vénitien et turc, dîner sur le port."],
+    ["Le marché et la vieille ville", "Marché couvert, rue des cuirs, musée nautique et remparts de Firkas."],
+    ["Balos et Gramvoussa", "Bateau ou piste jusqu'au lagon de Balos et la forteresse de Gramvoussa."],
+    ["Les gorges de Samaria", "Longue randonnée (environ 16 km) dans les gorges jusqu'à la mer, retour en bateau puis bus."],
+    ["Elafonissi", "Plage aux reflets roses et lagon peu profond à l'extrême sud-ouest de l'île."],
+    ["Réthymnon", "Vieille ville vénitienne, forteresse et plage, à une heure de route."],
+  ],
+  'Kos': [
+    ["La ville de Kos", "Château des Chevaliers, platane d'Hippocrate, agora antique et port."],
+    ["L'Asclépiéion", "Sanctuaire antique dédié à la médecine, sur une colline au-dessus de la ville."],
+    ["Les plages du sud", "Plage du Paradis, Kefalos et l'îlot d'Agios Nikolaos."],
+    ["Les villages de montagne", "Zia et son coucher de soleil, Pyli et son château byzantin."],
+    ["Nisyros", "Excursion vers l'île volcanique et son cratère que l'on peut parcourir à pied."],
+    ["Bodrum", "Ferry vers la Turquie : château Saint-Pierre et marina (passeport ou carte d'identité selon les règles du moment)."],
+  ],
+  'Thessalonique': [
+    ["Le front de mer", "Tour Blanche, promenade de la Nouvelle Plage, statue d'Alexandre et ombrelles de Zongolopoulos."],
+    ["La ville byzantine", "Rotonde, arc de Galère, églises Sainte-Sophie et Saint-Démétrios (UNESCO)."],
+    ["Ano Poli", "La ville haute ottomane, ses remparts et la vue depuis l'Heptapyrgion."],
+    ["Marchés et musées", "Marchés Modiano et Kapani, musée archéologique, bougatsa au petit-déjeuner."],
+    ["Vergina", "Tombeaux royaux de Macédoine, dont celui de Philippe II, père d'Alexandre le Grand."],
+    ["La Chalcidique", "Plages de sable et pinèdes de la péninsule de Kassandra ou Sithonia."],
+  ],
+  'Pula': [
+    ["L'amphithéâtre et la vieille ville", "Arènes romaines remarquablement conservées, temple d'Auguste, forum et arc des Sergii."],
+    ["Le cap Kamenjak", "Réserve naturelle au sud de la péninsule : criques sauvages, falaises et plongeons."],
+    ["Rovinj", "Ville colorée sur sa presqu'île, église Sainte-Euphémie et ruelles d'artistes."],
+    ["Les îles Brijuni", "Parc national en bateau : safari, vestiges romains et résidence de Tito."],
+    ["Motovun et l'Istrie intérieure", "Villages perchés, truffes, huile d'olive et vins istriens."],
+    ["Poreč", "Basilique euphrasienne et ses mosaïques byzantines (UNESCO)."],
+  ],
+  'Zadar': [
+    ["La vieille ville", "Forum romain, église Saint-Donat, cathédrale et remparts vénitiens."],
+    ["L'orgue marin et le Salut au Soleil", "Orgue joué par les vagues et installation lumineuse au coucher du soleil."],
+    ["Les lacs de Plitvice", "Cascades et lacs turquoise du parc national, à environ deux heures."],
+    ["Les Kornati", "Excursion en bateau dans l'archipel et ses îles nues."],
+    ["Le parc de Krka", "Cascades de Skradinski buk et monastère sur l'île de Visovac."],
+    ["Nin et Paklenica", "Plus petite cathédrale du monde et plages de sable de Nin, ou canyons de Paklenica."],
+  ],
+  'Enfidha-Hammamet': [
+    ["Hammamet", "Médina et remparts au bord de la mer, puis la plage."],
+    ["Sousse", "Médina classée à l'UNESCO, ribat et grande mosquée, à une demi-heure."],
+    ["Kairouan", "Ville sainte, grande mosquée et bassins des Aghlabides."],
+    ["El Jem", "L'un des plus grands amphithéâtres romains au monde, très bien conservé."],
+    ["Tunis et Sidi Bou Saïd", "Médina de Tunis, musée du Bardo, puis le village blanc et bleu de Sidi Bou Saïd."],
+    ["Monastir", "Ribat sur la mer et mausolée Bourguiba."],
+  ],
+  'Tanger': [
+    ["La médina et la kasbah", "Kasbah et sa vue sur le détroit, Grand Socco, Petit Socco et ruelles de la médina."],
+    ["Le cap Spartel et les grottes d'Hercule", "Phare au point de rencontre de l'Atlantique et de la Méditerranée, puis grottes d'Hercule."],
+    ["La ville moderne", "Café Hafa face au détroit, boulevard Pasteur, cinéma Rif et terrasses."],
+    ["Asilah", "Petite ville blanche aux murs peints, remparts et plage, à une heure."],
+    ["Chefchaouen", "La ville bleue au pied du Rif, à environ deux heures et demie."],
+    ["Tétouan", "Médina classée à l'UNESCO et architecture hispano-mauresque."],
+  ],
+  'Dubai': [
+    ["Le vieux Dubaï", "Quartier Al Fahidi, traversée de la Creek en abra, souks de l'or et des épices."],
+    ["Downtown", "Burj Khalifa et son observatoire, Dubai Mall et spectacle des fontaines le soir."],
+    ["La plage et la Marina", "Jumeirah Beach, Dubai Marina, Palm Jumeirah et vue sur le Burj Al Arab."],
+    ["Le désert", "Safari dans les dunes, coucher de soleil et dîner sous les étoiles."],
+    ["Abu Dhabi", "Grande mosquée Sheikh Zayed et Louvre Abu Dhabi, à environ 1 h 30."],
+    ["Musée du Futur et Expo City", "Architecture moderne, cadre de Dubaï (Dubai Frame) et nouveaux quartiers."],
+  ],
+};

@@ -183,4 +183,58 @@ export const CONSEILS_FR2: Conseils = {
     "Bus, vélos et ferries de port ; trains directs pour Bath.",
     "On roule à gauche, et la météo change vite : prévoyez une couche imperméable.",
   ],
+  CFU: [
+    "De mai à octobre ; juin et septembre pour éviter la foule.",
+    "L'aéroport est tout proche de la vieille ville : bus ou taxi en quelques minutes.",
+    "Bus vers les villages et plages principales ; une voiture ou un scooter pour explorer l'île.",
+    "Les routes de l'île sont étroites et sinueuses : roulez prudemment.",
+  ],
+  CHQ: [
+    "De mai à octobre ; les gorges de Samaria ne sont ouvertes qu'en saison.",
+    "Bus et taxis relient l'aéroport au centre de La Canée, à une vingtaine de kilomètres.",
+    "Bus KTEL vers les villages et plages ; une voiture pour Balos et Elafonissi.",
+    "Pour Samaria, partez tôt avec de bonnes chaussures et beaucoup d'eau.",
+  ],
+  KGS: [
+    "De mai à octobre ; juillet-août sont chauds et venteux.",
+    "L'aéroport est au centre de l'île : bus ou taxi vers la ville de Kos.",
+    "Bus locaux et beaucoup de vélos : l'île est plate et bien équipée en pistes cyclables.",
+    "Le meltem, vent fort d'été, rend certaines plages du nord agitées : préférez le sud ces jours-là.",
+  ],
+  SKG: [
+    "Toute l'année ; le printemps et l'automne sont les plus agréables.",
+    "Un bus relie l'aéroport au centre en une quarantaine de minutes ; le métro est récent.",
+    "Le centre se fait à pied le long du front de mer ; bus pour Ano Poli.",
+    "C'est la capitale gastronomique de la Grèce : ne ratez pas la bougatsa et les mezzés.",
+  ],
+  PUY: [
+    "De mai à septembre ; juillet pour le festival du film dans les arènes.",
+    "Bus et taxis relient l'aéroport au centre de Pula, à quelques kilomètres.",
+    "Bus locaux ; une voiture est pratique pour l'Istrie intérieure et Kamenjak.",
+    "La Croatie utilise l'euro ; les plages sont surtout de galets ou de rochers.",
+  ],
+  ZAD: [
+    "De mai à octobre ; juin et septembre pour la mer sans la foule.",
+    "Un bus relie l'aéroport à la vieille ville et à la gare routière.",
+    "La vieille ville se fait à pied ; bateaux et excursions pour les îles et les parcs.",
+    "À Plitvice et Krka, réservez les billets en ligne en été.",
+  ],
+  NBE: [
+    "D'avril à juin et de septembre à octobre ; l'été est très chaud.",
+    "L'aéroport d'Enfidha est à environ 45 minutes de Hammamet et de Sousse : transfert ou taxi.",
+    "Louages (taxis collectifs), trains côtiers et taxis pour circuler ; une excursion organisée pour El Jem et Kairouan.",
+    "Prévoyez des dinars en espèces ; le marchandage est d'usage dans les souks.",
+  ],
+  TNG: [
+    "D'avril à juin et de septembre à octobre ; l'été est animé et venteux.",
+    "Taxis depuis l'aéroport Ibn Battouta, à une quinzaine de kilomètres du centre.",
+    "Petits taxis en ville ; trains (dont le train à grande vitesse) et bus pour Asilah, Rabat ou Chefchaouen.",
+    "Tenue couvrante appréciée dans la médina ; prévoyez des dirhams en espèces.",
+  ],
+  DXB: [
+    "De novembre à mars ; l'été dépasse souvent 40 °C.",
+    "Le métro rouge relie directement l'aéroport au centre.",
+    "Métro, tram, taxis et abras pour la Creek ; tout est climatisé.",
+    "Les vols flydubai depuis Bâle ne commencent qu'en juillet 2027 ; tenue correcte dans les lieux religieux et pendant le ramadan.",
+  ],
 };

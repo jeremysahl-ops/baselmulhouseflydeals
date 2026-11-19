@@ -88,6 +88,15 @@ const NAMES: Record<string, Names> = {
   'Pantelleria': { de: ['Pantelleria', 'Italien'], en: ['Pantelleria', 'Italy'] },
   'Rimini': { de: ['Rimini', 'Italien'], en: ['Rimini', 'Italy'] },
   'Bristol': { de: ['Bristol', 'Vereinigtes Königreich'], en: ['Bristol', 'United Kingdom'] },
+  'Corfou': { de: ['Korfu', 'Griechenland'], en: ['Corfu', 'Greece'] },
+  'La Canee': { de: ['Chania', 'Griechenland'], en: ['Chania', 'Greece'] },
+  'Kos': { de: ['Kos', 'Griechenland'], en: ['Kos', 'Greece'] },
+  'Thessalonique': { de: ['Thessaloniki', 'Griechenland'], en: ['Thessaloniki', 'Greece'] },
+  'Pula': { de: ['Pula', 'Kroatien'], en: ['Pula', 'Croatia'] },
+  'Zadar': { de: ['Zadar', 'Kroatien'], en: ['Zadar', 'Croatia'] },
+  'Enfidha-Hammamet': { de: ['Enfidha-Hammamet', 'Tunesien'], en: ['Enfidha-Hammamet', 'Tunisia'] },
+  'Tanger': { de: ['Tanger', 'Marokko'], en: ['Tangier', 'Morocco'] },
+  'Dubai': { de: ['Dubai', 'Vereinigte Arabische Emirate'], en: ['Dubai', 'United Arab Emirates'] },
 };
 
 /** Nom de la ville dans la langue demandée (à défaut : le nom français, puis la clé). */
