@@ -94,7 +94,7 @@ export const DESTINATIONS: Record<string, DestinationInfo> = {
   'Zadar': { label: 'Zadar', country: 'Croatie', iata: 'ZAD', photo: 'photo-1661178434473-6daf1940d913' },
   'Enfidha-Hammamet': { label: 'Enfidha-Hammamet', country: 'Tunisie', iata: 'NBE', photo: 'photo-1722788137347-0df88c467b86' },
   'Tanger': { label: 'Tanger', country: 'Maroc', iata: 'TNG', photo: 'photo-1582919534700-acf2374f10d3' },
-  'Dubai': { label: 'Dubaï', country: 'Émirats arabes unis', iata: 'DXB', photo: null },
+  'Dubai': { label: 'Dubaï', country: 'Émirats arabes unis', iata: 'DXB', photo: 'photo-1512453979798-5ea266f8880c' },
   'Pristina': { label: 'Pristina', country: 'Kosovo', iata: 'PRN', photo: 'photo-1653684617625-c6d017d05b80' },
   'Sarajevo': { label: 'Sarajevo', country: 'Bosnie-Herzégovine', iata: 'SJJ', photo: 'photo-1570831709673-03320e9d734f' },
   'Tivat': { label: 'Tivat', country: 'Monténégro', iata: 'TIV', photo: 'photo-1614122027743-50a9e6e8002f' },

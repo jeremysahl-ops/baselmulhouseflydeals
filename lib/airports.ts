@@ -152,7 +152,7 @@ export const AIRPORTS: Record<string, Airport> = {
   STN: { names: ['Londres Stansted', 'London Stansted', 'London Stansted'], country: 'GB', guide: 'Londres' },
   ZAG: { names: ['Zagreb', 'Zagreb', 'Zagreb'], country: 'HR', guide: 'Zagreb' },
   // flydubai (19/11/2026) : vols à partir de juillet 2027
-  DXB: { names: ['Dubaï', 'Dubai', 'Dubai'], country: 'AE', guide: 'Dubai' },
+  DXB: { names: ['Dubaï', 'Dubai', 'Dubai'], country: 'AE', guide: 'Dubai', photo: 'photo-1512453979798-5ea266f8880c' },
 };
 
 const IDX: Record<Lang, 0 | 1 | 2> = { fr: 0, de: 1, en: 2 };
