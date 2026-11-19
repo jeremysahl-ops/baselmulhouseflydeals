@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import AirportVisual from '@/components/AirportVisual';
 import QuandPartir from '@/components/QuandPartir';
+import ThemeIcon, { themeDe } from '@/components/ThemeIcon';
 import SejourTuiles from '@/components/SejourTuiles';
 import { conseils } from '@/lib/conseils';
 import { fullItinerary } from '@/lib/itineraries';
@@ -47,6 +48,7 @@ export default async function VillePage({ params }: Props) {
   const ville = getVille(code);
   const guide = AIRPORTS[code].guide;
   const must = guide ? (fullItinerary(guide, lang)?.slice(0, 3) ?? null) : null;
+  const mustFr = guide ? (fullItinerary(guide, 'fr')?.slice(0, 3) ?? []) : [];
   const tips = conseils(code, lang);
   const best = meilleurParVille().find((c) => c.code === code)?.prix ?? null;
 
@@ -85,8 +87,9 @@ export default async function VillePage({ params }: Props) {
           <h2 id="incontournables" className="display text-4xl text-ink">{t.mustHeading(label)}</h2>
           <ol className="mt-6 grid gap-6 md:grid-cols-3">
             {must.map((d, i) => (
-              <li key={d.title} className="border-t-2 border-ink pt-4">
-                <span className="font-board text-sm font-bold text-ink-muted">0{i + 1}</span>
+              <li key={d.title}>
+                {guide && mustFr[i] && <ThemeIcon theme={themeDe(guide, i, mustFr[i].title, mustFr[i].text)} lang={lang} />}
+                <span className="mt-4 block border-t-2 border-ink pt-3 font-board text-sm font-bold text-ink-muted">0{i + 1}</span>
                 <h3 className="mt-1 text-lg font-semibold text-ink">{d.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-ink-soft">{d.text}</p>
               </li>
