@@ -1,5 +1,8 @@
 // Textes du site en français. C'est la référence : de.ts et en.ts doivent avoir exactement la même forme.
 
+// « de » devant un nom de ville : « d'Istanbul », mais « de Hambourg » (h aspiré).
+const de = (nom: string) => (/^(?:[AEIOUYÂÀÉÈÊÎÏÔÛ]|Héraklion|Hurghada)/i.test(nom) ? `d'${nom}` : `de ${nom}`);
+
 export const fr = {
   meta: {
     defaultTitle: 'Les meilleurs prix des vols au départ de Bâle-Mulhouse, mois par mois',
@@ -86,7 +89,7 @@ export const fr = {
     direct: 'Vol direct',
     roundTrip: 'aller-retour',
     seeDeal: 'Voir le deal',
-    photoAlt: (label: string) => `Vue de ${label}`,
+    photoAlt: (label: string) => `Vue ${de(label)}`,
     nights: (n: number) => `${n} nuit${n > 1 ? 's' : ''}`,
     routeLine: (city: string, label: string) => `${city} → ${label}`,
   },
@@ -248,7 +251,7 @@ export const fr = {
         spare > 1 ? 's' : ''
       } : de quoi ralentir, retourner dans votre endroit préféré ou partir deux jours explorer la région.`,
     note: 'Suggestions indicatives : vérifiez les horaires, les jours de fermeture et les réservations obligatoires avant de partir.',
-    fullGuide: (label: string) => `Voir le guide complet de ${label}`,
+    fullGuide: (label: string) => `Voir le guide complet ${de(label)}`,
   },
   destinations: {
     metaTitle: (city: string) => `Toutes les destinations en vol direct au départ de ${city}`,
@@ -283,7 +286,7 @@ export const fr = {
     sleepAria: 'Où dormir',
     sleepHeading: (label: string) => `Où dormir à ${label}`,
     sleepText: (label: string, partner: string) =>
-      `Comparez les hôtels et les appartements de ${label} sur ${partner}. Depuis la page d'un vol, le bouton hôtel ouvre directement la recherche aux dates de ce vol.`,
+      `Comparez les hôtels et les appartements ${de(label)} sur ${partner}. Depuis la page d'un vol, le bouton hôtel ouvre directement la recherche aux dates de ce vol.`,
     sleepButton: (label: string) => `Voir les hôtels à ${label}`,
     othersAria: 'Autres destinations',
     othersHeading: "D'autres idées de destinations",
@@ -410,7 +413,7 @@ export const fr = {
     noCombo: 'pas de combo ce mois-ci',
     guide: (label: string) => `Que faire à ${label} ? Notre guide jour par jour`,
     noData: (label: string) => `Pas encore de prix relevé pour ${label}. Les relevés tournent chaque semaine : revenez bientôt.`,
-    mustHeading: (label: string) => `Les incontournables de ${label}`,
+    mustHeading: (label: string) => `Les incontournables ${de(label)}`,
     mustMore: 'Voir le programme complet, jour par jour',
     tipsHeading: 'Conseils de voyage',
     tipLabels: ['Quand partir', "Depuis l'aéroport", 'Sur place', 'Bon à savoir'],
