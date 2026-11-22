@@ -15,7 +15,10 @@ import { getDict, localePath } from '@/lib/i18n';
 import { langParam } from '@/lib/i18n/params';
 import DateReleve from '@/components/DateReleve';
 
-export const revalidate = 3600;
+// Pages entièrement statiques : les données ne changent qu'à une mise en ligne. Une régénération
+// périodique (ISR) consommait le quota gratuit de Vercel (« ISR Writes »), alerte du 22/11/2026.
+export const revalidate = false;
+export const dynamic = 'force-static';
 
 /** Photo de l'accueil : une destination réelle au départ de Bâle, photo contrôlée (lib/destinations.ts). */
 const HERO = { code: 'FUE', photo: DESTINATIONS['Fuerteventura'].photo };

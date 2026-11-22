@@ -1,12 +1,13 @@
 // Rattrapage : donne les N prochaines villes easyJet sans relevé récent (moins de 8 jours), au format JSON
 // [{ "code": "XXX", "nom": "…" }]. D'abord les villes qui ont un guide sur le site, puis les autres.
 // Renvoie [] si un blocage easyJet a été noté aujourd'hui dans data-prix/journal.txt.
-// Usage : node scripts/villes-manquantes.mjs 4
+// Usage : node scripts/villes-manquantes.mjs 4 [jours]  (jours = âge maximum d'un relevé « récent », 8 par défaut)
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 
 const n = Number(process.argv[2] ?? 4);
 const today = new Date().toISOString().slice(0, 10);
-const limite = new Date(Date.now() - 8 * 86_400_000).toISOString().slice(0, 10);
+const jours = Number(process.argv[3] ?? 8);
+const limite = new Date(Date.now() - jours * 86_400_000).toISOString().slice(0, 10);
 
 if (existsSync('data-prix/journal.txt')) {
   const j = readFileSync('data-prix/journal.txt', 'utf8');

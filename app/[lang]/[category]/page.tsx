@@ -7,7 +7,10 @@ import { SECTIONS, getSection } from '@/lib/site';
 import { LOCALES, alternatesFor, getDict, isLang, localePath } from '@/lib/i18n';
 import { langParam } from '@/lib/i18n/params';
 
-export const revalidate = 3600;
+// Pages entièrement statiques : les données ne changent qu'à une mise en ligne. Une régénération
+// périodique (ISR) consommait le quota gratuit de Vercel (« ISR Writes »), alerte du 22/11/2026.
+export const revalidate = false;
+export const dynamic = 'force-static';
 
 const DUREE: Record<string, Duree> = { 'city-trip': '2-4', vol: '5-8', sejour: '10-15' };
 
