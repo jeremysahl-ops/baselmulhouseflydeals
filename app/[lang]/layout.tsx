@@ -3,6 +3,7 @@ import { Barlow_Condensed, Geist, JetBrains_Mono } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import '../globals.css';
 import Header from '@/components/Header';
+import EnregistrerApp from '@/components/EnregistrerApp';
 import Footer from '@/components/Footer';
 import { SITE } from '@/lib/site';
 import { LOCALES, OG_LOCALE, alternatesFor, getDict, isLang, localePath } from '@/lib/i18n';
@@ -49,6 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       apple: '/apple-touch-icon.png',
     },
     robots: { index: true, follow: true },
+    appleWebApp: { capable: true, title: 'FlyBSL', statusBarStyle: 'black-translucent' },
   };
 }
 
@@ -67,6 +69,7 @@ export default async function RootLayout({ children, params }: Readonly<{ childr
         <main id="contenu" className="min-h-[70vh]">{children}</main>
         <Footer lang={lang} />
         <Analytics />
+        <EnregistrerApp />
       </body>
     </html>
   );

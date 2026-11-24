@@ -1,3 +1,5 @@
+import { SITE } from '@/lib/site';
+import DiaporamaAccueil from '@/components/DiaporamaAccueil';
 import Link from 'next/link';
 import Board from '@/components/Board';
 import DestinationTile from '@/components/DestinationTile';
@@ -20,8 +22,11 @@ import DateReleve from '@/components/DateReleve';
 export const revalidate = false;
 export const dynamic = 'force-static';
 
-/** Photo de l'accueil : une destination réelle au départ de Bâle, photo contrôlée (lib/destinations.ts). */
-const HERO = { code: 'FUE', photo: DESTINATIONS['Fuerteventura'].photo };
+/** Diaporama de l'accueil : 5 plages et 5 capitales desservies depuis Bâle, photos contrôlées (lib/destinations.ts). */
+const DIAPOS: [code: string, destination: string][] = [
+  ['FUE', 'Fuerteventura'], ['LIS', 'Lisbonne'], ['CFU', 'Corfou'], ['FCO', 'Rome'], ['MAH', 'Minorque'],
+  ['ATH', 'Athenes'], ['ACE', 'Lanzarote'], ['PRG', 'Prague'], ['HRG', 'Hurghada'], ['CPH', 'Copenhague'],
+];
 
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
   const lang = await langParam(params);
@@ -52,13 +57,13 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   return (
     <>
       <section className="relative isolate overflow-hidden bg-board">
-        {/* Photo de fond : Fuerteventura (destination desservie depuis Bâle), déjà contrôlée pour la page guide. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={`https://images.unsplash.com/${HERO.photo}?auto=format&fit=crop&w=2000&q=70`}
-          alt=""
-          fetchPriority="high"
-          className="absolute inset-0 -z-20 h-full w-full object-cover object-[30%_20%]"
+        <DiaporamaAccueil
+          diapos={DIAPOS.map(([code, dest]) => ({
+            photo: DESTINATIONS[dest].photo!,
+            nom: airportName(code, lang),
+            legende: t.heroPhoto(airportName(code, lang)),
+            href: href(`/vols/${airportSlug(code)}`),
+          }))}
         />
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-board/70 via-board/40 to-board/75 lg:bg-gradient-to-r lg:from-board/75 lg:via-board/25 lg:to-transparent" aria-hidden="true" />
 
@@ -66,7 +71,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           <div className="text-white">
             <p className="eyebrow !text-white/75">{dict.common.accroche}</p>
             <h1 className="display mt-4 text-6xl drop-shadow-sm sm:text-7xl">
-              {t.h1a}
+              {t.h1a}{' '}
               <span className="mt-1 block text-4xl text-white/85 xl:text-5xl">{t.h1b(dict.place.city)}</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/90">{t.lead}</p>
@@ -91,12 +96,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           </div>
         </div>
 
-        <Link
-          href={href(`/vols/${airportSlug(HERO.code)}`)}
-          className="absolute bottom-3 right-4 rounded bg-black/40 px-2 py-1 font-board text-[11px] text-white/85 backdrop-blur hover:text-white"
-        >
-          {t.heroPhoto(airportName(HERO.code, lang))}
-        </Link>
       </section>
 
       <section className="container-page pt-14" aria-labelledby="carte-routes">
@@ -195,6 +194,13 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       </section>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      {/* Nom du site affiché par Google au-dessus des résultats (sinon il montre le domaine). */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, alternateName: 'flybsl.com', url: SITE.url }),
+        }}
+      />
     </>
   );
 }

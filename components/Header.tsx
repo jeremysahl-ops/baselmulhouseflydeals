@@ -30,6 +30,7 @@ export default function Header({ lang }: { lang: Lang }) {
     { href: '/prix', label: t.nav.allPrices, icon: 'tag' },
     { href: '/sejours', label: t.nav.sejours, icon: 'suitcase' },
     { href: '/vacances', label: t.nav.vacances, icon: 'sun' },
+    { href: '/alertes', label: t.nav.alerts, icon: 'bell' },
   ] as const;
 
   const languages = (
@@ -61,7 +62,7 @@ export default function Header({ lang }: { lang: Lang }) {
   return (
     <header
       className={`sticky top-0 z-40 transition-colors duration-300 ${surPhoto ? '-mb-16' : ''} ${
-        clair ? 'border-b border-white/15 bg-gradient-to-b from-black/45 to-black/10' : 'border-b border-line bg-surface/95 backdrop-blur'
+        clair ? 'border-b border-white/15 bg-gradient-to-b from-black/45 to-black/10' : 'border-b border-black/5 bg-white/55 backdrop-blur-md backdrop-saturate-150'
       }`}
     >
       <div className="container-page flex h-16 items-center justify-between gap-4">
@@ -128,12 +129,13 @@ export default function Header({ lang }: { lang: Lang }) {
 }
 
 /** Petits pictogrammes du menu, dans la couleur du texte. */
-function NavIcon({ name }: { name: 'pin' | 'calendar' | 'tag' | 'suitcase' | 'sun' }) {
+function NavIcon({ name }: { name: 'pin' | 'calendar' | 'tag' | 'suitcase' | 'sun' | 'bell' }) {
   const d = {
     pin: 'M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11zm0-8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z',
     calendar: 'M4 6.5A1.5 1.5 0 0 1 5.5 5h13A1.5 1.5 0 0 1 20 6.5v12a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5v-12zM4 10h16M8 3v4M16 3v4',
     tag: 'M3.5 12.6V4.5a1 1 0 0 1 1-1h8.1l8 8a1.4 1.4 0 0 1 0 2l-6.1 6.1a1.4 1.4 0 0 1-2 0l-9-9zM8 8h.01',
     suitcase: 'M4 8.5A1.5 1.5 0 0 1 5.5 7h13A1.5 1.5 0 0 1 20 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5v-9zM9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M4 12h16',
+    bell: 'M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15zM10 20.5a2 2 0 0 0 4 0',
     sun: 'M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4',
   }[name];
   return (

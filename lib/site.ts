@@ -10,6 +10,8 @@ export const SITE = {
   /** Boîte Gmail dédiée au site. À remplacer par contact@flybsl.com une fois le domaine acheté. */
   contactEmail: 'flybslmlh@gmail.com',
   bookingPartner: 'Kiwi.com',
+  /** Clé PUBLIQUE des notifications (alertes de prix). La clé privée reste sur l'ordinateur : %USERPROFILE%\.flybslapid.json. */
+  vapidPublicKey: 'BKX2S_Ih--4S6Yp9fyW_W5Eac6DH08Q2mpkJjUQXW-ceyf9jOqKS4HfvejkNHsy7bIZ1FRNJFuDQMuyQvs3M-OQ',
 } as const;
 
 /**

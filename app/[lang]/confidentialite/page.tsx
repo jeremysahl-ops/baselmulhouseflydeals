@@ -31,15 +31,15 @@ const COPY: Record<Lang, Copy> = {
     authoritative: null,
     introBefore: `Cette page décrit les données que ${SITE.name} traite, pourquoi, et comment exercer vos droits. Le responsable du traitement est l'éditeur du site, identifié dans les`,
     legalLink: 'mentions légales',
-    alertsHeading: 'Alertes par e-mail',
+    alertsHeading: "Alertes de prix sur votre téléphone",
     alerts: [
-      ['Donnée collectée :', "votre adresse e-mail, la date d'inscription et la page d'inscription."],
-      ['Finalité :', "vous envoyer les deals publiés sur le site. Rien d'autre."],
-      ['Base légale :', 'votre consentement, donné en vous inscrivant.'],
-      ['Durée :', "jusqu'à votre désinscription."],
-      ['Destinataires :', "l'éditeur et son hébergeur de base de données (Supabase). Votre adresse n'est ni vendue ni transmise à des partenaires commerciaux."],
+      ["Données enregistrées :", "l'adresse technique de notification de votre appareil (fournie par votre navigateur), ses clés de chiffrement, la langue du site et les critères de vos alertes (destination, prix maximum, durée, mois). Ni nom, ni adresse e-mail, ni numéro de téléphone."],
+      ["Finalité :", "vous envoyer une notification quand un prix relevé correspond à l'une de vos alertes. Rien d'autre."],
+      ["Base légale :", "votre consentement, donné en autorisant les notifications et en créant une alerte."],
+      ["Durée :", "jusqu'à ce que vous supprimiez vos alertes, ou que votre appareil se désabonne des notifications (les alertes sont alors effacées automatiquement)."],
+      ["Destinataires :", "l'éditeur, son hébergeur de base de données (Supabase) et le service de notification de votre navigateur (Google, Apple ou Mozilla), qui achemine le message chiffré."],
     ],
-    unsubscribe: 'Pour vous désinscrire ou faire supprimer votre adresse, écrivez à',
+    unsubscribe: "Pour arrêter, supprimez vos alertes sur la page Alertes de prix, bloquez les notifications de FlyBSL dans les réglages, ou écrivez à",
     analyticsHeading: "Mesure d'audience",
     analytics:
       "Le site utilise Vercel Web Analytics, un outil de mesure d'audience qui ne dépose pas de cookie et ne permet pas de vous identifier : il compte les pages vues de façon agrégée.",
@@ -55,15 +55,15 @@ const COPY: Record<Lang, Copy> = {
     authoritative: 'Diese Seite ist eine Übersetzung. Rechtlich maßgeblich ist die französische Fassung.',
     introBefore: `Diese Seite beschreibt, welche Daten ${SITE.name} verarbeitet, zu welchem Zweck und wie Sie Ihre Rechte ausüben können. Verantwortlich für die Verarbeitung ist der Herausgeber der Website, siehe`,
     legalLink: 'Impressum',
-    alertsHeading: 'Preisalarm per E-Mail',
+    alertsHeading: "Preisalarm auf Ihrem Handy",
     alerts: [
-      ['Erhobene Daten:', 'Ihre E-Mail-Adresse, das Datum der Anmeldung und die Seite, auf der Sie sich angemeldet haben.'],
-      ['Zweck:', 'Ihnen die auf der Website veröffentlichten Deals zu senden. Nichts anderes.'],
-      ['Rechtsgrundlage:', 'Ihre Einwilligung, die Sie mit der Anmeldung erteilen.'],
-      ['Dauer:', 'bis zu Ihrer Abmeldung.'],
-      ['Empfänger:', 'der Herausgeber und sein Datenbank-Hosting-Anbieter (Supabase). Ihre Adresse wird weder verkauft noch an Geschäftspartner weitergegeben.'],
+      ["Gespeicherte Daten:", "die technische Benachrichtigungsadresse Ihres Geräts (von Ihrem Browser bereitgestellt), deren Verschlüsselungsschlüssel, die Sprache der Website und die Kriterien Ihrer Alarme (Reiseziel, Höchstpreis, Dauer, Monat). Kein Name, keine E-Mail-Adresse, keine Telefonnummer."],
+      ["Zweck:", "Sie zu benachrichtigen, wenn ein erfasster Preis zu einem Ihrer Alarme passt. Nichts anderes."],
+      ["Rechtsgrundlage:", "Ihre Einwilligung, die Sie mit dem Erlauben der Benachrichtigungen und dem Anlegen eines Alarms erteilen."],
+      ["Dauer:", "bis Sie Ihre Alarme löschen oder Ihr Gerät die Benachrichtigungen abbestellt (die Alarme werden dann automatisch gelöscht)."],
+      ["Empfänger:", "der Herausgeber, sein Datenbank-Hosting-Anbieter (Supabase) und der Benachrichtigungsdienst Ihres Browsers (Google, Apple oder Mozilla), der die verschlüsselte Nachricht zustellt."],
     ],
-    unsubscribe: 'Um sich abzumelden oder Ihre Adresse löschen zu lassen, schreiben Sie an',
+    unsubscribe: "Zum Beenden löschen Sie Ihre Alarme auf der Seite Preisalarm, blockieren Sie die Benachrichtigungen von FlyBSL in den Einstellungen oder schreiben Sie an",
     analyticsHeading: 'Reichweitenmessung',
     analytics:
       'Die Website nutzt Vercel Web Analytics, ein Werkzeug zur Reichweitenmessung, das keine Cookies setzt und Sie nicht identifizieren kann: Es zählt Seitenaufrufe in zusammengefasster Form.',
@@ -79,15 +79,15 @@ const COPY: Record<Lang, Copy> = {
     authoritative: 'This page is a translation. The French version is the legally binding one.',
     introBefore: `This page describes the data ${SITE.name} processes, why, and how to exercise your rights. The data controller is the site publisher, identified in the`,
     legalLink: 'legal notice',
-    alertsHeading: 'Email alerts',
+    alertsHeading: "Price alerts on your phone",
     alerts: [
-      ['Data collected:', 'your email address, the sign-up date and the page you signed up on.'],
-      ['Purpose:', 'to send you the deals published on the site. Nothing else.'],
-      ['Legal basis:', 'your consent, given when you sign up.'],
-      ['Retention:', 'until you unsubscribe.'],
-      ['Recipients:', 'the publisher and its database hosting provider (Supabase). Your address is neither sold nor passed on to commercial partners.'],
+      ["Data stored:", "your device's technical notification address (provided by your browser), its encryption keys, the site language and your alert criteria (destination, maximum price, length of stay, month). No name, email address or phone number."],
+      ["Purpose:", "to notify you when a checked fare matches one of your alerts. Nothing else."],
+      ["Legal basis:", "your consent, given by allowing notifications and creating an alert."],
+      ["Retention:", "until you delete your alerts or your device unsubscribes from notifications (the alerts are then deleted automatically)."],
+      ["Recipients:", "the publisher, its database hosting provider (Supabase) and your browser's notification service (Google, Apple or Mozilla), which delivers the encrypted message."],
     ],
-    unsubscribe: 'To unsubscribe or have your address deleted, write to',
+    unsubscribe: "To stop, delete your alerts on the Price alerts page, block FlyBSL notifications in your settings, or write to",
     analyticsHeading: 'Audience measurement',
     analytics:
       'The site uses Vercel Web Analytics, an audience measurement tool that sets no cookies and cannot identify you: it counts page views in aggregate.',
@@ -119,6 +119,17 @@ export default async function ConfidentialitePage({ params }: Props) {
           {t.introBefore} <Link href={localePath(lang, '/mentions-legales')}>{t.legalLink}</Link>.
         </p>
 
+        <h2>{t.alertsHeading}</h2>
+        <ul>
+          {t.alerts.map(([label, text]) => (
+            <li key={label}>
+              <strong>{label}</strong> {text}
+            </li>
+          ))}
+        </ul>
+        <p>
+          {t.unsubscribe} {mail}.
+        </p>
 
         <h2>{t.analyticsHeading}</h2>
         <p>{t.analytics}</p>
