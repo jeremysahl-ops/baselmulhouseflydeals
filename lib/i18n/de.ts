@@ -445,6 +445,14 @@ export const de: Dict = {
     whenRain: (n: number) => ['eher trocken', 'einzelne Schauer', 'recht regnerisch', 'sehr regnerisch'][n],
     whenCheap: 'unter den günstigsten Monaten für dieses Ziel',
     whenDear: 'unter den teuersten Monaten für dieses Ziel',
+    trajetHeading: 'Vom Flughafen ins Zentrum',
+    trajetLead: 'So kommen Sie vom Ankunftsflughafen ins Stadtzentrum, mit Fahrzeit und Preis einer Fahrt für eine Person.',
+    trajetCols: ['Verkehrsmittel', 'Fahrzeit', 'Richtpreis'],
+    trajetModes: { train: 'Zug', metro: 'U-Bahn', tram: 'Straßenbahn', bus: 'Bus', bateau: 'Schiff', taxi: 'Taxi', vtc: 'Fahrdienst (Uber, Bolt …)' },
+    trajetUnknown: 'vor Ort erfragen',
+    trajetTip: 'Spartipp',
+    trajetNote: (date) =>
+      `Ungefähre Preise, nur zur Orientierung (online recherchiert am ${date}): Tarife ändern sich, bitte vor der Reise prüfen. Taxi und Fahrdienst: Preis pro Fahrzeug, je nach Uhrzeit und Verkehr.`,
     whenClimate: 'Klima: Mittelwerte 2015–2024, von uns aus NASA-Daten (POWER) berechnet, Raster von etwa 50 km: durchschnittliche Tageshöchsttemperatur; Regen nach Monatssumme (unter 20 mm: eher trocken; über 110 mm: sehr regnerisch). Richtwerte, an der Küste etwas gemildert.',
   },
   notFound: {

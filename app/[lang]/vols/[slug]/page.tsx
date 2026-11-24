@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import AirportVisual from '@/components/AirportVisual';
 import QuandPartir from '@/components/QuandPartir';
+import TrajetCentre from '@/components/TrajetCentre';
 import PhotoIncontournable, { aDesPhotos } from '@/components/PhotoIncontournable';
 import { themeDe } from '@/components/ThemeIcon';
 import SejourTuiles from '@/components/SejourTuiles';
@@ -125,6 +126,8 @@ export default async function VillePage({ params }: Props) {
       )}
 
       <QuandPartir code={code} ville={ville} lang={lang} />
+
+      <TrajetCentre code={code} lang={lang} />
 
       <section id="prix" className="mt-12 scroll-mt-24" aria-labelledby="prix-titre">
         <h2 id="prix-titre" className="display text-4xl text-ink">{t.pricesHeading}</h2>

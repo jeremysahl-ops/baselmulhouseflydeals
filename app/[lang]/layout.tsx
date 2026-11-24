@@ -39,7 +39,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: ['/opengraph-image'],
     },
     twitter: { card: 'summary_large_image' },
-    icons: { icon: '/favicon.svg' },
+    // Google affiche dans ses résultats une icône PNG/ICO d'au moins 48 px (le SVG seul ne suffit pas).
+    icons: {
+      icon: [
+        { url: '/favicon.ico', sizes: '48x48' },
+        { url: '/icon-192.png', type: 'image/png', sizes: '192x192' },
+        { url: '/favicon.svg', type: 'image/svg+xml' },
+      ],
+      apple: '/apple-touch-icon.png',
+    },
     robots: { index: true, follow: true },
   };
 }

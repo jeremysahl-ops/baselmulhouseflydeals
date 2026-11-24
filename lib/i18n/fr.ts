@@ -452,6 +452,14 @@ export const fr = {
     whenRain: (n: number) => ['plutôt sec', 'quelques averses', 'assez pluvieux', 'très pluvieux'][n],
     whenCheap: 'parmi les mois les moins chers pour cette destination',
     whenDear: 'parmi les mois les plus chers pour cette destination',
+    trajetHeading: 'Rejoindre le centre-ville',
+    trajetLead: "Les façons de rejoindre le centre depuis l'aéroport d'arrivée, avec la durée et le prix d'un trajet pour une personne.",
+    trajetCols: ['Moyen', 'Durée', 'Prix indicatif'],
+    trajetModes: { train: 'Train', metro: 'Métro', tram: 'Tram', bus: 'Bus', bateau: 'Bateau', taxi: 'Taxi', vtc: 'VTC (Uber, Bolt…)' },
+    trajetUnknown: 'à vérifier sur place',
+    trajetTip: 'Bon plan',
+    trajetNote: (date: string) =>
+      `Prix approximatifs, donnés à titre indicatif (relevés en ligne le ${date}) : les tarifs changent, vérifiez-les avant de partir. Taxi et VTC : prix pour la voiture, selon l'heure et la circulation.`,
     whenClimate: "Climat : moyennes 2015-2024 calculées par nos soins à partir des données de la NASA (POWER), sur une grille d'environ 50 km : température maximale moyenne de la journée ; pluie selon le cumul du mois (moins de 20 mm : plutôt sec ; plus de 110 mm : très pluvieux). Valeurs indicatives, un peu adoucies au bord de la mer.",
   },
   notFound: {

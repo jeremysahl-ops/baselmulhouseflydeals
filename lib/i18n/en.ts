@@ -446,6 +446,14 @@ export const en: Dict = {
     whenRain: (n: number) => ['mostly dry', 'a few showers', 'fairly rainy', 'very rainy'][n],
     whenCheap: 'among the cheapest months for this destination',
     whenDear: 'among the most expensive months for this destination',
+    trajetHeading: 'Getting to the city centre',
+    trajetLead: 'How to get from the arrival airport to the city centre, with the journey time and the price of a single trip for one person.',
+    trajetCols: ['Transport', 'Time', 'Approx. price'],
+    trajetModes: { train: 'Train', metro: 'Metro', tram: 'Tram', bus: 'Bus', bateau: 'Boat', taxi: 'Taxi', vtc: 'Ride-hailing (Uber, Bolt…)' },
+    trajetUnknown: 'check locally',
+    trajetTip: 'Money-saving tip',
+    trajetNote: (date) =>
+      `Approximate prices, for guidance only (checked online on ${date}): fares change, so check before you travel. Taxi and ride-hailing: price per car, depending on time of day and traffic.`,
     whenClimate: 'Climate: 2015–2024 averages we calculated from NASA data (POWER), on a grid of about 50 km: average daily high; rain based on the monthly total (under 20 mm: mostly dry; over 110 mm: very rainy). Indicative values, slightly softened by the sea on the coast.',
   },
   notFound: {

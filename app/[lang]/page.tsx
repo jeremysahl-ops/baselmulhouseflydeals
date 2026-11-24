@@ -62,7 +62,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         />
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-board/70 via-board/40 to-board/75 lg:bg-gradient-to-r lg:from-board/75 lg:via-board/25 lg:to-transparent" aria-hidden="true" />
 
-        <div className="container-page grid gap-10 py-14 md:py-20 lg:grid-cols-[1fr_1.15fr] lg:items-start">
+        <div className="container-page grid gap-10 pb-14 pt-28 md:pb-20 md:pt-32 lg:grid-cols-[1fr_1.15fr] lg:items-start">
           <div className="text-white">
             <p className="eyebrow !text-white/75">{dict.common.tagline}</p>
             <h1 className="display mt-4 text-6xl drop-shadow-sm sm:text-7xl">
