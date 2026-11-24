@@ -3,7 +3,7 @@
 // Clé = code de l'aéroport. Noms : [français, allemand, anglais]. `guide` = clé de lib/destinations.ts quand un guide existe.
 import type { Lang } from '@/lib/i18n/config';
 
-type Country = 'MA' | 'FR' | 'ES' | 'TR' | 'GR' | 'IT' | 'DE' | 'GB' | 'HU' | 'CY' | 'DK' | 'PL' | 'TN' | 'HR' | 'PT' | 'EG' | 'MT' | 'CZ' | 'XK' | 'IS' | 'BA' | 'ME' | 'AT' | 'AL' | 'AM' | 'BG' | 'MK' | 'MD' | 'RO' | 'RS' | 'SK' | 'IE' | 'AE';
+type Country = 'MA' | 'FR' | 'ES' | 'TR' | 'GR' | 'IT' | 'DE' | 'GB' | 'HU' | 'CY' | 'DK' | 'PL' | 'TN' | 'HR' | 'PT' | 'EG' | 'MT' | 'CZ' | 'XK' | 'IS' | 'BA' | 'ME' | 'AT' | 'AL' | 'AM' | 'BG' | 'MK' | 'MD' | 'RO' | 'RS' | 'SK' | 'IE' | 'AE' | 'NL' | 'NO' | 'SE' | 'CA' | 'DZ';
 
 const COUNTRIES: Record<Country, [string, string, string]> = {
   MA: ['Maroc', 'Marokko', 'Morocco'],
@@ -39,10 +39,18 @@ const COUNTRIES: Record<Country, [string, string, string]> = {
   RO: ['Roumanie', 'Rumänien', 'Romania'],
   RS: ['Serbie', 'Serbien', 'Serbia'],
   SK: ['Slovaquie', 'Slowakei', 'Slovakia'],
+  NL: ['Pays-Bas', 'Niederlande', 'Netherlands'],
+  NO: ['Norvège', 'Norwegen', 'Norway'],
+  SE: ['Suède', 'Schweden', 'Sweden'],
+  CA: ['Canada', 'Kanada', 'Canada'],
+  DZ: ['Algérie', 'Algerien', 'Algeria'],
 };
 
 /** `photo` : identifiant Unsplash d'une photo de la ville (pour les villes sans guide), regardée sur planche avant d'être retenue. */
-interface Airport { names: [string, string, string]; country: Country; guide?: string; photo?: string; credit?: string }
+/** `sansReleve` : compagnies dont nos outils ne peuvent pas relever les prix (protection anti-robots, site fermé…).
+ *  La destination apparaît quand même, avec « Prix sur consultation » et un lien vers le site de la compagnie. */
+export interface CieSansReleve { nom: string; url: string }
+interface Airport { names: [string, string, string]; country: Country; guide?: string; photo?: string; credit?: string; sansReleve?: CieSansReleve[] }
 
 export const AIRPORTS: Record<string, Airport> = {
   AGA: { names: ['Agadir', 'Agadir', 'Agadir'], country: 'MA', guide: 'Agadir' },
@@ -153,6 +161,28 @@ export const AIRPORTS: Record<string, Airport> = {
   ZAG: { names: ['Zagreb', 'Zagreb', 'Zagreb'], country: 'HR', guide: 'Zagreb' },
   // flydubai (19/11/2026) : vols à partir de juillet 2027
   DXB: { names: ['Dubaï', 'Dubai', 'Dubai'], country: 'AE', guide: 'Dubai', photo: 'photo-1512453979798-5ea266f8880c' },
+
+  // Compagnies dont nos outils ne peuvent pas relever les prix (24/11/2026) : affichées avec « Prix sur consultation ».
+  // Photos Unsplash regardées et lieu vérifié sur la page de chaque photo (Francfort, Izmir, Cappadoce, Gaziantep, Stockholm,
+  // Montréal, Alger, Constantine, Oran, Rabat).
+  CDG: { names: ['Paris', 'Paris', 'Paris'], country: 'FR', guide: 'Paris', sansReleve: [{ nom: 'Air France', url: 'https://wwws.airfrance.fr/fr-fr/vols-de-mulhouse-bale' }] },
+  AMS: { names: ['Amsterdam', 'Amsterdam', 'Amsterdam'], country: 'NL', guide: 'Amsterdam', sansReleve: [{ nom: 'KLM', url: 'https://www.klm.com' }] },
+  FRA: { names: ['Francfort', 'Frankfurt', 'Frankfurt'], country: 'DE', guide: 'Francfort', photo: 'photo-1774112168787-39b113156088', sansReleve: [{ nom: 'Lufthansa', url: 'https://www.lufthansa.com' }] },
+  MUC: { names: ['Munich', 'München', 'Munich'], country: 'DE', guide: 'Munich', sansReleve: [{ nom: 'Lufthansa', url: 'https://www.lufthansa.com' }] },
+  LHR: { names: ['Londres Heathrow', 'London Heathrow', 'London Heathrow'], country: 'GB', guide: 'Londres', sansReleve: [{ nom: 'British Airways', url: 'https://www.britishairways.com' }] },
+  IST: { names: ['Istanbul Airport', 'Istanbul Airport', 'Istanbul Airport'], country: 'TR', guide: 'Istanbul', sansReleve: [{ nom: 'Turkish Airlines', url: 'https://www.turkishairlines.com' }] },
+  ADB: { names: ['Izmir', 'Izmir', 'Izmir'], country: 'TR', guide: 'Izmir', photo: 'photo-1719688550640-e27dda479c57', sansReleve: [{ nom: 'SunExpress', url: 'https://www.sunexpress.com' }] },
+  ASR: { names: ['Kayseri (Cappadoce)', 'Kayseri (Kappadokien)', 'Kayseri (Cappadocia)'], country: 'TR', guide: 'Kayseri (Cappadoce)', photo: 'photo-1787117230742-4ca4f2ac8bfa', sansReleve: [{ nom: 'SunExpress', url: 'https://www.sunexpress.com' }] },
+  GZT: { names: ['Gaziantep', 'Gaziantep', 'Gaziantep'], country: 'TR', guide: 'Gaziantep', photo: 'photo-1662047159388-f5954f2dc592', sansReleve: [{ nom: 'SunExpress', url: 'https://www.sunexpress.com' }] },
+  OSL: { names: ['Oslo', 'Oslo', 'Oslo'], country: 'NO', guide: 'Oslo', sansReleve: [{ nom: 'Norwegian', url: 'https://www.norwegian.com' }] },
+  ARN: { names: ['Stockholm', 'Stockholm', 'Stockholm'], country: 'SE', guide: 'Stockholm', photo: 'photo-1509356843151-3e7d96241e11', sansReleve: [{ nom: 'Norwegian', url: 'https://www.norwegian.com' }] },
+  YUL: { names: ['Montréal', 'Montreal', 'Montreal'], country: 'CA', guide: 'Montreal', photo: 'photo-1575540576545-3db8561c29e4', sansReleve: [{ nom: 'Air Transat', url: 'https://www.airtransat.com' }, { nom: 'Air Canada', url: 'https://www.aircanada.com' }] },
+  ALG: { names: ['Alger', 'Algier', 'Algiers'], country: 'DZ', guide: 'Alger', photo: 'photo-1706002027900-a1be40d0627e', sansReleve: [{ nom: 'Air Algérie', url: 'https://airalgerie.dz' }, { nom: 'ASL Airlines', url: 'https://www.aslairlines.fr' }] },
+  CZL: { names: ['Constantine', 'Constantine', 'Constantine'], country: 'DZ', guide: 'Constantine', photo: 'photo-1664403809653-b91d0b61ac55', sansReleve: [{ nom: 'Air Algérie', url: 'https://airalgerie.dz' }, { nom: 'ASL Airlines', url: 'https://www.aslairlines.fr' }] },
+  ORN: { names: ['Oran', 'Oran', 'Oran'], country: 'DZ', guide: 'Oran', photo: 'photo-1653815129496-445487ae0479', sansReleve: [{ nom: 'ASL Airlines', url: 'https://www.aslairlines.fr' }] },
+  CMN: { names: ['Casablanca', 'Casablanca', 'Casablanca'], country: 'MA', guide: 'Casablanca', sansReleve: [{ nom: 'Air Arabia', url: 'https://www.airarabia.com' }] },
+  RBA: { names: ['Rabat', 'Rabat', 'Rabat'], country: 'MA', guide: 'Rabat', photo: 'photo-1737921650058-200b00360ada', sansReleve: [{ nom: 'Air Arabia', url: 'https://www.airarabia.com' }] },
+  TUN: { names: ['Tunis', 'Tunis', 'Tunis'], country: 'TN', guide: 'Tunis', sansReleve: [{ nom: 'Nouvelair', url: 'https://www.nouvelair.com' }] },
 };
 
 const IDX: Record<Lang, 0 | 1 | 2> = { fr: 0, de: 1, en: 2 };

@@ -58,6 +58,7 @@ export default async function VillePage({ params }: Props) {
   const aligne = guide ? aDesPhotos([0, 1, 2].map((i) => `${guide}|${i}`)) : false;
   const tips = conseils(code, lang);
   const best = meilleurParVille().find((c) => c.code === code)?.prix ?? null;
+  const sansReleve = AIRPORTS[code].sansReleve;
 
   return (
     <div className="container-page py-10">
@@ -134,7 +135,21 @@ export default async function VillePage({ params }: Props) {
         {ville && <p className="mb-6 mt-2 text-ink-soft"><DateReleve texte={t.lead(dict.place.city, formatStamp(ville.vuLe, lang))} date={formatStamp(ville.vuLe, lang)} /></p>}
       </section>
 
-      {!ville || ville.mois.length === 0 ? (
+      {(!ville || ville.mois.length === 0) && sansReleve ? (
+        <div className="board px-5 py-6">
+          <p className="text-sm text-board-text">
+            <span className="mr-2 rounded bg-board-row px-2 py-0.5 font-board text-xs text-flap">{dict.destinations.onRequest}</span>
+            {t.noReleve(label, sansReleve.map((c) => c.nom).join(lang === 'fr' ? ' et ' : lang === 'de' ? ' und ' : ' and '))}
+          </p>
+          <ul className="mt-4 flex flex-wrap gap-3">
+            {sansReleve.map((c) => (
+              <li key={c.nom}>
+                <a href={c.url} target="_blank" rel="noopener nofollow" className="btn-primary">{t.noReleveBtn(c.nom)} →</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : !ville || ville.mois.length === 0 ? (
         <p className="board px-5 py-8 text-sm text-board-dim">{t.noData(label)}</p>
       ) : (
         <div className="space-y-5">
@@ -191,7 +206,7 @@ export default async function VillePage({ params }: Props) {
         </div>
       )}
 
-      <p className="mt-6 max-w-3xl text-xs leading-relaxed text-ink-muted">{dict.board.note}</p>
+      {ville && <p className="mt-6 max-w-3xl text-xs leading-relaxed text-ink-muted">{dict.board.note}</p>}
 
       <section className="mt-12" aria-labelledby="pour-ton-sejour">
         <h2 id="pour-ton-sejour" className="display text-4xl text-ink">{dict.pourTonSejour.heading}</h2>

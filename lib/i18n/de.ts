@@ -16,6 +16,8 @@ export const de: Dict = {
   common: {
     skip: 'Zum Inhalt springen',
     tagline: 'Flug-Schnäppchen aus dem Dreiländereck',
+    /** Phrase d'accroche en haut de l'accueil (choisie par l'utilisateur le 24/11/2026). */
+    accroche: 'Verpassen Sie nicht den besten Preis für Ihre nächste Reise',
     logoSub: 'Deals · Dreiländereck',
     logoAria: 'FlyBSL, Startseite',
     home: 'Startseite',
@@ -260,6 +262,7 @@ export const de: Dict = {
     lead: (airport) =>
       `Alle Städte im Direktflug ab dem ${airport}, deren Preise wir erfassen. Wählen Sie eine, um Monat für Monat den üblichen Preis und die besten Kombis zu sehen.`,
     from: (price) => `ab ${price}`,
+    onRequest: 'Preis auf Anfrage',
     pending: 'Erfassung folgt',
   },
   guide: {
@@ -428,6 +431,9 @@ export const de: Dict = {
     courant: (price) => `üblicher Preis ${price}`,
     noCombo: 'keine Kombi in diesem Monat',
     guide: (label) => `Was tun in ${label}? Unser Tag-für-Tag-Guide`,
+    noReleve: (label, cies) =>
+      `Mit unseren Werkzeugen können wir die Preise von ${cies} nach ${label} nicht erfassen. Preise und Flugzeiten finden Sie direkt auf der Website der Fluggesellschaft:`,
+    noReleveBtn: (cie) => `Preise bei ${cie} ansehen`,
     noData: (label) => `Für ${label} wurden noch keine Preise erfasst. Die Erfassung läuft jede Woche: Schauen Sie bald wieder vorbei.`,
     mustHeading: (label) => `Die Highlights von ${label}`,
     mustMore: 'Das ganze Programm Tag für Tag ansehen',

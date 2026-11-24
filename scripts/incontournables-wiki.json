@@ -107,5 +107,15 @@
 "Cluj-Napoca|0": "St. Michael's Church, Cluj-Napoca", "Cluj-Napoca|1": "Cluj-Napoca Botanical Garden", "Cluj-Napoca|2": "Salina Turda",
 "Targu Mures|0": "Palace of Culture (Târgu Mureș)", "Targu Mures|1": "Târgu Mureș Citadel", "Targu Mures|2": "Historic Centre of Sighișoara",
 "Nis|0": "Niš Fortress", "Nis|1": "Skull Tower", "Nis|2": "Mediana",
-"Bratislava|0": "St. Michael's Gate", "Bratislava|1": "Bratislava Castle", "Bratislava|2": "Most SNP"
+"Bratislava|0": "St. Michael's Gate", "Bratislava|1": "Bratislava Castle", "Bratislava|2": "Most SNP",
+"Francfort|0": "Römer", "Francfort|1": "Eiserner Steg", "Francfort|2": "Apfelwein",
+"Izmir|0": "İzmir Clock Tower", "Izmir|1": "Kemeraltı", "Izmir|2": "Kadifekale",
+"Kayseri (Cappadoce)|0": "Göreme Open Air Museum", "Kayseri (Cappadoce)|1": "Cappadocia", "Kayseri (Cappadoce)|2": "Uçhisar",
+"Gaziantep|0": "Zeugma Mosaic Museum", "Gaziantep|1": "Gaziantep Castle", "Gaziantep|2": "Baklava",
+"Stockholm|0": "Gamla stan", "Stockholm|1": "Vasa Museum", "Stockholm|2": "Södermalm",
+"Montreal|0": "Old Montreal", "Montreal|1": "Mount Royal", "Montreal|2": "Plateau-Mont-Royal",
+"Alger|0": "Casbah of Algiers", "Alger|1": "Grande Poste d'Alger", "Alger|2": "Maqam Echahid",
+"Constantine|0": "Sidi M'Cid Bridge", "Constantine|1": "Palace of Ahmed Bey", "Constantine|2": "Emir Abdelkader Mosque",
+"Oran|0": "Oran", "Oran|1": "Place du 1er Novembre (Oran)", "Oran|2": "Pasha Mosque (Oran)",
+"Rabat|0": "Hassan Tower", "Rabat|1": "Kasbah of the Udayas", "Rabat|2": "Rabat"
 }

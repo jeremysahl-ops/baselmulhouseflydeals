@@ -23,4 +23,11 @@ export const COORDS: Record<string, [number, number]> = {
   POZ: [52.42, 16.83], WAW: [52.17, 20.97], WRO: [51.1, 16.89], OTP: [44.57, 26.1], BBU: [44.5, 26.1],
   CLJ: [46.79, 23.69], IAS: [47.18, 27.62], TSR: [45.81, 21.34], TGM: [46.47, 24.41], BEG: [44.82, 20.31],
   INI: [43.34, 21.85], BTS: [48.17, 17.21],
+  CDG: [49.01, 2.55], AMS: [52.31, 4.76], FRA: [50.03, 8.57], MUC: [48.35, 11.79], LHR: [51.47, -0.45], IST: [41.26, 28.74],
+  ADB: [38.29, 27.16], ASR: [38.77, 35.5], GZT: [36.95, 37.48], OSL: [60.19, 11.1], ARN: [59.65, 17.92], ALG: [36.69, 3.21],
+  CZL: [36.28, 6.62], ORN: [35.62, -0.62], CMN: [33.37, -7.59], RBA: [34.05, -6.75], TUN: [36.85, 10.23],
+  YUL: [45.47, -73.74],
 };
+
+/** Destinations trop lointaines pour la carte d'Europe de l'accueil (elles écraseraient tout le reste). */
+export const HORS_CARTE = new Set(['YUL']);

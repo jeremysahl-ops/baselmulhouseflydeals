@@ -115,6 +115,16 @@ const NAMES: Record<string, Names> = {
   'Targu Mures': { de: ['Neumarkt am Mieresch', 'Rumänien'], en: ['Târgu Mureș', 'Romania'] },
   'Nis': { de: ['Niš', 'Serbien'], en: ['Niš', 'Serbia'] },
   'Bratislava': { de: ['Bratislava', 'Slowakei'], en: ['Bratislava', 'Slovakia'] },
+  'Francfort': { de: ['Frankfurt', 'Deutschland'], en: ['Frankfurt', 'Germany'] },
+  'Izmir': { de: ['Izmir', 'Türkei'], en: ['Izmir', 'Turkey'] },
+  'Kayseri (Cappadoce)': { de: ['Kayseri (Kappadokien)', 'Türkei'], en: ['Kayseri (Cappadocia)', 'Turkey'] },
+  'Gaziantep': { de: ['Gaziantep', 'Türkei'], en: ['Gaziantep', 'Turkey'] },
+  'Stockholm': { de: ['Stockholm', 'Schweden'], en: ['Stockholm', 'Sweden'] },
+  'Montreal': { de: ['Montreal', 'Kanada'], en: ['Montreal', 'Canada'] },
+  'Alger': { de: ['Algier', 'Algerien'], en: ['Algiers', 'Algeria'] },
+  'Constantine': { de: ['Constantine', 'Algerien'], en: ['Constantine', 'Algeria'] },
+  'Oran': { de: ['Oran', 'Algerien'], en: ['Oran', 'Algeria'] },
+  'Rabat': { de: ['Rabat', 'Marokko'], en: ['Rabat', 'Morocco'] },
 };
 
 /** Nom de la ville dans la langue demandée (à défaut : le nom français, puis la clé). */

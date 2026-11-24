@@ -7,7 +7,7 @@ import { feature } from 'topojson-client';
 import land50 from 'world-atlas/land-50m.json';
 import RouteMapClient, { type MapRoute } from '@/components/RouteMapClient';
 import { AIRPORTS, airportCountry, airportName, airportSlug } from '@/lib/airports';
-import { BSL_COORDS, COORDS } from '@/lib/coords';
+import { BSL_COORDS, COORDS, HORS_CARTE } from '@/lib/coords';
 import { DUREES, getVilles } from '@/lib/prix';
 import { formatMonth } from '@/lib/format';
 import { getDict, localePath, type Lang } from '@/lib/i18n';
@@ -16,7 +16,7 @@ const W = 1000;
 const H = 700;
 
 function geometrie() {
-  const pts = Object.values(COORDS).map(([lat, lon]) => [lon, lat]);
+  const pts = Object.entries(COORDS).filter(([c]) => !HORS_CARTE.has(c)).map(([, [lat, lon]]) => [lon, lat]);
   const projection = geoConicConformal()
     .parallels([35, 60])
     .rotate([-10, 0])
@@ -42,7 +42,7 @@ export default function RouteMap({ lang }: { lang: Lang }) {
   const villes = new Map(getVilles().map((v) => [v.code, v]));
   const moisSet = new Set<string>();
   const routes: MapRoute[] = Object.keys(AIRPORTS)
-    .filter((c) => COORDS[c])
+    .filter((c) => COORDS[c] && !HORS_CARTE.has(c))
     .map((code) => {
       const [x, y] = xy(...COORDS[code]);
       const prix: MapRoute['prix'] = {};

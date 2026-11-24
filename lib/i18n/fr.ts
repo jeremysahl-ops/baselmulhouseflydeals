@@ -17,6 +17,8 @@ export const fr = {
   common: {
     skip: 'Aller au contenu',
     tagline: 'Les bons plans vols des trois frontières',
+    /** Phrase d'accroche en haut de l'accueil (choisie par l'utilisateur le 24/11/2026). */
+    accroche: 'Ne manquez pas le meilleur tarif pour votre prochain voyage',
     logoSub: 'Deals · 3 frontières',
     logoAria: 'FlyBSL, accueil',
     home: 'Accueil',
@@ -264,6 +266,7 @@ export const fr = {
     lead: (airport: string) =>
       `Toutes les villes desservies en vol direct depuis l'${airport} dont nous relevons les prix. Choisissez-en une pour voir, mois par mois, son prix courant et les meilleurs combos trouvés.`,
     from: (price: string) => `dès ${price}`,
+    onRequest: 'Prix sur consultation',
     pending: 'relevé à venir',
   },
   guide: {
@@ -435,6 +438,9 @@ export const fr = {
     courant: (price: string) => `prix courant ${price}`,
     noCombo: 'pas de combo ce mois-ci',
     guide: (label: string) => `Que faire à ${label} ? Notre guide jour par jour`,
+    noReleve: (label: string, cies: string) =>
+      `Nos outils ne nous permettent pas de relever les prix des vols ${cies} vers ${label}. Consultez les prix et les horaires directement sur le site de la compagnie :`,
+    noReleveBtn: (cie: string) => `Voir les prix chez ${cie}`,
     noData: (label: string) => `Pas encore de prix relevé pour ${label}. Les relevés tournent chaque semaine : revenez bientôt.`,
     mustHeading: (label: string) => `Les incontournables ${de(label)}`,
     mustMore: 'Voir le programme complet, jour par jour',

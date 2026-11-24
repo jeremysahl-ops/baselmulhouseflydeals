@@ -15,6 +15,8 @@ export const en: Dict = {
   common: {
     skip: 'Skip to content',
     tagline: 'Flight deals from the three-border region',
+    /** Phrase d'accroche en haut de l'accueil (choisie par l'utilisateur le 24/11/2026). */
+    accroche: 'Don’t miss the best fare for your next trip',
     logoSub: 'Deals · 3 borders',
     logoAria: 'FlyBSL, home',
     home: 'Home',
@@ -261,6 +263,7 @@ export const en: Dict = {
     lead: (airport) =>
       `Every city with direct flights from ${airport} whose prices we check. Pick one to see its usual price and the best combos we found, month by month.`,
     from: (price) => `from ${price}`,
+    onRequest: 'Price on request',
     pending: 'check coming soon',
   },
   guide: {
@@ -429,6 +432,9 @@ export const en: Dict = {
     courant: (price) => `usual price ${price}`,
     noCombo: 'no combo this month',
     guide: (label) => `What to do in ${label}? Our day-by-day guide`,
+    noReleve: (label, cies) =>
+      `Our tools cannot check ${cies} fares to ${label}. See prices and schedules directly on the airline’s website:`,
+    noReleveBtn: (cie) => `See prices at ${cie}`,
     noData: (label) => `No fares checked for ${label} yet. Checks run every week: come back soon.`,
     mustHeading: (label) => `The must-sees of ${label}`,
     mustMore: 'See the full day-by-day itinerary',

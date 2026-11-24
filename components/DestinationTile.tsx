@@ -1,7 +1,7 @@
 // Vignette d'une destination : photo (ou étiquette BSL → code), nom, pays et prix « dès … ».
 import Link from 'next/link';
 import AirportVisual from '@/components/AirportVisual';
-import { airportCountry, airportName, airportSlug } from '@/lib/airports';
+import { AIRPORTS, airportCountry, airportName, airportSlug } from '@/lib/airports';
 import { formatPrice } from '@/lib/format';
 import { getDict, localePath, type Lang } from '@/lib/i18n';
 
@@ -32,6 +32,8 @@ export default function DestinationTile({
       </div>
       {price != null ? (
         <span className="flap absolute right-3 top-3 !bg-board/90 text-sm">{t.from(formatPrice(price, lang))}</span>
+      ) : AIRPORTS[code]?.sansReleve ? (
+        <span className="absolute right-3 top-3 rounded bg-board/90 px-2 py-0.5 font-board text-[11px] text-flap">{t.onRequest}</span>
       ) : (
         <span className="absolute right-3 top-3 rounded bg-black/50 px-2 py-0.5 font-board text-[11px] text-white/85">{t.pending}</span>
       )}

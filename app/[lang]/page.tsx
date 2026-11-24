@@ -64,7 +64,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
         <div className="container-page grid gap-10 pb-14 pt-28 md:pb-20 md:pt-32 lg:grid-cols-[1fr_1.15fr] lg:items-start">
           <div className="text-white">
-            <p className="eyebrow !text-white/75">{dict.common.tagline}</p>
+            <p className="eyebrow !text-white/75">{dict.common.accroche}</p>
             <h1 className="display mt-4 text-6xl drop-shadow-sm sm:text-7xl">
               {t.h1a}
               <span className="mt-1 block text-4xl text-white/85 xl:text-5xl">{t.h1b(dict.place.city)}</span>
