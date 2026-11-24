@@ -50,11 +50,14 @@ function arc(x1: number, y1: number, x2: number, y2: number): string {
 }
 
 export default function RouteMapClient({
-  width, height, land, origin, routes, mois, durees, t, lang,
+  width, height, land, borders, served, flags, origin, routes, mois, durees, t, lang,
 }: {
   width: number;
   height: number;
   land: string;
+  borders: string;
+  served: string;
+  flags: { iso: string; x: number; y: number }[];
   origin: { x: number; y: number };
   routes: MapRoute[];
   mois: { value: string; label: string; year: string }[];
@@ -107,11 +110,23 @@ export default function RouteMapClient({
   const changer = (f: () => void) => { f(); setBudget(null); };
 
   return (
-    <div className="overflow-hidden rounded-lg bg-board text-board-text shadow-xl lg:grid lg:grid-cols-[minmax(0,1fr)_300px]">
+    <div className="overflow-hidden rounded-lg bg-[#172c48] text-board-text shadow-xl lg:grid lg:grid-cols-[minmax(0,1fr)_300px]">
       <div className="relative self-center">
         <svg viewBox={`0 0 ${width} ${height}`} className="block h-auto w-full" role="img" aria-label={t.heading}>
-          <rect width={width} height={height} fill="#0a1626" />
-          <path d={land} fill="#1b2d45" stroke="#2a4262" strokeWidth={0.6} />
+          {/* Carte « de jour » : mer bleu clair, terres claires, pays desservis légèrement dorés, frontières visibles. */}
+          <rect width={width} height={height} fill="#12243b" />
+          <path d={land} fill="#26405f" stroke="#3d5b80" strokeWidth={0.7} />
+          <path d={served} fill="#2f4d72" />
+          <path d={borders} fill="none" stroke="#7d9cc2" strokeWidth={0.8} strokeLinejoin="round" />
+          {/* Drapeaux des pays desservis */}
+          <g pointerEvents="none">
+            {flags.map((f) => (
+              <g key={f.iso}>
+                <image href={`/drapeaux/${f.iso}.svg`} x={f.x - 9} y={f.y - 6.75} width={18} height={13.5} preserveAspectRatio="none" />
+                <rect x={f.x - 9} y={f.y - 6.75} width={18} height={13.5} fill="none" stroke="#ffffff" strokeOpacity={0.5} strokeWidth={0.6} />
+              </g>
+            ))}
+          </g>
           {/* Routes */}
           <g fill="none" strokeLinecap="round">
             {routes.map((r) => {
@@ -122,7 +137,7 @@ export default function RouteMapClient({
                   key={r.code}
                   d={arc(origin.x, origin.y, r.x, r.y)}
                   stroke={focus === r.code ? '#ffffff' : '#ffc72c'}
-                  strokeWidth={focus === r.code ? 2.4 : 1.3}
+                  strokeWidth={focus === r.code ? 2.4 : 1.4}
                   style={{ opacity: on ? (focus && focus !== r.code ? 0.25 : 0.85) : 0, transition: 'opacity 350ms ease' }}
                 />
               );
@@ -136,15 +151,15 @@ export default function RouteMapClient({
               <Link key={r.code} href={r.href} aria-label={`${r.name}${p != null ? ' — ' + fill(t.from, { p: eur(p) }) : ''}`}>
                 <g onMouseEnter={() => setFocus(r.code)} onMouseLeave={() => setFocus(null)} onFocus={() => setFocus(r.code)} onBlur={() => setFocus(null)} className="cursor-pointer">
                   <circle cx={r.x} cy={r.y} r={11} fill="transparent" />
-                  <circle cx={r.x} cy={r.y} r={on ? 3.6 : 2.2} fill={on ? '#ffc72c' : '#4d6687'} style={{ transition: 'all 300ms ease' }} />
+                  <circle cx={r.x} cy={r.y} r={on ? 3.6 : 2.2} fill={on ? '#ffc72c' : '#5b7699'} stroke={on ? '#0d1b2e' : 'none'} strokeWidth={1.2} style={{ transition: 'all 300ms ease' }} />
                 </g>
               </Link>
             );
           })}
           {/* Bâle-Mulhouse */}
-          <circle cx={origin.x} cy={origin.y} r={9} fill="#ffc72c" opacity={0.25} />
+          <circle cx={origin.x} cy={origin.y} r={9} fill="#ffc72c" opacity={0.45} />
           <circle cx={origin.x} cy={origin.y} r={5} fill="#ffc72c" stroke="#0d1b2e" strokeWidth={1.5} />
-          <text x={origin.x + 9} y={origin.y - 9} className="font-board" fontSize={15} fontWeight={700} fill="#ffffff">BSL</text>
+          <text x={origin.x + 9} y={origin.y - 9} className="font-board" fontSize={15} fontWeight={700} fill="#ffffff" stroke="#12243b" strokeWidth={3} paintOrder="stroke">BSL</text>
           {/* Étiquette de la ville survolée */}
           {actif && (
             <g pointerEvents="none">
@@ -163,7 +178,7 @@ export default function RouteMapClient({
       <div className="space-y-4 border-t border-white/10 px-4 py-4 sm:px-5 lg:border-l lg:border-t-0 lg:py-5">
         <div>
           <p className="mb-2 text-[11px] uppercase tracking-wider text-board-dim">{t.monthLabel}</p>
-          <div className="-mx-1 flex gap-1.5 overflow-x-auto px-1 pb-1 lg:mx-0 lg:flex-wrap lg:overflow-visible lg:px-0">
+          <div className="-mx-1 flex gap-1.5 overflow-x-auto px-1 pb-1 [scrollbar-color:#4d6687_transparent] [scrollbar-width:thin] lg:mx-0 lg:flex-wrap lg:overflow-visible lg:px-0">
             {[{ value: '', label: t.allMonths, year: '' }, ...mois].map((m) => (
               <button
                 key={m.value || 'tous'}
@@ -199,7 +214,7 @@ export default function RouteMapClient({
           <div>
             <label htmlFor="budget-carte" className="flex items-baseline justify-between gap-3">
               <span className="text-[11px] uppercase tracking-wider text-board-dim">{fill(t.budget, { p: '' }).trim()}</span>
-              <span className="flap text-xl">{eur(plafond)}</span>
+              <span className="flap bg-[#0d1b2e] text-xl">{eur(plafond)}</span>
             </label>
             <input
               id="budget-carte"

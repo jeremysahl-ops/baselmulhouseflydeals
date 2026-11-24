@@ -42,7 +42,8 @@ async function infosCommons(fichiers) {
 // Images refusées au contrôle visuel (mauvais lieu, image peu parlante…) : jamais reprises.
 const REJ = 'scripts/incontournables-rejets.json';
 const rejets = new Set(existsSync(REJ) ? JSON.parse(readFileSync(REJ, 'utf8')) : []);
-for (const k of Object.keys(res)) if (rejets.has(k)) delete res[k];
+// Les photos ajoutées à la main après contrôle (champ « source ») sont gardées même si l'image automatique avait été refusée.
+for (const k of Object.keys(res)) if (rejets.has(k) && !res[k].source) delete res[k];
 const cles = Object.keys(carte).filter((k) => !res[k] && !rejets.has(k));
 for (let i = 0; i < cles.length; i += 10) {
   const lot = cles.slice(i, i + 10);

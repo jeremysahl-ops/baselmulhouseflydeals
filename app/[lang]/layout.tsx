@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/react';
 import '../globals.css';
 import Header from '@/components/Header';
 import EnregistrerApp from '@/components/EnregistrerApp';
+import FondBanderoles from '@/components/FondBanderoles';
 import Footer from '@/components/Footer';
 import { SITE } from '@/lib/site';
 import { LOCALES, OG_LOCALE, alternatesFor, getDict, isLang, localePath } from '@/lib/i18n';
@@ -65,6 +66,7 @@ export default async function RootLayout({ children, params }: Readonly<{ childr
         <a href="#contenu" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold">
           {t.common.skip}
         </a>
+        <FondBanderoles />
         <Header lang={lang} />
         <main id="contenu" className="min-h-[70vh]">{children}</main>
         <Footer lang={lang} />

@@ -98,3 +98,16 @@ body {
     @apply font-medium text-brand underline underline-offset-2;
   }
 }
+
+/* Décor de fond : avions qui tirent une banderole FLYBSL (components/FondBanderoles.tsx). */
+.fond-banderoles { position: fixed; inset: -30%; z-index: -10; pointer-events: none; transform: rotate(-14deg); opacity: .18; overflow: hidden; }
+.fond-bande { height: 84px; margin: 0 0 150px; display: flex; align-items: center; white-space: nowrap; animation: fond-vole 60s linear infinite; }
+.fond-bande:nth-child(even) { animation-duration: 75s; margin-left: -260px; }
+@keyframes fond-vole { from { transform: translateX(-520px); } to { transform: translateX(0); } }
+.fond-motif { display: inline-flex; align-items: center; width: 520px; flex: none; }
+.fond-trainee { width: 90px; height: 22px; background: repeating-linear-gradient(180deg, transparent 0 4px, #ffc72c 4px 6px, transparent 6px 9px); -webkit-mask: linear-gradient(90deg, transparent, #000); mask: linear-gradient(90deg, transparent, #000); }
+.fond-banniere { background: #0d1b2e; color: #fff; font-weight: 900; letter-spacing: .08em; font-size: 26px; padding: 6px 16px 6px 26px; border-radius: 3px; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 6% 50%); }
+.fond-banniere b { color: #ffc72c; }
+.fond-corde { width: 46px; height: 2px; background: #0d1b2e; }
+.fond-avion { width: 44px; height: 44px; background: #0d1b2e; border-radius: 4px; display: grid; place-items: center; }
+@media (prefers-reduced-motion: reduce) { .fond-bande { animation: none; } }

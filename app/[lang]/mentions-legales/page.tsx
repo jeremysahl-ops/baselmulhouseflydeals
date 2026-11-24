@@ -87,7 +87,7 @@ const COPY: Record<Lang, Copy> = {
         heading: 'Propriété intellectuelle',
         paragraphs: [
           "Les textes, la sélection et la présentation des informations du site sont la propriété de l'éditeur. Toute reproduction substantielle sans autorisation est interdite.",
-          "Les photographies proviennent d'Unsplash et sont utilisées selon la licence Unsplash ; elles restent la propriété de leurs auteurs.",
+          "Les photographies proviennent d'Unsplash (licence Unsplash) et de Wikimedia Commons (licences Creative Commons ou domaine public). Pour ces dernières, l'auteur et la licence figurent sous chaque photo, avec un lien vers la page d'origine ; elles peuvent être recadrées à l'affichage. Les drapeaux proviennent de flag-icons (licence MIT, certains simplifiés) et le fond de carte de Natural Earth (domaine public). Tout titulaire de droits peut nous écrire à l'adresse de contact : nous retirerons sans délai le contenu concerné.",
         ],
       },
       {
@@ -105,7 +105,7 @@ const COPY: Record<Lang, Copy> = {
       },
     ],
     privacyLink: 'Politique de confidentialité',
-    updated: 'Dernière mise à jour : 17 novembre 2026.',
+    updated: 'Dernière mise à jour : 24 novembre 2026.',
   },
   de: {
     title: 'Impressum und Nutzungsbedingungen',
@@ -161,7 +161,7 @@ const COPY: Record<Lang, Copy> = {
         heading: 'Urheberrecht',
         paragraphs: [
           'Die Texte sowie die Auswahl und Darstellung der Informationen sind Eigentum des Herausgebers. Eine wesentliche Vervielfältigung ohne Genehmigung ist untersagt.',
-          'Die Fotos stammen von Unsplash und werden gemäß der Unsplash-Lizenz verwendet; sie bleiben Eigentum ihrer Urheber.',
+          "Die Fotos stammen von Unsplash (Unsplash-Lizenz) und Wikimedia Commons (Creative-Commons-Lizenzen oder gemeinfrei). Bei letzteren stehen Urheber und Lizenz unter jedem Foto, mit Link zur Originalseite; sie können beschnitten dargestellt werden. Die Flaggen stammen von flag-icons (MIT-Lizenz, teils vereinfacht), die Kartengrundlage von Natural Earth (gemeinfrei). Rechteinhaber können uns über die Kontaktadresse schreiben: Wir entfernen den betreffenden Inhalt umgehend.",
         ],
       },
       {
@@ -179,7 +179,7 @@ const COPY: Record<Lang, Copy> = {
       },
     ],
     privacyLink: 'Datenschutzerklärung',
-    updated: 'Letzte Aktualisierung: 17. November 2026.',
+    updated: 'Letzte Aktualisierung: 24. November 2026.',
   },
   en: {
     title: 'Legal notice and terms of use',
@@ -235,7 +235,7 @@ const COPY: Record<Lang, Copy> = {
         heading: 'Intellectual property',
         paragraphs: [
           "The text and the selection and presentation of the site's information belong to the publisher. Substantial reproduction without permission is prohibited.",
-          'The photographs come from Unsplash and are used under the Unsplash licence; they remain the property of their authors.',
+          "Photographs come from Unsplash (Unsplash licence) and Wikimedia Commons (Creative Commons licences or public domain). For the latter, author and licence appear under each photo with a link to the original page; they may be cropped for display. Flags come from flag-icons (MIT licence, some simplified) and the base map from Natural Earth (public domain). Rights holders can write to our contact address: we will promptly remove the content concerned.",
         ],
       },
       {
@@ -253,7 +253,7 @@ const COPY: Record<Lang, Copy> = {
       },
     ],
     privacyLink: 'Privacy policy',
-    updated: 'Last updated: 17 November 2026.',
+    updated: 'Last updated: 24 November 2026.',
   },
 };
 

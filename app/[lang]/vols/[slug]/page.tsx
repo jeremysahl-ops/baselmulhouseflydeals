@@ -111,6 +111,10 @@ export default async function VillePage({ params }: Props) {
         </section>
       )}
 
+      <QuandPartir code={code} ville={ville} lang={lang} />
+
+      <TrajetCentre code={code} lang={lang} />
+
       {tips && (
         <section className="mt-12" aria-labelledby="conseils">
           <h2 id="conseils" className="display text-4xl text-ink">{t.tipsHeading}</h2>
@@ -125,10 +129,6 @@ export default async function VillePage({ params }: Props) {
           <p className="mt-2 text-xs text-ink-muted">{t.tipsNote}</p>
         </section>
       )}
-
-      <QuandPartir code={code} ville={ville} lang={lang} />
-
-      <TrajetCentre code={code} lang={lang} />
 
       <section id="prix" className="mt-12 scroll-mt-24" aria-labelledby="prix-titre">
         <h2 id="prix-titre" className="display text-4xl text-ink">{t.pricesHeading}</h2>

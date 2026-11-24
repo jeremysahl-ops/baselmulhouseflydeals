@@ -31,6 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...page('/', 'daily', 1),
     ...page('/prix', 'daily', 0.9),
     ...page('/alertes', 'monthly', 0.6),
+    ...page('/euroairport', 'monthly', 0.6),
     ...page('/mois', 'daily', 0.9),
     ...page('/vacances', 'daily', 0.8),
     ...moisDisponibles().flatMap((m) => page(`/mois/${m}`, 'daily', 0.8)),

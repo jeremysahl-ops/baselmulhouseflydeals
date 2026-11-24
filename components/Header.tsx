@@ -52,7 +52,8 @@ export default function Header({ lang }: { lang: Lang }) {
             }`}
           >
             <Flag lang={l} />
-            {l}
+            {/* Entre 1280 et 1536 px, le menu complet manque de place : drapeaux seuls (le code reste lu par les lecteurs d'écran). */}
+            <span className="xl:max-2xl:sr-only">{l}</span>
           </a>
         </li>
       ))}
