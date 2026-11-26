@@ -507,7 +507,7 @@ export const fr = {
     none: 'Aucune alerte pour le moment.',
     deleteBtn: 'Supprimer',
     under: (prix: string) => `sous ${prix}`,
-    note: "Une notification par alerte et par nouveau prix, jamais deux fois le même vol. Les destinations « Prix sur consultation » ne peuvent pas déclencher d'alerte. Vos alertes sont liées à cet appareil seulement : nous ne connaissons ni votre nom ni votre adresse.",
+    note: "Une notification par alerte et par nouveau prix, jamais deux fois le même vol au même prix. Les destinations « Prix sur consultation » ne peuvent pas déclencher d'alerte. Vos alertes sont liées à cet appareil seulement : nous ne connaissons ni votre nom ni votre adresse.",
   },
 };
 

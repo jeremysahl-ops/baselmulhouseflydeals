@@ -501,6 +501,6 @@ export const en: Dict = {
     none: 'No alerts yet.',
     deleteBtn: 'Delete',
     under: (prix) => `under ${prix}`,
-    note: 'One notification per alert and new price, never the same flight twice. “Price on request” destinations cannot trigger alerts. Your alerts are tied to this device only: we know neither your name nor your address.',
+    note: 'One notification per alert and new price, never the same flight twice at the same price. “Price on request” destinations cannot trigger alerts. Your alerts are tied to this device only: we know neither your name nor your address.',
   },
 };

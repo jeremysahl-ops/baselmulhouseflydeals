@@ -35,7 +35,7 @@ const COPIE: Record<Lang, Copie> = {
         id: 'acces', titre: "Venir à l'aéroport",
         entetes: ['Moyen', 'Détail', 'Prix indicatif'],
         lignes: [
-          ['Bus 50 (côté suisse)', 'Gare de Bâle CFF ↔ aéroport, toutes les 7 à 10 minutes de 4 h 30 à minuit, environ 20 minutes de trajet.', 'environ 4,50 à 6,50 CHF'],
+          ['Bus 50 (côté suisse)', 'Gare de Bâle CFF ↔ aéroport, toutes les 7 à 10 minutes de 4 h 30 à minuit, environ 20 minutes de trajet.', 'tarif des transports bâlois'],
           ['Bus 11 (côté français)', 'Gare de Saint-Louis ↔ aéroport, de 5 h à minuit tous les jours, 10 à 15 minutes de trajet.', 'environ 3 €'],
           ['Voiture', "Autoroute A35 (sortie EuroAirport) côté France ; route douanière directe depuis Bâle côté Suisse. Choisissez le bon côté selon l'endroit où vous vous garez.", '—'],
           ['Taxi', "Stations devant le terminal, côté France et côté Suisse.", 'environ 50 CHF (Bâle centre)'],
@@ -106,7 +106,7 @@ const COPIE: Record<Lang, Copie> = {
         id: 'acces', titre: 'Anreise zum Flughafen',
         entetes: ['Verkehrsmittel', 'Details', 'Richtpreis'],
         lignes: [
-          ['Bus 50 (Schweizer Seite)', 'Bahnhof Basel SBB ↔ Flughafen, alle 7 bis 10 Minuten von 4.30 Uhr bis Mitternacht, etwa 20 Minuten Fahrt.', 'etwa 4.50 bis 6.50 CHF'],
+          ['Bus 50 (Schweizer Seite)', 'Bahnhof Basel SBB ↔ Flughafen, alle 7 bis 10 Minuten von 4.30 Uhr bis Mitternacht, etwa 20 Minuten Fahrt.', 'Tarif der Basler Verkehrsbetriebe'],
           ['Bus 11 (französische Seite)', 'Bahnhof Saint-Louis ↔ Flughafen, täglich 5 bis 24 Uhr, 10 bis 15 Minuten Fahrt.', 'etwa 3 €'],
           ['Auto', 'Autobahn A35 (Ausfahrt EuroAirport) auf französischer Seite; direkte Zollstraße ab Basel auf Schweizer Seite. Wählen Sie die Seite je nach Parkplatz.', '—'],
           ['Taxi', 'Taxistände vor dem Terminal, auf französischer und Schweizer Seite.', 'etwa 50 CHF (Basel Zentrum)'],
@@ -177,7 +177,7 @@ const COPIE: Record<Lang, Copie> = {
         id: 'acces', titre: 'Getting to the airport',
         entetes: ['Mode', 'Details', 'Approx. price'],
         lignes: [
-          ['Bus 50 (Swiss side)', 'Basel SBB station ↔ airport, every 7 to 10 minutes from 4:30am to midnight, about 20 minutes.', 'about CHF 4.50 to 6.50'],
+          ['Bus 50 (Swiss side)', 'Basel SBB station ↔ airport, every 7 to 10 minutes from 4:30am to midnight, about 20 minutes.', 'Basel public transport fare'],
           ['Bus 11 (French side)', 'Saint-Louis station ↔ airport, 5am to midnight daily, 10 to 15 minutes.', 'about €3'],
           ['Car', 'A35 motorway (EuroAirport exit) on the French side; direct customs road from Basel on the Swiss side. Pick the side that matches your car park.', '—'],
           ['Taxi', 'Taxi ranks outside the terminal, on both the French and Swiss sides.', 'about CHF 50 (central Basel)'],
@@ -312,7 +312,9 @@ function PlanParkings({ p }: { p: Plan }) {
   return (
     <figure className="mt-6 rounded-xl border border-line bg-white p-4">
       <figcaption className="mb-2 text-sm font-semibold text-ink">🚶 {p.titre}</figcaption>
-      <svg viewBox="0 0 640 300" className="h-auto w-full" role="img" aria-label={p.titre}>
+      {/* Sur téléphone, largeur minimale (défilement dans le cadre) pour garder des textes lisibles. */}
+      <div className="overflow-x-auto">
+      <svg viewBox="0 0 640 300" className="h-auto w-full min-w-[560px]" role="img" aria-label={p.titre}>
         <rect x={0} y={0} width={320} height={300} fill="#eef3f9" />
         <rect x={320} y={0} width={320} height={300} fill="#fbf1f1" />
         <line x1={320} y1={8} x2={320} y2={300} stroke="#94a3b8" strokeDasharray="4 5" />
@@ -330,8 +332,8 @@ function PlanParkings({ p }: { p: Plan }) {
         <text x={cx} y={cy} textAnchor="middle" fontSize={13} fontWeight={800} fill="#ffffff">✈ {p.terminal}</text>
         {pastille(...sur(R[0], 178), 'EXP', false)}
         {pastille(...sur(R[0], 140), 'F1')}
-        {pastille(...sur(R[0], 55), 'S1')}
-        {pastille(...sur(R[0], 25), 'S2')}
+        {pastille(...sur(R[0], 60), 'S1')}
+        {pastille(...sur(R[0], 30), 'S2')}
         {pastille(...sur(R[1], 165), 'F3')}
         {pastille(...sur(R[1], 142), 'F4')}
         {pastille(...sur(R[1], 119), 'F5')}
@@ -341,6 +343,7 @@ function PlanParkings({ p }: { p: Plan }) {
         {pastille(...sur(R[2], 28), 'S4')}
         <text x={632} y={294} textAnchor="end" fontSize={10} fill="#64748b">{p.echelle}</text>
       </svg>
+      </div>
     </figure>
   );
 }

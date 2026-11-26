@@ -30,6 +30,7 @@ export default function Footer({ lang }: { lang: Lang }) {
           <h2 className="text-xs font-semibold uppercase tracking-wider text-white">{t.footer.infoHeading}</h2>
           <ul className="mt-4 space-y-2.5 text-sm">
             <li><Link href={href('/destinations')} className="hover:text-white">{t.footer.guides}</Link></li>
+            <li><Link href={href('/euroairport')} className="hover:text-white">EuroAirport</Link></li>
             <li><Link href={href('/comment-ca-marche')} className="hover:text-white">{t.footer.method}</Link></li>
             <li><Link href={href('/partenaires')} className="hover:text-white">{t.footer.partner}</Link></li>
             <li><Link href={href('/mentions-legales')} className="hover:text-white">{t.footer.legal}</Link></li>

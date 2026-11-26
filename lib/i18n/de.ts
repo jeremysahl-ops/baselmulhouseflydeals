@@ -500,6 +500,6 @@ export const de: Dict = {
     none: 'Noch kein Preisalarm.',
     deleteBtn: 'Löschen',
     under: (prix) => `unter ${prix}`,
-    note: 'Eine Benachrichtigung pro Alarm und neuem Preis, nie zweimal derselbe Flug. Ziele mit „Preis auf Anfrage“ können keinen Alarm auslösen. Ihre Alarme gelten nur für dieses Gerät: Wir kennen weder Ihren Namen noch Ihre Adresse.',
+    note: 'Eine Benachrichtigung pro Alarm und neuem Preis, nie zweimal derselbe Flug zum selben Preis. Ziele mit „Preis auf Anfrage“ können keinen Alarm auslösen. Ihre Alarme gelten nur für dieses Gerät: Wir kennen weder Ihren Namen noch Ihre Adresse.',
   },
 };

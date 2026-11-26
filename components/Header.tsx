@@ -30,6 +30,7 @@ export default function Header({ lang }: { lang: Lang }) {
     { href: '/prix', label: t.nav.allPrices, icon: 'tag' },
     { href: '/sejours', label: t.nav.sejours, icon: 'suitcase' },
     { href: '/vacances', label: t.nav.vacances, icon: 'sun' },
+    { href: '/euroairport', label: 'EuroAirport', icon: 'plane' },
     { href: '/alertes', label: t.nav.alerts, icon: 'bell' },
   ] as const;
 
@@ -52,8 +53,8 @@ export default function Header({ lang }: { lang: Lang }) {
             }`}
           >
             <Flag lang={l} />
-            {/* Entre 1280 et 1536 px, le menu complet manque de place : drapeaux seuls (le code reste lu par les lecteurs d'écran). */}
-            <span className="xl:max-2xl:sr-only">{l}</span>
+            {/* Avec le menu complet (dès 1536 px), drapeaux seuls pour gagner la place (le code reste lu par les lecteurs d'écran). */}
+            <span className="2xl:sr-only">{l}</span>
           </a>
         </li>
       ))}
@@ -66,10 +67,10 @@ export default function Header({ lang }: { lang: Lang }) {
         clair ? 'border-b border-white/15 bg-gradient-to-b from-black/45 to-black/10' : 'border-b border-black/5 bg-white/55 backdrop-blur-md backdrop-saturate-150'
       }`}
     >
-      <div className="container-page flex h-16 items-center justify-between gap-4">
+      <div className="container-page flex h-16 items-center justify-between gap-4 2xl:max-w-[1440px]">
         <Logo lang={lang} tone={clair ? 'light' : 'dark'} />
 
-        <nav className="hidden items-center gap-0.5 xl:flex" aria-label={t.nav.main}>
+        <nav className="hidden items-center gap-0.5 2xl:flex" aria-label={t.nav.main}>
           {nav.map(({ href, label, icon }) => {
             const active = path === href || path.startsWith(href + '/');
             return (
@@ -95,7 +96,7 @@ export default function Header({ lang }: { lang: Lang }) {
           <button
             type="button"
             onClick={() => setOpen(!open)}
-            className={`rounded-md p-2 xl:hidden ${clair ? 'text-white hover:bg-white/15' : 'text-ink-soft hover:bg-surface'}`}
+            className={`rounded-md p-2 2xl:hidden ${clair ? 'text-white hover:bg-white/15' : 'text-ink-soft hover:bg-surface'}`}
             aria-expanded={open}
             aria-controls="menu-mobile"
             aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
@@ -108,7 +109,7 @@ export default function Header({ lang }: { lang: Lang }) {
       </div>
 
       {open && (
-        <nav id="menu-mobile" className="border-t border-line bg-white xl:hidden" aria-label={t.nav.mobile}>
+        <nav id="menu-mobile" className="border-t border-line bg-white 2xl:hidden" aria-label={t.nav.mobile}>
           <div className="container-page flex flex-col py-3">
             {nav.map(({ href, label, icon }) => (
               <Link
@@ -130,12 +131,13 @@ export default function Header({ lang }: { lang: Lang }) {
 }
 
 /** Petits pictogrammes du menu, dans la couleur du texte. */
-function NavIcon({ name }: { name: 'pin' | 'calendar' | 'tag' | 'suitcase' | 'sun' | 'bell' }) {
+function NavIcon({ name }: { name: 'pin' | 'calendar' | 'tag' | 'suitcase' | 'sun' | 'bell' | 'plane' }) {
   const d = {
     pin: 'M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11zm0-8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z',
     calendar: 'M4 6.5A1.5 1.5 0 0 1 5.5 5h13A1.5 1.5 0 0 1 20 6.5v12a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5v-12zM4 10h16M8 3v4M16 3v4',
     tag: 'M3.5 12.6V4.5a1 1 0 0 1 1-1h8.1l8 8a1.4 1.4 0 0 1 0 2l-6.1 6.1a1.4 1.4 0 0 1-2 0l-9-9zM8 8h.01',
     suitcase: 'M4 8.5A1.5 1.5 0 0 1 5.5 7h13A1.5 1.5 0 0 1 20 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5v-9zM9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M4 12h16',
+    plane: 'M12 3a1.5 1.5 0 0 1 1.5 1.5v5l7 4v2l-7-2v4l2 1.5v1.5L12 19.5l-3.5 1V19l2-1.5v-4l-7 2v-2l7-4v-5A1.5 1.5 0 0 1 12 3z',
     bell: 'M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15zM10 20.5a2 2 0 0 0 4 0',
     sun: 'M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4',
   }[name];
